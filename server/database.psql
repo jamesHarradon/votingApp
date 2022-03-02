@@ -1,0 +1,70 @@
+CREATE TABLE IF NOT EXISTS "election" (
+  "id" SERIAL PRIMARY KEY,
+  "name" varchar(50),
+  "date_of_election" date,
+  "number_of_candidates" integer,
+  "number_of_voters" integer
+);
+
+CREATE TABLE IF NOT EXISTS "voter" (
+  "email" varchar(50) PRIMARY KEY,
+  "first_name" varchar(50),
+  "last_name" varchar(50),
+  "password" varchar(50),
+  "has_voted" boolean
+);
+
+CREATE TABLE IF NOT EXISTS "admin" (
+  "email" varchar(50) PRIMARY KEY,
+  "first_name" varchar(50),
+  "last_name" varchar(50),
+  "password" varchar(50)
+);
+
+CREATE TABLE IF NOT EXISTS "candidate" (
+  "id" integer PRIMARY KEY,
+  "first_name" varchar(50),
+  "last_name" varchar(50),
+  "position" varchar(50),
+  "manifesto_id" integer,
+  "election_id" integer
+);
+
+CREATE TABLE IF NOT EXISTS "manifesto" (
+  "id" integer,
+  "candidate_id" integer,
+  "who" varchar(1000),
+  "what" varchar(1000),
+  "why" varchar(1000),
+  PRIMARY KEY ("id", "candidate_id")
+);
+
+CREATE TABLE IF NOT EXISTS "voters_candidates" (
+  "voter_email" varchar(50),
+  "candidate_id" integer,
+  "election_id" integer,
+  PRIMARY KEY ("voter_email", "candidate_id", "election_id")
+);
+
+CREATE TABLE IF NOT EXISTS "election_candidates" (
+  "election_id" integer,
+  "candidate_id" integer,
+  PRIMARY KEY ("election_id", "candidate_id")
+);
+
+ALTER TABLE "manifesto" ADD FOREIGN KEY ("id") REFERENCES "candidate" ("manifesto_id");
+
+ALTER TABLE "election" ADD FOREIGN KEY ("id") REFERENCES "candidate" ("election_id");
+
+ALTER TABLE "candidate" ADD FOREIGN KEY ("id") REFERENCES "manifesto" ("candidate_id");
+
+ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("voter_email") REFERENCES "voter" ("email");
+
+ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id");
+
+ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id");
+
+ALTER TABLE "election_candidates" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id");
+
+ALTER TABLE "election_candidates" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id");
+
