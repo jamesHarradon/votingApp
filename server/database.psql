@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS "voter" (
   "first_name" varchar(50),
   "last_name" varchar(50),
   "password" varchar(50),
-  "has_voted" boolean
+  "has_voted" boolean,
+  "election_id" integer
 );
 
 CREATE TABLE IF NOT EXISTS "admin" (
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS "candidate" (
   "email" varchar(50) UNIQUE, 
   "first_name" varchar(50),
   "last_name" varchar(50),
+  "password" varchar(50),
   "position" varchar(50),
   "manifesto_id" integer,
   "election_id" integer
@@ -55,20 +57,31 @@ CREATE TABLE IF NOT EXISTS "election_candidates" (
   PRIMARY KEY ("election_id", "candidate_id")
 );
 
+CREATE TABLE IF NOT EXISTS "election_voters" (
+  "election_id" integer,
+  "voter_id" integer,
+  PRIMARY KEY ("election_id", "voter_id")
+)
 
-ALTER TABLE "candidate" ADD FOREIGN KEY ("manifesto_id") REFERENCES "manifesto" ("id");
+ALTER TABLE "voter" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "candidate" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id");
+ALTER TABLE "candidate" ADD FOREIGN KEY ("manifesto_id") REFERENCES "manifesto" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "manifesto" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id");
+ALTER TABLE "candidate" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("voter_id") REFERENCES "voter" ("id");
+ALTER TABLE "manifesto" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id");
+ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("voter_id") REFERENCES "voter" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id");
+ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "election_candidates" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id");
+ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "election_candidates" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id");
+ALTER TABLE "election_candidates" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "election_candidates" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "election_voters" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "election_voters" ADD FOREIGN KEY ("voter_id") REFERENCES "voter" ("id") ON DELETE CASCADE;
 
