@@ -1,13 +1,14 @@
 CREATE TABLE IF NOT EXISTS "election" (
   "id" SERIAL PRIMARY KEY,
-  "name" varchar(50),
+  "name" varchar(100),
   "date_of_election" date,
   "number_of_candidates" integer,
   "number_of_voters" integer
 );
 
 CREATE TABLE IF NOT EXISTS "voter" (
-  "email" varchar(50) PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
+  "email" varchar(50) UNIQUE,
   "first_name" varchar(50),
   "last_name" varchar(50),
   "password" varchar(50),
@@ -15,14 +16,16 @@ CREATE TABLE IF NOT EXISTS "voter" (
 );
 
 CREATE TABLE IF NOT EXISTS "admin" (
-  "email" varchar(50) PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
+  "email" varchar(50) UNIQUE,
   "first_name" varchar(50),
   "last_name" varchar(50),
   "password" varchar(50)
 );
 
 CREATE TABLE IF NOT EXISTS "candidate" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
+  "email" varchar(50) UNIQUE, 
   "first_name" varchar(50),
   "last_name" varchar(50),
   "position" varchar(50),
@@ -31,7 +34,7 @@ CREATE TABLE IF NOT EXISTS "candidate" (
 );
 
 CREATE TABLE IF NOT EXISTS "manifesto" (
-  "id" integer,
+  "id" SERIAL UNIQUE,
   "candidate_id" integer,
   "who" varchar(1000),
   "what" varchar(1000),
@@ -40,10 +43,10 @@ CREATE TABLE IF NOT EXISTS "manifesto" (
 );
 
 CREATE TABLE IF NOT EXISTS "voters_candidates" (
-  "voter_email" varchar(50),
+  "voter_id" integer,
   "candidate_id" integer,
   "election_id" integer,
-  PRIMARY KEY ("voter_email", "candidate_id", "election_id")
+  PRIMARY KEY ("voter_id", "candidate_id", "election_id")
 );
 
 CREATE TABLE IF NOT EXISTS "election_candidates" (
@@ -52,13 +55,14 @@ CREATE TABLE IF NOT EXISTS "election_candidates" (
   PRIMARY KEY ("election_id", "candidate_id")
 );
 
-ALTER TABLE "manifesto" ADD FOREIGN KEY ("id") REFERENCES "candidate" ("manifesto_id");
 
-ALTER TABLE "election" ADD FOREIGN KEY ("id") REFERENCES "candidate" ("election_id");
+ALTER TABLE "candidate" ADD FOREIGN KEY ("manifesto_id") REFERENCES "manifesto" ("id");
 
-ALTER TABLE "candidate" ADD FOREIGN KEY ("id") REFERENCES "manifesto" ("candidate_id");
+ALTER TABLE "candidate" ADD FOREIGN KEY ("election_id") REFERENCES "election" ("id");
 
-ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("voter_email") REFERENCES "voter" ("email");
+ALTER TABLE "manifesto" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id");
+
+ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("voter_id") REFERENCES "voter" ("id");
 
 ALTER TABLE "voters_candidates" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate" ("id");
 
