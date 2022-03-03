@@ -37,7 +37,19 @@ const addCandidateData = async () => {
     }
 }
 
+const addPassword = async () => {
+    try {
+        for (let i = 1; i < 11; i++) {
+            await pool.query('UPDATE candidate SET password = $1 WHERE id = $2', [nanoid(10), i])
+        }
+        console.log('add pw complete')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     addVoterData,
-    addCandidateData
+    addCandidateData,
+    addPassword
 };
