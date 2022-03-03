@@ -1,0 +1,586 @@
+
+components:
+  schemas:
+    Voter:
+      type: object
+      properties:
+        id:
+          type: integer
+        email: 
+          type: string
+        first_name: 
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+        has_voted:
+          type: boolean
+        election_id:
+          type: integer
+    Candidate:
+      type: object
+      properties:
+        id:
+          type: integer
+        email: 
+          type: string
+        first_name: 
+          type: string
+        last_name:
+          type: string
+        position:
+          type: string
+        manifesto_id:
+          type: integer
+        election_id: 
+          type: integer
+        password:
+          type: string
+    Election:
+      type: object
+      properties:
+        id: 
+          type: integer
+        name: 
+          type: string
+        date_of_election:
+          type: date
+        number_of_candidates:
+          type: integer
+        number_of_voters:
+          type: integer
+    Manifesto: 
+      type: object
+      properties:
+        id:
+          type: integer
+        candidate_id:
+          type: integer
+        who:
+          type: string
+        what:
+          type: string
+        why:
+          type: string
+
+paths:
+  /voter/:
+    get:
+      summary: "Get all voters"
+      tags: [Voter]
+      description: "Get all voters"
+      produces:
+        - "application/json"                          
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Voter'
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /voter/election/{id}:
+    get:
+      summary: "Get all voters by election id"
+      tags: [Voter]
+      description: "Get all voters by election id"
+      produces:
+        - "application/json"   
+      parameters:
+        - name: id
+          in: path
+          required: true                       
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Voter'      
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /voter/{id}:
+    get:
+      summary: "Get voter by id"
+      tags: [Voter]
+      description: "Get voter by id"
+      produces:
+        - "application/json"   
+      parameters:
+        - name: id
+          in: path
+          required: true                       
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Voter'
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /voter/add:
+    post:
+      summary: "Add new voter"
+      tags: [Voter]
+      description: "Add new voter"
+      produces:
+        - "application/json"   
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              $ref: '#/components/schemas/Voter'                 
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /voter/amend/{id}:
+    put:
+      summary: "Amend voter details"
+      tags: [Voter]
+      description: "Amend voter details"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      requestBody:
+        required: true 
+        content:
+          "application/json":
+            schema:
+              type: object
+              anyOf:
+                - $ref: '#/components/schemas/Voter'
+              example: 
+                email: example@example.com
+        responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /voter/delete/{id}:
+    delete:
+      summary: "Delete voter"
+      tags: [Voter]
+      description: "Delete voter"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+
+  /candidate/:
+    get:
+      summary: "Get all candidates"
+      tags: [Candidate]
+      description: "Get all candidates"
+      produces:
+        - "application/json"                          
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Candidate'
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /candidate/election/{id}:
+    get:
+      summary: "Get all candidates by election id"
+      tags: [Candidate]
+      description: "Get all candidates by election id"
+      produces:
+        - "application/json"   
+      parameters:
+        - name: id
+          in: path
+          required: true                       
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Candidate'      
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /candidate/{id}:
+    get:
+      summary: "Get candidate by id"
+      tags: [Candidate]
+      description: "Get candidate by id"
+      produces:
+        - "application/json"   
+      parameters:
+        - name: id
+          in: path
+          required: true                       
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Candidate'
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /candidate/add:
+    post:
+      summary: "Add new candidate"
+      tags: [Candidate]
+      description: "Add new candidate"
+      produces:
+        - "application/json"   
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              $ref: '#/components/schemas/Candidate'                 
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /candidate/amend/{id}:
+    put:
+      summary: "Amend candidate details"
+      tags: [Candidate]
+      description: "Amend candidate details"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      requestBody:
+        required: true 
+        content:
+          "application/json":
+            schema:
+              type: object
+              anyOf:
+                - $ref: '#/components/schemas/Candidate'
+              example: 
+                email: example@example.com
+        responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /candidate/delete/{id}:
+    delete:
+      summary: "Delete candidate"
+      tags: [Candidate]
+      description: "Delete candidate"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+
+  /election/:
+    get:
+      summary: "Get all elections"
+      tags: [Election]
+      description: "Get all elections"
+      produces:
+        - "application/json"                          
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Election'
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /election/{id}:
+    get:
+      summary: "Get election by id"
+      tags: [Election]
+      description: "Get election by id"
+      produces:
+        - "application/json"   
+      parameters:
+        - name: id
+          in: path
+          required: true                       
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Election'
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /election/add:
+    post:
+      summary: "Add new election"
+      tags: [Election]
+      description: "Add new election"
+      produces:
+        - "application/json"   
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              $ref: '#/components/schemas/Election'                 
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /election/amend/{id}:
+    put:
+      summary: "Amend election details"
+      tags: [Election]
+      description: "Amend election details"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      requestBody:
+        required: true 
+        content:
+          "application/json":
+            schema:
+              type: object
+              anyOf:
+                - $ref: '#/components/schemas/Election'
+              example: 
+                email: example@example.com
+        responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /election/delete/{id}:
+    delete:
+      summary: "Delete election"
+      tags: [Election]
+      description: "Delete election"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+
+  /manifesto/{id}:
+    get:
+      summary: "Get manifesto by id"
+      tags: [Manifesto]
+      description: "Get manifesto by id"
+      produces:
+        - "application/json"   
+      parameters:
+        - name: id
+          in: path
+          required: true                       
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/components/schemas/Manifesto'
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /manifesto/add:
+    post:
+      summary: "Add new manifesto"
+      tags: [Manifesto]
+      description: "Add new manifesto"
+      produces:
+        - "application/json"   
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              $ref: '#/components/schemas/Manifesto'                 
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /manifesto/amend/{id}:
+    put:
+      summary: "Amend manifesto details"
+      tags: [Manifesto]
+      description: "Amend manifesto details"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      requestBody:
+        required: true 
+        content:
+          "application/json":
+            schema:
+              type: object
+              anyOf:
+                - $ref: '#/components/schemas/Manifesto'
+              example: 
+                who: an example of who a candidate is 
+        responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /manifesto/delete/{id}:
+    delete:
+      summary: "Delete manifesto"
+      tags: [Manifesto]
+      description: "Delete manifesto"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            properties: 
+              success: 
+                type: boolean
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+
+
+

@@ -1,29 +1,64 @@
-let createError = require('http-errors');
-let express = require('express');
-let path = require('path');
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
 
-let { addVoterData, addCandidateData } = require('./fakeDataInsert');
+const { addVoterData, addCandidateData, addPassword } = require('./fakeDataInsert');
+
+const voterRouter = require('./api/routes/voter-route');
+const candidateRouter = require('./api/routes/candidate-route');
+const electionRouter = require('./api/routes/election-route');
+const manifestoRouter = require('./api/routes/manifesto-route');
+
+//swagger
+const options = {
+  definition: {
+      openapi: "3.0.0",
+      info: {
+          title: "Voting App API",
+          version: "1.0.0",
+          description: "An API for a Voting App for Voters, Candidates and Elections"
+      },
+      schema: [
+          "http",
+          "https"
+      ],
+      servers: [
+          {
+            url: "http://localhost:4000",
+          }
+      ],
+  },
+  apis: ["./swagger.yml"]
+}
 
 
-let indexRouter = require('./api/routes/index');
-let usersRouter = require('./api/routes/users');
 
-let app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+//swagger
+const specs = swaggerJsDoc(options);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs))
+
+//set up
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//routes
+app.use('/voter', voterRouter);
+app.use('/candidate', candidateRouter);
+app.use('/election', electionRouter);
+app.use('/manifesto', manifestoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
