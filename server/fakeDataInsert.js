@@ -48,8 +48,20 @@ const addPassword = async () => {
     }
 }
 
+const updateElectionVoters = async () => {
+    try {
+        for (let i = 1; i < 101; i++) {
+            await pool.query('INSERT INTO election_voters (election_id, voter_id) VALUES ((SELECT election_id from voter WHERE id = $1), $1)', [i])
+        }
+        console.log('update complete')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     addVoterData,
     addCandidateData,
-    addPassword
+    addPassword,
+    updateElectionVoters
 };
