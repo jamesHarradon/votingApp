@@ -6,12 +6,16 @@ const logger = require('morgan');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 
-const { addVoterData, addCandidateData, addPassword } = require('./fakeDataInsert');
+require('./config/passport')
+
+const { addVoterData, addCandidateData, addPassword, updateElectionVoters } = require('./fakeDataInsert');
+
 
 const voterRouter = require('./api/routes/voter-route');
 const candidateRouter = require('./api/routes/candidate-route');
 const electionRouter = require('./api/routes/election-route');
 const manifestoRouter = require('./api/routes/manifesto-route');
+const authRouter = require('./api/routes/auth-route');
 
 //swagger
 const options = {
@@ -59,6 +63,7 @@ app.use('/voter', voterRouter);
 app.use('/candidate', candidateRouter);
 app.use('/election', electionRouter);
 app.use('/manifesto', manifestoRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
