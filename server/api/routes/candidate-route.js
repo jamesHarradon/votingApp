@@ -49,7 +49,7 @@ candidateRouter.post('/add', async (req, res, next) => {
 //amend a candidate by id
 candidateRouter.put('/amend/:id', async (req, res, next) => {
     try {
-        const response = await CandidateServiceInstance.amendCandidate(req.params.id);
+        const response = await CandidateServiceInstance.amendCandidate(req.params.id, req.body);
         res.json(response);
     } catch (error) {
         next(error)

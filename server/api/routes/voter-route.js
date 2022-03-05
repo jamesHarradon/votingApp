@@ -49,12 +49,22 @@ voterRouter.post('/add', async (req, res, next) => {
 //amend a voter by id
 voterRouter.put('/amend/:id', async (req, res, next) => {
     try {
-        const response = await VoterServiceInstance.amendVoter(req.params.id);
+        const response = await VoterServiceInstance.amendVoter(req.params.id, req.body);
         res.json(response);
     } catch (error) {
         next(error)
     }
 });
+
+//place a vote
+voterRouter.post('/vote/:voterId/:candidateId', async (req, res, next) => {
+    try {
+        const response = await VoterServiceInstance.placeVote(req.params.voterId, req.params.candidateId);
+        res.json(response);
+    } catch (error) {
+        next(error)
+    }
+})
 
 //delete a voter by id
 voterRouter.delete('/delete/:id', async (req, res, next) => {

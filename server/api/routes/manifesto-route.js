@@ -27,7 +27,7 @@ manifestoRouter.post('/add', async (req, res, next) => {
 //amend a manifesto by id
 manifestoRouter.put('/amend/:id', async (req, res, next) => {
     try {
-        const response = await ManifestoServiceInstance.amendManifesto(req.params.id);
+        const response = await ManifestoServiceInstance.amendManifesto(req.params.id, req.body);
         res.json(response);
     } catch (error) {
         next(error)

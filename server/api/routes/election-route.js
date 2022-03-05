@@ -40,7 +40,7 @@ electionRouter.post('/add', async (req, res, next) => {
 //amend a election by id
 electionRouter.put('/amend/:id', async (req, res, next) => {
     try {
-        const response = await ElectionServiceInstance.amendElection(req.params.id);
+        const response = await ElectionServiceInstance.amendElection(req.params.id, req.body);
         res.json(response);
     } catch (error) {
         next(error)
