@@ -31,9 +31,9 @@ class ElectionService {
         }
     }
 
-    async amendElection(body) {
+    async amendElection(id, body) {
         try {
-            const amendSuccess = await ElectionModelInstance.amendElection(body);
+            const amendSuccess = await ElectionModelInstance.amendElection(id, body);
             return amendSuccess;
         } catch (error) {
             throw(error)

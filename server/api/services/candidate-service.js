@@ -33,16 +33,18 @@ class CandidateService {
 
     async addCandidate(body) {
         try {
-            const addSuccess = await CandidateModelInstance.addCandidate(body);
+            const data = await CandidateModelInstance.addCandidate(body);
+            if (!data) return {success: false};
+            const addSuccess = await CandidateModelInstance.addToElectionCandidates(body.election_id, data.id)
             return addSuccess;
         } catch (error) {
             throw(error)
         }
     }
 
-    async amendCandidate(body) {
+    async amendCandidate(id, body) {
         try {
-            const amendSuccess = await CandidateModelInstance.amendCandidate(body);
+            const amendSuccess = await CandidateModelInstance.amendCandidate(id, body);
             return amendSuccess;
         } catch (error) {
             throw(error)

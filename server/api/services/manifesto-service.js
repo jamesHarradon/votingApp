@@ -22,9 +22,9 @@ class ManifestoService {
         }
     }
 
-    async amendManifesto(body) {
+    async amendManifesto(id, body) {
         try {
-            const amendSuccess = await ManifestoModelInstance.amendManifesto(body);
+            const amendSuccess = await ManifestoModelInstance.amendManifesto(id, body);
             return amendSuccess;
         } catch (error) {
             throw(error)

@@ -1,5 +1,8 @@
+
+const ElectionModel = require('../models/Election-model');
 const VoterModel = require('../models/voter-model');
 
+const ElectionModelInstance = new ElectionModel;
 const VoterModelInstance = new VoterModel;
 
 class VoterService {
@@ -33,16 +36,31 @@ class VoterService {
 
     async addVoter(body) {
         try {
-            const addSuccess = await VoterModelInstance.addVoter(body);
+            const data = await VoterModelInstance.addVoter(body);
+            if(!data) return {success: false};
+            const addSuccess = await VoterModelInstance.addToElectionVoters(body.election_id, data.id);
             return addSuccess;
         } catch (error) {
             throw(error)
         }
     }
 
-    async amendVoter(body) {
+    async placeVote(voterId, candidateId) {
         try {
-            const amendSuccess = await VoterModelInstance.amendVoter(body);
+            const electionIdCandidate = await ElectionModelInstance.getElectionIdByCandidateId(candidateId);
+            const electionIdVoter = await VoterModelInstance.getElectionIdByVoterId(voterId);
+            if(electionIdCandidate !== electionIdVoter) throw new Error('Selected candidate not in election Voter has signed up for')
+            const placeVoteSuccess = await VoterModelInstance.addToVotersCandidates(voterId, candidateId);
+            const setHasVotedSuccess = await VoterModelInstance.setHasVoted(voterId);
+            return placeVoteSuccess.success && setHasVotedSuccess.success ? {success: true} : {success: false}
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async amendVoter(id, body) {
+        try {
+            const amendSuccess = await VoterModelInstance.amendVoter(id, body);
             return amendSuccess;
         } catch (error) {
             throw(error)
