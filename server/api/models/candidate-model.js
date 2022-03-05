@@ -1,4 +1,5 @@
 const pool = require('../../db');
+const { nanoid } = require('nanoid')
 
 class CandidateModel {
 
@@ -31,22 +32,31 @@ class CandidateModel {
 
     async addCandidate(body) {
         try {
-            const data = await pool.query('INSERT INTO candidate (email, first_name, last_name, position, manifesto_id, election_id, password) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [body.email, body.first_name, body.last_name, body.position, body.manifesto_id, body.election_id, body.password]); 
-            return data.rows?.length ? true : false
+            const data = await pool.query('INSERT INTO candidate (email, first_name, last_name, position, manifesto_id, election_id, password, role) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', [body.email, body.first_name, body.last_name, body.position, body.manifesto_id, body.election_id, nanoid(10), 'candidate']); 
+            return data.rows?.length ? data.rows[0] : null
         } catch (error) {
             throw new Error(error)
         }
     }
 
-    async amendCandidate(body) {
+    async addToElectionCandidates(electionId, candidateId) {
+        try {
+            const data = await pool.query('INSERT INTO election_candidates (election_id, candidate_id) VALUES ($1, $2) RETURNING *', [electionId, candidateId])
+            return data.rows?.length ? {success: true} : {success: false}
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async amendCandidate(id, body) {
         try {
             let data;
             let arr = [];
-            for (const property in data) {
-                data = await pool.query(`UPDATE candidate SET ${property} = $1 WHERE id = $2 RETURNING *`, [data[property], body.id]);
+            for (const property in body) {
+                data = await pool.query(`UPDATE candidate SET ${property} = $1 WHERE id = $2 RETURNING *`, [body[property], id]);
                 data.rows?.length ? arr.push(true) : arr.push(false);
             }
-            return arr.includes(false) ? false : true 
+            return arr.includes(false) ? {success: false} : {success: true} 
         } catch (error) {
             throw new Error(error)
         }
@@ -56,7 +66,7 @@ class CandidateModel {
         try {
             await pool.query('DELETE FROM candidate WHERE id = $1', [id])
             const data = await pool.query('SELECT * FROM candidate WHERE id = $1', [id]);
-            return data.rows?.length ? false : true
+            return data.rows?.length ? {success: false} : {success: true} 
         } catch (error) {
             throw new Error(error)
         }
