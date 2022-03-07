@@ -1,10 +1,12 @@
 const createError = require('http-errors');
+const compression = require('compression')
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+require('dotenv').config();
 
 require('./config/passport')
 
@@ -50,6 +52,9 @@ app.set('view engine', 'jade');
 //swagger
 const specs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs))
+
+//compression
+app.use(compression());
 
 //set up
 app.use(logger('dev'));
