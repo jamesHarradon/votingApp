@@ -96,7 +96,26 @@ paths:
         200:
           description: 200 Success
           schema:
-            $ref: '#/components/schemas/Voter'
+            type: object
+            items:
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /auth/logout:
+    post:
+      summary: "User Logout"
+      tags: [Auth]
+      description: "User Logout"
+      produces:
+        - "application/json"                        
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
         500:
           description: 500 Internal Server Error
           schema:
@@ -321,17 +340,20 @@ paths:
           schema:
             type: object
             items:
-  /candidate/{id}:
+  /candidate/{id}/{electionId}:
     get:
-      summary: "Get candidate by id"
+      summary: "Get candidate by id and election id"
       tags: [Candidate]
-      description: "Get candidate by id"
+      description: "Get candidate by id and election id"
       produces:
         - "application/json"   
       parameters:
         - name: id
           in: path
-          required: true                       
+          required: true
+        - name: electionId
+          in: path
+          required: true                         
       responses:
         200:
           description: 200 Success
