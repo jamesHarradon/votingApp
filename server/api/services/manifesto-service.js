@@ -4,9 +4,9 @@ const ManifestoModelInstance = new ManifestoModel;
 
 class ManifestoService {
 
-    async getManifestoById(id) {
+    async getManifestoByCandidateId(id) {
         try {
-            const data = await ManifestoModelInstance.getManifestoById(id);
+            const data = await ManifestoModelInstance.getManifestoByCandidateId(id);
             return data;
         } catch (error) {
             throw(error)

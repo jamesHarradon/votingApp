@@ -22,9 +22,9 @@ class CandidateService {
         }
     }
 
-    async getCandidateById(id) {
+    async getCandidateById(id, electionId) {
         try {
-            const data = await CandidateModelInstance.getCandidateById(id);
+            const data = await CandidateModelInstance.getCandidateById(id, electionId);
             return data;
         } catch (error) {
             throw(error)
@@ -34,9 +34,9 @@ class CandidateService {
     async addCandidate(body) {
         try {
             const data = await CandidateModelInstance.addCandidate(body);
-            if (!data) return {success: false};
+            if (!data) return false;
             const addSuccess = await CandidateModelInstance.addToElectionCandidates(body.election_id, data.id)
-            return addSuccess;
+            return addSuccess.success ? data : false
         } catch (error) {
             throw(error)
         }

@@ -37,9 +37,9 @@ class VoterService {
     async addVoter(body) {
         try {
             const data = await VoterModelInstance.addVoter(body);
-            if(!data) return {success: false};
+            if(!data) return false;
             const addSuccess = await VoterModelInstance.addToElectionVoters(body.election_id, data.id);
-            return addSuccess;
+            return addSuccess.success ? data : false
         } catch (error) {
             throw(error)
         }
@@ -49,7 +49,7 @@ class VoterService {
         try {
             const electionIdCandidate = await ElectionModelInstance.getElectionIdByCandidateId(candidateId);
             const electionIdVoter = await VoterModelInstance.getElectionIdByVoterId(voterId);
-            if(electionIdCandidate !== electionIdVoter) throw new Error('Selected candidate not in election Voter has signed up for')
+            if(electionIdCandidate !== electionIdVoter) throw new Error('Selected candidate not in election voter has registered for')
             const placeVoteSuccess = await VoterModelInstance.addToVotersCandidates(voterId, candidateId);
             const setHasVotedSuccess = await VoterModelInstance.setHasVoted(voterId);
             return placeVoteSuccess.success && setHasVotedSuccess.success ? {success: true} : {success: false}
