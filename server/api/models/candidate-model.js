@@ -21,9 +21,9 @@ class CandidateModel {
         }
     }
 
-    async getCandidateById(id) {
+    async getCandidateById(id, electionId) {
         try {
-            const data = await pool.query('SELECT * FROM candidate WHERE id = $1', [id]);
+            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, position, manifesto_id, password, role, election_id, name, date_of_election FROM candidate JOIN election ON candidate.election_id = election.id WHERE candidate.id = $1 AND election.id = $2', [id, electionId]);
             return data.rows?.length ? data.rows[0] : null
         } catch (error) {
             throw new Error(error)

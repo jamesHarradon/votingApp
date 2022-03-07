@@ -4,7 +4,9 @@ class AuthModel {
 
     async findOne(email) {
         try {
-            const data = await pool.query('SELECT * FROM (SELECT id, email, password, role FROM voter UNION SELECT id, email, password, role FROM candidate UNION SELECT id, email, password, role FROM admin) AS users WHERE email = $1', [email]);
+            const adminData = await pool.query('SELECT * FROM admin WHERE email = $1', [email]);
+            if (adminData.rows?.length) return adminData.rows[0]
+            const data = await pool.query('SELECT * FROM (SELECT id, email, password, role, election_id FROM voter UNION SELECT id, email, password, role, election_id FROM candidate) AS users WHERE email = $1', [email]);
             return data.rows?.length ? data.rows[0] : null
         } catch (error) {
             throw new Error(error)
