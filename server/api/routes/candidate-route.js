@@ -1,13 +1,14 @@
 const express = require('express');
 const CandidateService = require('../services/candidate-service');
+const passport = require('passport');
+const { sendInitialMail } = require('../../modules/nodemailer');
 
 const CandidateServiceInstance = new CandidateService;
 
 const candidateRouter = express.Router();
 
-
 //get all candidates
-candidateRouter.get('/', async (req, res, next) => {
+candidateRouter.get('/', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
         const response = await CandidateServiceInstance.getAllCandidates();
         res.json(response);
@@ -16,20 +17,20 @@ candidateRouter.get('/', async (req, res, next) => {
     }
 })
 
-//get all candidates by election id
-candidateRouter.get('/election/:id', async (req, res, next) => {
+//get all candidates by election id - users only have access to candidates in the election they are registered in
+candidateRouter.get('/election/:electionId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
     try {
-        const response = await CandidateServiceInstance.getAllCandidatesByElectionId(req.params.id);
+        const response = await CandidateServiceInstance.getAllCandidatesByElectionId(req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error);
     }
 })
 
-//get single candidate by id 
-candidateRouter.get('/:id', async (req, res, next) => {
+//get single candidate by id - users only have access to candidates in the election they are registered in
+candidateRouter.get('/:candidateId/:electionId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
     try {
-        const response = await CandidateServiceInstance.getCandidateById(req.params.id);
+        const response = await CandidateServiceInstance.getCandidateById(req.params.candidateId, req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error);
@@ -37,9 +38,11 @@ candidateRouter.get('/:id', async (req, res, next) => {
 })
 
 //add a candidate
-candidateRouter.post('/add', async (req, res, next) => {
+candidateRouter.post('/add', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
         const response = await CandidateServiceInstance.addCandidate(req.body);
+        const emailData = await CandidateServiceInstance.getCandidateById(response.id, response.election_id);
+        if (response && emailData) sendInitialMail(emailData);
         res.json(response);
     } catch (error) {
         next(error)
@@ -47,9 +50,9 @@ candidateRouter.post('/add', async (req, res, next) => {
 })
 
 //amend a candidate by id
-candidateRouter.put('/amend/:id', async (req, res, next) => {
+candidateRouter.put('/amend/:candidateId', passport.authenticate('jwt-candidate', { session: false }), async (req, res, next) => {
     try {
-        const response = await CandidateServiceInstance.amendCandidate(req.params.id, req.body);
+        const response = await CandidateServiceInstance.amendCandidate(req.params.candidateId, req.body);
         res.json(response);
     } catch (error) {
         next(error)
@@ -57,9 +60,9 @@ candidateRouter.put('/amend/:id', async (req, res, next) => {
 });
 
 //delete a candidate by id
-candidateRouter.delete('/delete/:id', async (req, res, next) => {
+candidateRouter.delete('/delete/:candidateId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await CandidateServiceInstance.deleteCandidate(req.params.id);
+        const response = await CandidateServiceInstance.deleteCandidate(req.params.candidateId);
         res.json(response);
     } catch (error) {
         next(error)

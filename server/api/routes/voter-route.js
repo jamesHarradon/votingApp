@@ -1,13 +1,14 @@
 const express = require('express');
 const VoterService = require('../services/voter-service');
+const passport = require('passport');
+const { sendInitialMail, sendVoteConfirmationMail } = require('../../modules/nodemailer');
 
 const VoterServiceInstance = new VoterService;
 
 const voterRouter = express.Router();
 
-
 //get all voters
-voterRouter.get('/', async (req, res, next) => {
+voterRouter.get('/', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
         const response = await VoterServiceInstance.getAllVoters();
         res.json(response);
@@ -17,9 +18,9 @@ voterRouter.get('/', async (req, res, next) => {
 })
 
 //get all voters by election id
-voterRouter.get('/election/:id', async (req, res, next) => {
+voterRouter.get('/election/:electionId',passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await VoterServiceInstance.getAllVotersByElectionId(req.params.id);
+        const response = await VoterServiceInstance.getAllVotersByElectionId(req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error);
@@ -27,9 +28,9 @@ voterRouter.get('/election/:id', async (req, res, next) => {
 })
 
 //get single voter by id 
-voterRouter.get('/:id', async (req, res, next) => {
+voterRouter.get('/:voterId', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
     try {
-        const response = await VoterServiceInstance.getVoterById(req.params.id);
+        const response = await VoterServiceInstance.getVoterById(req.params.voterId);
         res.json(response);
     } catch (error) {
         next(error);
@@ -37,9 +38,11 @@ voterRouter.get('/:id', async (req, res, next) => {
 })
 
 //add a voter
-voterRouter.post('/add', async (req, res, next) => {
+voterRouter.post('/add', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
         const response = await VoterServiceInstance.addVoter(req.body);
+        const emailData = await VoterServiceInstance.getVoterById(response.id);
+        if (response && emailData) sendInitialMail(emailData);
         res.json(response);
     } catch (error) {
         next(error)
@@ -47,9 +50,9 @@ voterRouter.post('/add', async (req, res, next) => {
 })
 
 //amend a voter by id
-voterRouter.put('/amend/:id', async (req, res, next) => {
+voterRouter.put('/amend/:voterId', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
     try {
-        const response = await VoterServiceInstance.amendVoter(req.params.id, req.body);
+        const response = await VoterServiceInstance.amendVoter(req.params.voterId, req.body);
         res.json(response);
     } catch (error) {
         next(error)
@@ -57,7 +60,7 @@ voterRouter.put('/amend/:id', async (req, res, next) => {
 });
 
 //place a vote
-voterRouter.post('/vote/:voterId/:candidateId', async (req, res, next) => {
+voterRouter.post('/vote/:voterId/:candidateId', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
     try {
         const response = await VoterServiceInstance.placeVote(req.params.voterId, req.params.candidateId);
         res.json(response);
@@ -67,9 +70,9 @@ voterRouter.post('/vote/:voterId/:candidateId', async (req, res, next) => {
 })
 
 //delete a voter by id
-voterRouter.delete('/delete/:id', async (req, res, next) => {
+voterRouter.delete('/delete/:voterId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await VoterServiceInstance.deleteVoter(req.params.id);
+        const response = await VoterServiceInstance.deleteVoter(req.params.voterId);
         res.json(response);
     } catch (error) {
         next(error)
