@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const compression = require('compression')
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -41,11 +42,18 @@ const options = {
   apis: ["./swagger.yml"]
 }
 
-
-
 const app = express();
 
-// view engine setup
+//cors
+const origin = {
+  origin: process.env.CORS_ORIGIN,
+  credentials: true
+}
+
+app.use(cors(origin));
+app.options('*', cors(origin));
+
+//view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -59,7 +67,7 @@ app.use(compression());
 //set up
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
