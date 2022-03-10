@@ -37,7 +37,7 @@ const sendVoteConfirmationMail = (data) => {
     const message = {
         from: 'tester@voting-app.com', // Sender address
         to: 'to@email.com',         // List of recipients
-        subject: 'Voter App Login', // Subject line
+        subject: 'Voter App Vote', // Subject line
         html: `<h1>Voting App</h1>
         <br><h2>Hi ${data.first_name}, your vote in Election: ${data.name} has been registered.</h2>
         <br><h2>Thank You</h2>
