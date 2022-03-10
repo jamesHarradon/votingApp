@@ -61,6 +61,15 @@ class ElectionModel {
             throw new Error(error)
         }
     }
+
+    async getResults(electionId) {
+        try {
+            const results = await pool.query('SELECT candidate_id, first_name, last_name, email, position, role, vc.election_id, COUNT(candidate_id) AS votes FROM voters_candidates vc JOIN candidate c ON vc.candidate_id = c.id WHERE vc.election_id = $1 GROUP BY candidate_id, first_name, last_name, email, position, role, vc.election_id ORDER BY 8 DESC', [electionId]);
+            return data.rows?.length ? results : null
+        } catch (error) {
+            throw new Error(error)
+        } 
+    }
 }
 
 module.exports = ElectionModel;
