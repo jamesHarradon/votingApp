@@ -52,7 +52,8 @@ class VoterService {
             if(electionIdCandidate !== electionIdVoter) throw new Error('Selected candidate not in election voter has registered for')
             const placeVoteSuccess = await VoterModelInstance.addToVotersCandidates(voterId, candidateId);
             const setHasVotedSuccess = await VoterModelInstance.setHasVoted(voterId);
-            return placeVoteSuccess.success && setHasVotedSuccess.success ? {success: true} : {success: false}
+            const data = await VoterModelInstance.getVoterById(voterId);
+            return placeVoteSuccess.success && setHasVotedSuccess.success ? {success: true, data: data} : {success: false}
         } catch (error) {
             throw(error)
         }

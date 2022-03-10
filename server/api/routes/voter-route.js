@@ -63,6 +63,7 @@ voterRouter.put('/amend/:voterId', passport.authenticate('jwt-voter', { session:
 voterRouter.post('/vote/:voterId/:candidateId', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
     try {
         const response = await VoterServiceInstance.placeVote(req.params.voterId, req.params.candidateId);
+        if (response.success) sendVoteConfirmationMail(response.data);
         res.json(response);
     } catch (error) {
         next(error)
