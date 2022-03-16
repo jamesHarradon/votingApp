@@ -4,9 +4,9 @@ const CandidateModelInstance = new CandidateModel;
 
 class CandidateService {
 
-    async getAllCandidates() {
+    async getAllCandidatesAdmin(id) {
         try {
-            const data = await CandidateModelInstance.getAllCandidates();
+            const data = await CandidateModelInstance.getAllCandidatesAdmin(id);
             return data;
         } catch (error) {
             throw(error)

@@ -3,9 +3,9 @@ const { nanoid } = require('nanoid')
 
 class CandidateModel {
 
-    async getAllCandidates() {
+    async getAllCandidatesAdmin(id) {
         try {
-            const data = await pool.query('SELECT * FROM candidate');
+            const data = await pool.query('SELECT * FROM candidate WHERE election_id IN (SELECT election_id FROM admin_elections WHERE admin_id = $1)', [id]);
             return data.rows?.length ? data.rows : null;
         } catch (error) {
             throw new Error(error)

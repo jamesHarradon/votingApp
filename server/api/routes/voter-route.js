@@ -7,10 +7,10 @@ const VoterServiceInstance = new VoterService;
 
 const voterRouter = express.Router();
 
-//get all voters
-voterRouter.get('/', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
+//get all voters for admin (admin may have more than one election)
+voterRouter.get('/admin/:id', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await VoterServiceInstance.getAllVoters();
+        const response = await VoterServiceInstance.getAllVotersAdmin(req.params.id);
         res.json(response);
     } catch (error) {
         next(error)

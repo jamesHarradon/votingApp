@@ -7,9 +7,9 @@ const VoterModelInstance = new VoterModel;
 
 class VoterService {
 
-    async getAllVoters() {
+    async getAllVotersAdmin(id) {
         try {
-            const data = await VoterModelInstance.getAllVoters();
+            const data = await VoterModelInstance.getAllVotersAdmin(id);
             return data;
         } catch (error) {
             throw(error)
@@ -50,6 +50,8 @@ class VoterService {
             const electionIdCandidate = await ElectionModelInstance.getElectionIdByCandidateId(candidateId);
             const electionIdVoter = await VoterModelInstance.getElectionIdByVoterId(voterId);
             if(electionIdCandidate !== electionIdVoter) throw new Error('Selected candidate not in election voter has registered for')
+            const hasVoted = await VoterModelInstance.getHasVoted(voterId);
+            if(hasVoted) throw new Error('Voter has already voted in this election!')
             const placeVoteSuccess = await VoterModelInstance.addToVotersCandidates(voterId, candidateId);
             const setHasVotedSuccess = await VoterModelInstance.setHasVoted(voterId);
             const data = await VoterModelInstance.getVoterById(voterId);

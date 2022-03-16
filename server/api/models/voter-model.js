@@ -3,9 +3,9 @@ const { nanoid } = require('nanoid')
 
 class VoterModel {
 
-    async getAllVoters() {
+    async getAllVotersAdmin(id) {
         try {
-            const data = await pool.query('SELECT * FROM voter');
+            const data = await pool.query('SELECT * FROM voter WHERE election_id IN (SELECT election_id FROM admin_elections WHERE admin_id = $1)',[id]);
             return data.rows?.length ? data.rows : null;
         } catch (error) {
             throw new Error(error)
@@ -62,6 +62,15 @@ class VoterModel {
         try {
             const data = await pool.query('INSERT INTO voters_candidates (voter_id, candidate_id, election_id) VALUES ($1, $2, (SELECT election_id FROM voter WHERE id = $1)) RETURNING *', [voterId, candidateId])
             return data.rows?.length ? {success: true} : {success: false}
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async getHasVoted(voterId) {
+        try {
+            const data= await pool.query('SELECT has_voted FROM voter WHERE id = $1', [voterId]);
+            return data.rows[0].has_voted;
         } catch (error) {
             throw new Error(error)
         }
