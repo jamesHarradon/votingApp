@@ -24,18 +24,20 @@ options.passReqToCallback = true
 
 passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, async (email, password, done) => {
     let user;
+    let userPassword;
     try {
         user = await AuthModelInstance.findOne(email);
         if(!user) {
             return done(null, false, {message: 'Incorrect email or password'});
         }
+        userPassword = await AuthModelInstance.getPassword(email, user.role);
     } catch (error) {
         done(error)
     }
 
     // add password decrypt match function here for production - see documentation
     // something like let match = await user.comparePassword(password)
-    if (password !== user.password) {
+    if (password !== userPassword) {
         return done(null, false, {message: 'Incorrect email or password.'});
     }
     // user attached to req object as req.user
