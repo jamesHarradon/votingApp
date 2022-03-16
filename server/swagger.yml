@@ -70,7 +70,7 @@ components:
           type: string
 
 paths:
-  /auth/login:
+  /api/auth/login:
     post:
       summary: "User Login"
       tags: [Auth]
@@ -103,7 +103,7 @@ paths:
           schema:
             type: object
             items:
-  /auth/logout:
+  /api/auth/logout:
     post:
       summary: "User Logout"
       tags: [Auth]
@@ -122,7 +122,7 @@ paths:
             type: object
             items:
 
-  /voter/:
+  /api/voter/:
     get:
       summary: "Get all voters"
       tags: [Voter]
@@ -139,7 +139,7 @@ paths:
           schema:
             type: object
             items:
-  /voter/election/{id}:
+  /api/voter/election/{id}:
     get:
       summary: "Get all voters by election id"
       tags: [Voter]
@@ -160,7 +160,7 @@ paths:
           schema:
             type: object
             items:
-  /voter/{id}:
+  /api/voter/{id}:
     get:
       summary: "Get voter by id"
       tags: [Voter]
@@ -181,7 +181,7 @@ paths:
           schema:
             type: object
             items:
-  /voter/add:
+  /api/voter/add:
     post:
       summary: "Add new voter"
       tags: [Voter]
@@ -216,7 +216,7 @@ paths:
           schema:
             type: object
             items:
-  /voter/amend/{id}:
+  /api/voter/amend/{id}:
     put:
       summary: "Amend voter details"
       tags: [Voter]
@@ -250,7 +250,7 @@ paths:
           schema:
             type: object
             items:
-  /voter/vote/{voterId}/{candidateId}:
+  /api/voter/vote/{voterId}/{candidateId}:
     post:
       summary: "Place a vote"
       tags: [Voter]
@@ -277,7 +277,7 @@ paths:
           schema:
             type: object
             items:
-  /voter/delete/{id}:
+  /api/voter/delete/{id}:
     delete:
       summary: "Delete voter"
       tags: [Voter]
@@ -302,7 +302,7 @@ paths:
             type: object
             items:
 
-  /candidate/:
+  /api/candidate/:
     get:
       summary: "Get all candidates"
       tags: [Candidate]
@@ -319,7 +319,7 @@ paths:
           schema:
             type: object
             items:
-  /candidate/election/{id}:
+  /api/candidate/election/{id}:
     get:
       summary: "Get all candidates by election id"
       tags: [Candidate]
@@ -340,7 +340,7 @@ paths:
           schema:
             type: object
             items:
-  /candidate/{id}/{electionId}:
+  /api/candidate/{id}/{electionId}:
     get:
       summary: "Get candidate by id and election id"
       tags: [Candidate]
@@ -364,7 +364,7 @@ paths:
           schema:
             type: object
             items:
-  /candidate/add:
+  /api/candidate/add:
     post:
       summary: "Add new candidate"
       tags: [Candidate]
@@ -403,7 +403,7 @@ paths:
           schema:
             type: object
             items:
-  /candidate/amend/{id}:
+  /api/candidate/amend/{id}:
     put:
       summary: "Amend candidate details"
       tags: [Candidate]
@@ -437,7 +437,7 @@ paths:
           schema:
             type: object
             items:
-  /candidate/delete/{id}:
+  /api/candidate/delete/{id}:
     delete:
       summary: "Delete candidate"
       tags: [Candidate]
@@ -462,7 +462,7 @@ paths:
             type: object
             items:
 
-  /election/:
+  /api/election/:
     get:
       summary: "Get all elections"
       tags: [Election]
@@ -479,7 +479,7 @@ paths:
           schema:
             type: object
             items:
-  /election/{id}:
+  /api/election/{id}:
     get:
       summary: "Get election by id"
       tags: [Election]
@@ -500,7 +500,7 @@ paths:
           schema:
             type: object
             items:
-  /election/add:
+  /api/election/add:
     post:
       summary: "Add new election"
       tags: [Election]
@@ -536,7 +536,7 @@ paths:
           schema:
             type: object
             items:
-  /election/amend/{id}:
+  /api/election/amend/{id}:
     put:
       summary: "Amend election details"
       tags: [Election]
@@ -570,7 +570,7 @@ paths:
           schema:
             type: object
             items:
-  /election/delete/{id}:
+  /api/election/delete/{id}:
     delete:
       summary: "Delete election"
       tags: [Election]
@@ -595,7 +595,7 @@ paths:
             type: object
             items:
 
-  /manifesto/{id}:
+  /api/manifesto/{id}:
     get:
       summary: "Get manifesto by id"
       tags: [Manifesto]
@@ -616,7 +616,7 @@ paths:
           schema:
             type: object
             items:
-  /manifesto/add:
+  /api/manifesto/add:
     post:
       summary: "Add new manifesto"
       tags: [Manifesto]
@@ -651,7 +651,7 @@ paths:
           schema:
             type: object
             items:
-  /manifesto/amend/{id}:
+  /api/manifesto/amend/{id}:
     put:
       summary: "Amend manifesto details"
       tags: [Manifesto]
@@ -685,7 +685,7 @@ paths:
           schema:
             type: object
             items:
-  /manifesto/delete/{id}:
+  /api/manifesto/delete/{id}:
     delete:
       summary: "Delete manifesto"
       tags: [Manifesto]
