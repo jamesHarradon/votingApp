@@ -1,0 +1,263 @@
+
+h2 {
+  font-size: 1.5em;
+}
+
+.App {
+  height: 100vh;
+  text-align: center;
+  display: grid;
+  grid-template: repeat(6, 1fr) / repeat(6, 1fr);
+  gap: 1%;
+}
+
+#topbar {
+  border: 1px solid grey;
+  grid-area: 1 / 2 / 1 / span 6;
+  display: grid;
+  grid-template: 1fr / repeat(5, 1fr);
+  justify-content: center;
+  align-items: center;
+}
+
+#heading {
+  grid-area: 1 / 1 / 1 / span 3;
+}
+
+.topbar-links {
+  grid-area: 1 / 4 / 1 / span 2;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#main {
+  border: 1px solid grey;
+  grid-area: 2 / 2 / span 5 / span 5;
+}
+
+#sidebar {
+  border: 1px solid grey;
+  grid-area: 1 / 1 / span 6 / 1;
+  display: grid;
+  grid-template: repeat(5, 1fr) / 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#dashboard {
+  height: 100%;
+  display: grid;
+  grid-template: repeat(4, 1fr) / repeat(5, 1fr);
+  gap: 1%;
+  
+}
+
+#summaries {
+  grid-area: 1 / 4 / span 2 / span 2;
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+}
+
+.summary {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid grey;
+}
+
+#candidate-preview {
+  grid-area: 3 / 1 / span 2 / span 5;
+  display: grid;
+  grid-template: 1fr / repeat(4, 1fr);
+  justify-content: center;
+  align-items: center;
+  gap: 1%;
+}
+
+.candidate-image {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid grey;
+}
+
+#election-preview {
+  grid-area: 1 / 1 / span 2 / span 3;
+  display: grid;
+  grid-template: repeat(2, 1fr) / 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#ballot-card {
+  height: 100%;
+  
+}
+
+#ballot-card-form-grid {
+  height: 100%;
+  display: grid;
+  grid-template: repeat(8, 1fr) / 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#ballot-card-inner-grid {
+  grid-area: 1 / 1 / span 7 / 1;
+  height: 100%;
+  display: grid;
+  grid-template: 1fr / repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1%;
+}
+
+.ballot-card-form-candidate {
+  height: 100%;
+}
+
+.ballot-card-candidate {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  
+  align-items: center;
+}
+
+#ballot-card-submit-container {
+  grid-area: 8 / 1 / 8 / 1;
+}
+
+.ballot-card-candidate-image {
+  border: 1px solid grey;
+  height: 30%;
+  width: 100%;
+}
+
+#candidates, #election {
+  height: 100%;
+  display: grid;
+  grid-template: repeat(6, 1fr) / 1fr;
+  justify-content: center;
+}
+
+.add-form {
+  margin: 2%;
+  grid-area: 1 / 1 / 1 / 1;
+}
+
+.table-fixed-head {
+  overflow-y: auto;
+  height: 100%;
+  margin: 0px auto;
+  grid-area: 2 / 1 / span 5 / 1;
+}
+
+.table-fixed-head thead th {
+  position: sticky;
+  top: 0;
+}
+
+th, td {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+}
+th {
+  background: #eee;
+}
+
+
+.table{
+  height: 100%;
+  border-collapse: collapse;
+  
+}
+
+
+.add-form-fields {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+#manifesto {
+  height: 100%;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+}
+
+#manifesto-head {
+  grid-area: 1 / 1 / 1 / span 3;
+}
+
+#manifesto-body {
+  grid-area: 2 / 1 / span 2 / span 3;
+  display: grid;
+  grid-template: 1fr / repeat(3, 1fr);
+  
+  
+}
+
+#manifesto-who, #manifesto-what, #manifesto-why {
+  margin: 1%;
+}
+
+#manifesto-who {
+  grid-area: 1 / 1 / span 2 / 1;
+}
+
+#manifesto-what {
+  grid-area: 1 / 2 / span 2 / 2;
+}
+
+#manifesto-why {
+  grid-area: 1 / 3 / span 2 / 3;
+}
+
+
+
+
+
+
+
+
+
+
+/*scrollbar*/
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+
+
+
+
+
+
