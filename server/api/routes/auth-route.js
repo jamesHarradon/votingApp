@@ -32,7 +32,7 @@ authRouter.post('/login', (req, res, next) => {
             secure: isProduction ? true : false,
         })
         
-        res.json({token});
+        res.json(user);
 
     })(req, res, next);
 })
