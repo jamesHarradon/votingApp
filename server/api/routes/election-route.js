@@ -7,10 +7,10 @@ const ElectionServiceInstance = new ElectionService;
 const electionRouter = express.Router();
 
 
-//get all elections
-electionRouter.get('/', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
+//get all elections for admin (admin may have more than one election)
+electionRouter.get('/admin/:id', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await ElectionServiceInstance.getAllElections();
+        const response = await ElectionServiceInstance.getAllElectionsAdmin(req.params.id);
         res.json(response);
     } catch (error) {
         next(error)
@@ -29,9 +29,9 @@ electionRouter.get('/:electionId', passport.authenticate('jwt-election', { sessi
 })
 
 //add a election
-electionRouter.post('/add', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
+electionRouter.post('/add/:adminId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await ElectionServiceInstance.addElection(req.body);
+        const response = await ElectionServiceInstance.addElection(req.params.adminId, req.body);
         res.json(response);
     } catch (error) {
         next(error)
@@ -58,7 +58,7 @@ electionRouter.delete('/delete/:electionId', passport.authenticate('jwt-admin', 
     }
 })
 
-//delete a election by id
+//get results of an election
 electionRouter.get('/results/:electionId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
     try {
         const response = await ElectionServiceInstance.getResults(req.params.electionId);

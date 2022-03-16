@@ -4,9 +4,9 @@ const ElectionModelInstance = new ElectionModel;
 
 class ElectionService {
 
-    async getAllElections() {
+    async getAllElectionsAdmin(id) {
         try {
-            const data = await ElectionModelInstance.getAllElections();
+            const data = await ElectionModelInstance.getAllElectionsAdmin(id);
             return data;
         } catch (error) {
             throw(error)
@@ -22,10 +22,12 @@ class ElectionService {
         }
     }
 
-    async addElection(body) {
+    async addElection(adminId, body) {
         try {
             const addSuccess = await ElectionModelInstance.addElection(body);
-            return addSuccess;
+            if(!addSuccess.success) return addSuccess
+            const addToAdminElections = await ElectionModelInstance.addToAdminElections(adminId, addSuccess.election_id)
+            return addToAdminElections;
         } catch (error) {
             throw(error)
         }
