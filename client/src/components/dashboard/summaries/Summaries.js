@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function Summaries() {
 
@@ -6,20 +6,20 @@ export default function Summaries() {
 
     return (
         <div id='summaries'>
-            <div class='summary'>
-                <h1>Number of candidates</h1>
+            <div className='summary'>
+                <h4>No. of candidates</h4>
                 <p>4</p>
             </div>
-            <div class='summary'>
-                <h1>Number of voters</h1>
+            <div className='summary'>
+                <h4>No. of voters</h4>
                 <p>30</p>
             </div>
-            <div class='summary'>
-                <h1>Votes Cast</h1>
+            <div className='summary'>
+                <h4>Votes Cast</h4>
                 <p>25</p>
             </div>
-            <div class='summary'>
-                <h1>Voters yet to vote</h1>
+            <div className='summary'>
+                <h4>Voters yet to vote</h4>
                 <p>5</p>
             </div>
         </div>

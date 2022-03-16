@@ -8,20 +8,24 @@ export default function BallotCard() {
 
     return (
         <div id= 'ballot-card'>
-            <form>
+            <form id='ballot-card-form-grid'>
+                <div id='ballot-card-inner-grid'>
                 {candidates.map(candidate => (
-                   <>
+                   <div className='ballot-card-form-candidate'>
                     <label for={candidate.id}>
-                        <div class='ballot-candidate'>
+                        <div className='ballot-card-candidate'>
                             <p>{`${candidate.first_name} ${candidate.last_name}`}</p>
-                            <p class='candidate-image'>image</p>
+                            <p className='ballot-card-candidate-image'>image</p>
                             <p>{candidate.who}</p>
-                        </div>       
-                    </label>
-                    <input type='radio' id={candidate.id} name={candidate.election} value={candidate.id}></input>
-                   </> 
+                            <input type='radio' id={candidate.id} name={candidate.election} value={candidate.id}></input>  
+                        </div>    
+                    </label> 
+                   </div> 
                 ))}
-                <input type='submit' value='Submit'></input>
+                </div>
+                <div id='ballot-card-submit-container'>
+                    <input id='ballot-card-submit' type='submit' value='Submit'></input>
+                </div>
             </form>
         </div>
     )

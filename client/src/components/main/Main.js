@@ -7,20 +7,34 @@ import Candidates from "../candidates/Candidates";
 import Manifesto from "../manifesto/Manifesto";
 import Election from "../election/Election";
 import Results from "../results/Results";
+import Profile from "../profile/Profile";
+import Login from "../login/Login";
 
 
 export default function Main() {
+
+    // user variable simulates a user has logged in
+    const user = true;
+
     return (
         <div id='main'>
+            {user ? 
             <Routes>
                 <Route path='/' element={<Dashboard />} />
+                <Route path='/profile/:id' element={<Profile />} />
                 <Route path='/ballot-card' element={<BallotCard />} />
                 <Route path='/voters' element={<Voters />} />
                 <Route path='/candidates' element={<Candidates />} />
+                {/*add /:id to manifesto route*/}
                 <Route path='/manifesto' element={<Manifesto />} />
                 <Route path='/election' element={<Election />} />
                 <Route path='/results' element={<Results />} />
-            </Routes>   
+            </Routes> 
+            :
+            <Routes>
+                <Route path='/login' element={<Login />} />
+            </Routes>
+            }     
         </div>
     )
 }
