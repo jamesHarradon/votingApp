@@ -18,6 +18,10 @@ const candidateApi = candidateApiWithTag.injectEndpoints({
             query: (id) => `candidate/election/${id}`,
             providesTags: ['Candidate']
         }),
+        getCandidateById: build.query({
+            query: (data) => `candidate/${data.candidateId}/${data.electionId}`,
+            providesTags: ['Candidate']
+        }),
         addCandidate: build.mutation({
             query(body) {
                 return {
@@ -67,6 +71,7 @@ const candidateApi = candidateApiWithTag.injectEndpoints({
 export const { 
     useGetCandidatesQuery, 
     useGetCandidateByElectionQuery, 
+    useGetCandidateByIdQuery,
     useAddCandidateMutation, 
     useAmendCandidateMutation, 
     useDeleteCandidateMutation 
