@@ -14,22 +14,16 @@ export default function BallotCard() {
         <div id= 'ballot-card'>
             <form id='ballot-card-form-grid'>
                 <div id='ballot-card-inner-grid'>
-                {candidates && candidates.map(candidate => (
-                   <div key={candidate.id} className='ballot-card-form-candidate'>
-                    <label htmlFor={candidate.id}>
-                        <div className='ballot-card-candidate'>
-                            <p>{`${candidate.first_name} ${candidate.last_name}`}</p>
-                            <p className='ballot-card-candidate-image'>image</p>
-                            <p>{manifestos && manifestos.map(manifesto => manifesto.candidate_id === candidate.id && manifesto.who)}</p>
-                            <input type='radio' id={candidate.id} name={candidate.election} value={candidate.id}></input>  
-                        </div>    
-                    </label> 
-                   </div> 
-                ))}
+                        {candidates && candidates.map(candidate => (   
+                            <div key={candidate.id} className='ballot-card-candidate'>
+                                <label htmlFor={candidate.id}>{`${candidate.first_name} ${candidate.last_name}`}</label>
+                                <p className='ballot-card-candidate-image'>image</p>
+                                <p>{manifestos && manifestos.map(manifesto => manifesto.candidate_id === candidate.id && manifesto.who)}</p>
+                                <input type='radio' id={candidate.id} name={candidate.election_id} value={candidate.id}></input>  
+                            </div>    
+                        ))}
                 </div>
-                <div id='ballot-card-submit-container'>
-                    <input id='ballot-card-submit' type='submit' value='Submit'></input>
-                </div>
+                <input id='ballot-card-submit' type='submit' value='Submit'></input>
             </form>
         </div> 
     )
