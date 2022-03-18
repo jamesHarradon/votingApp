@@ -11,14 +11,12 @@ require('dotenv').config();
 
 require('./config/passport')
 
-const { addVoterData, addCandidateData, addPassword, updateElectionVoters } = require('./fakeDataInsert');
-
-
 const voterRouter = require('./api/routes/voter-route');
 const candidateRouter = require('./api/routes/candidate-route');
 const electionRouter = require('./api/routes/election-route');
 const manifestoRouter = require('./api/routes/manifesto-route');
 const authRouter = require('./api/routes/auth-route');
+const userRouter = require('./api/routes/user-route')
 
 //swagger
 const options = {
@@ -77,6 +75,7 @@ app.use('/api/candidate', candidateRouter);
 app.use('/api/election', electionRouter);
 app.use('/api/manifesto', manifestoRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter)
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
