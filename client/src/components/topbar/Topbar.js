@@ -1,11 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { logoutUser } from '../../userSlice'
 
 export default function Topbar() {
 
+    const dispatch = useDispatch()
 
     const logoutHandler = () => {
-        //dispatch logout route
+        dispatch(logoutUser())
     }
 
     return (
