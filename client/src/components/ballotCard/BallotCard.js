@@ -1,22 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useGetCandidateByElectionQuery } from "../../services/candidate";
+import { useGetAllManifestosByElectionQuery } from "../../services/manifesto";
+import { selectUser } from "../../userSlice";
 
 export default function BallotCard() {
 
-    const candidates = [{id: 1, first_name: 'James', last_name: 'Harradon', position: 'President', election: 'Position of Union Vice President at Twitter', who: 'this is a test paragraph on who I am' }, {id: 2, first_name: 'Millie', last_name: 'Cornish', position: 'President', election: 'Position of Union Vice President at Twitter', who: 'this is a test paragraph on who I am'}, {id: 3, first_name: 'Sam', last_name: 'Gibbons', position: 'President', election: 'Position of Union Vice President at Twitter', who: 'this is a test paragraph on who I am'}]
-
-    
+    const user = useSelector(selectUser);
+    const { data: candidates } = useGetCandidateByElectionQuery(user.election_id)
+    const { data: manifestos, error } = useGetAllManifestosByElectionQuery(user.election_id)
 
     return (
         <div id= 'ballot-card'>
             <form id='ballot-card-form-grid'>
                 <div id='ballot-card-inner-grid'>
-                {candidates.map(candidate => (
-                   <div className='ballot-card-form-candidate'>
-                    <label for={candidate.id}>
+                {candidates && candidates.map(candidate => (
+                   <div key={candidate.id} className='ballot-card-form-candidate'>
+                    <label htmlFor={candidate.id}>
                         <div className='ballot-card-candidate'>
                             <p>{`${candidate.first_name} ${candidate.last_name}`}</p>
                             <p className='ballot-card-candidate-image'>image</p>
-                            <p>{candidate.who}</p>
+                            <p>{manifestos && manifestos.map(manifesto => manifesto.candidate_id === candidate.id && manifesto.who)}</p>
                             <input type='radio' id={candidate.id} name={candidate.election} value={candidate.id}></input>  
                         </div>    
                     </label> 
@@ -27,6 +31,6 @@ export default function BallotCard() {
                     <input id='ballot-card-submit' type='submit' value='Submit'></input>
                 </div>
             </form>
-        </div>
+        </div> 
     )
 }
