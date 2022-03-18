@@ -1,5 +1,6 @@
 import { emptySplitApi } from "./emptySplitApi";
 
+// get all manifestos by election id
 //get manifesto by candidate id
 // add a manifesto
 // amend a manifesto
@@ -9,6 +10,10 @@ const manifestoApiWithTag = emptySplitApi.enhanceEndpoints({addTagTypes: ['Manif
 
 const manifestoApi = manifestoApiWithTag.injectEndpoints({
     endpoints: (build) => ({
+        getAllManifestosByElection: build.query({
+            query: (id) => `manifesto/all/${id}`,
+            providesTags: ['Manifesto']
+        }),
         getManifestoByCandidate: build.query({
             query: (id) => `manifesto/${id}`,
             providesTags: ['Manifesto']
@@ -59,7 +64,8 @@ const manifestoApi = manifestoApiWithTag.injectEndpoints({
   overrideExisting: false,
 })
 
-export const {  
+export const { 
+    useGetAllManifestosByElectionQuery, 
     useGetManifestoByCandidateQuery,
     useAddManifestoMutation, 
     useAmendManifestoMutation, 
