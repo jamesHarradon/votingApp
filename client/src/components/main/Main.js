@@ -29,6 +29,7 @@ export default function Main() {
                 <Route path='/manifesto' element={<Manifesto />} />
                 <Route path='/election' element={<Election />} />
                 <Route path='/results' element={<Results />} />
+                <Route path='/profile' element={<Profile />} />
             </Routes> 
             :
             <Routes>
