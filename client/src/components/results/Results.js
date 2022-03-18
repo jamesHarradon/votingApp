@@ -28,6 +28,7 @@ export default function Results() {
                     <option id={election.id} value={election.name}>{election.name}</option>
                 ))}     
             </select>
+            {/* render returned data from rtk query below */}
         </div>
     )
 }
