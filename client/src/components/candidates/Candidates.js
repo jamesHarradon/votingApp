@@ -99,7 +99,7 @@ export default function Candidates() {
                             <td>{candidate.email}</td>
                             <td>{candidate.position}</td>
                             <td>{candidate.election_id}</td>
-                            <Link to={`/manifesto/${candidate.id}`}>
+                            <Link to={`/manifesto/${candidate.id}/${candidate.election_id}`}>
                                 <td>Manifesto</td>
                             </Link>
                             {isAdmin && <td>Edit</td>}  
