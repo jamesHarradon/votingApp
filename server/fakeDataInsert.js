@@ -59,6 +59,8 @@ const updateElectionVoters = async () => {
     }
 }
 
+
+
 module.exports = {
     addVoterData,
     addCandidateData,
