@@ -12,10 +12,10 @@ const electionApi = electionApiWithTag.injectEndpoints({
     endpoints: (build) => ({
         getElections: build.query({
             query: (id) => `election/admin/${id}`,
-            providesTags: ['Election']
+            providesTags: ['Election']         
         }),
         getElection: build.query({
-            query: (id) => `election/election/${id}`,
+            query: (id) => `election/${id}`,
             providesTags: ['Election']
         }),
         addElection: build.mutation({
