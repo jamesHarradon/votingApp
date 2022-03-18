@@ -11,11 +11,13 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { emptySplitApi } from '../services/emptySplitApi';
+import userSlice from '../userSlice';
 
 //see if this works if not, use below
 //const appReducer = {[emptySplitApi.reducerPath]: emptySplitApi.reducer}
 
 const appReducer = combineReducers({
+  user: userSlice,
   [emptySplitApi.reducerPath]: emptySplitApi.reducer
 });
 
@@ -31,6 +33,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
+  blacklist: [emptySplitApi.reducerPath]
 }
 
 //using persist allows redux to keep state after a page refresh
