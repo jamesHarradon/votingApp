@@ -5,6 +5,16 @@ const ManifestoService = require('../services/manifesto-service');
 const ManifestoServiceInstance = new ManifestoService;
 const manifestoRouter = express.Router();
 
+//get all manifestos by election id
+manifestoRouter.get('/all/:electionId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
+    try {
+        const response = await ManifestoServiceInstance.getAllManifestosByElectionId(req.params.electionId);
+        res.json(response);
+    } catch (error) {
+        next(error);
+    }
+})
+
 //get single manifesto by candidateId 
 manifestoRouter.get('/:candidateId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
     try {

@@ -2,6 +2,15 @@ const pool = require('../../db');
 
 class ManifestoModel {
 
+    async getAllManifestosByElectionId(id) {
+        try {
+            const data = await pool.query('SELECT * FROM manifesto WHERE candidate_id IN (select id from candidate where election_id = $1)', [id]);
+            return data.rows?.length ? data.rows : null
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
     async getManifestoByCandidateId(id) {
         try {
             const data = await pool.query('SELECT * FROM manifesto WHERE candidate_id = $1', [id]);
