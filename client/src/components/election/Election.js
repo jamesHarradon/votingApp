@@ -1,20 +1,23 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { DateTime } from 'luxon';
+import { useGetElectionQuery, useGetElectionsQuery } from '../../services/election';
+
+import { selectUser } from '../../userSlice'
 
 
 export default function Election() {
 
-    // will be replaced by state data
-    const isAdmin = true;
+    const user = useSelector(selectUser);
+    const isAdmin = user.role === 'admin';
 
-    // will be replaced by state data
-    const elections = [
-        {name: 'Position of Union President at Twitter', date: '10-09-2-22', number_of_candidates: 4, number_of_voters: 50},
-        {name: 'Position of Union Vice President at Twitter', date: '10-09-2-22', number_of_candidates: 2, number_of_voters: 50},
-        {name: 'Position of Committee President at Twitter', date: '10-09-2-22', number_of_candidates: 3, number_of_voters: 50}
-    ]
+    const { data: adminElections } = useGetElectionsQuery(user.id);
+    const { data: voterElections } = useGetElectionQuery(user.election_id);
+
+    const elections = isAdmin ? adminElections : [voterElections];
 
     const handleAddCandidate = (data) => {
         console.log(data);
@@ -46,10 +49,10 @@ export default function Election() {
                         <input type='date' id='date' name='date' placeholder="Date" {...register('date')} className={`form-control ${errors.date ? 'is-invalid' : ''}`} ></input>
                         <div className='invalid-feedback'>{errors.date?.message}</div>
                         
-                        <input type='number' id='candidates' name='candidates' placeholder="Candidates" {...register('candidates')} className={`form-control ${errors.candidates ? 'is-invalid' : ''}`} ></input>
+                        <input type='number' min={1} id='candidates' name='candidates' placeholder="Candidates" {...register('candidates')} className={`form-control ${errors.candidates ? 'is-invalid' : ''}`} ></input>
                         <div className='invalid-feedback'>{errors.candidates?.message}</div>
 
-                        <input type='number' id='voters' name='voters' placeholder="Voters" {...register('voters')} className={`form-control ${errors.voters ? 'is-invalid' : ''}`} ></input>
+                        <input type='number' min={1} id='voters' name='voters' placeholder="Voters" {...register('voters')} className={`form-control ${errors.voters ? 'is-invalid' : ''}`} ></input>
                         <div className='invalid-feedback'>{errors.voters?.message}</div>
                     
                     </div>
@@ -67,10 +70,10 @@ export default function Election() {
                         </tr>
                     </thead>
                     <tbody>
-                        {elections.map(election => (
-                        <tr>
+                        {elections && elections.map(election => (
+                        <tr key={election.id}>
                             <td>{election.name}</td>
-                            <td>{election.date}</td>
+                            <td>{DateTime.fromISO(election.date_of_election).setLocale('en-gb').toLocaleString()}</td>
                             <td>{election.number_of_candidates}</td>
                             <td>{election.number_of_voters}</td>
                             {isAdmin && <td>Edit</td>}  

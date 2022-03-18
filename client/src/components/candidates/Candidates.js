@@ -1,8 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useAddVoterMutation, useGetVoterByElectionQuery, useGetCandidatesQuery, useGetCandidateByElectionQuery } from '../../services/candidate';
+import { useGetElectionsQuery } from '../../services/election';
+import { selectUser } from '../../userSlice'
 
 // notes - data for each candidate will be a link to their manifesto
 
@@ -10,18 +14,17 @@ import * as Yup from 'yup';
 
 export default function Candidates() {
 
-    // will be replaced by state data
-    const elections = [
-        {name: 'Position of Union President at Twitter', date: '10-09-2-22', number_of_candidates: 4, number_of_voters: 50},
-        {name: 'Position of Union Vice President at Twitter', date: '10-09-2-22', number_of_candidates: 2, number_of_voters: 50},
-        {name: 'Position of Committee President at Twitter', date: '10-09-2-22', number_of_candidates: 3, number_of_voters: 50}
-    ]
-    // will be replaced by state data
-    const isAdmin = true;
+    const user = useSelector(selectUser);
+    const isAdmin = user.role === 'admin';
 
-    // will be replaced by state data
-    const candidates = [{first_name: 'James', last_name: 'Harradon', email: 'james.harradon@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Millie', last_name: 'Cornish', email: 'millie.cornish@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'}, {first_name: 'Sam', last_name: 'Gibbons', email: 'sam.gibbons@gmail.com', position: 'President', election: 'Position of Union Vice President at Twitter'} ]
+    const { data: adminCandidates } = useGetCandidatesQuery(user.id);
+    const { data: voterCandidates } = useGetCandidateByElectionQuery(user.election_id)
+    const { data: elections } = useGetElectionsQuery(user.id);
+    
+    const candidates = isAdmin ? adminCandidates : voterCandidates;
 
+    //const [addVoter, { data }] = useAddCandidateMutation()
+    
     const handleregister = (data) => {
         console.log(data);
     }
@@ -35,15 +38,14 @@ export default function Candidates() {
         .required('Email is required')
         .email(),
         //.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i, 'Email must be in correct format'),
-        position: Yup.array()
+        position: Yup.string()
         .required('Position is required'),
-        name: Yup.array()
+        election_id: Yup.number()
         .required('Election is required')
     })
 
     const formOptions = {resolver: yupResolver(formSchema)};
-    const { register, handleSubmit, formState:{ errors } } = useForm(formOptions);
-
+    const { register, setValue, handleSubmit, formState:{ errors } } = useForm(formOptions);
 
     return (
         <div id='candidates'>
@@ -60,19 +62,19 @@ export default function Candidates() {
                         <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
                         <div className='invalid-feedback'>{errors.email?.message}</div>
                         
-                        <select id='position' name='position' placeholder="Position" {...register('position')} className={`form-control ${errors.position ? 'is-invalid' : ''}`}>
+                        <select id='position' name='position' placeholder="Position" onChange={(e) => setValue('position', e.target.value, { shouldValidate: true })} {...register('position')} className={`form-control ${errors.position ? 'is-invalid' : ''}`}>
                             <option value='President'>President</option>
                             <option value='Vice President'>Vice President</option>
                             <option value='General Secretary'>General Secretary</option>  
                         </select>
                         <div className='invalid-feedback'>{errors.position?.message}</div>
 
-                        <select id='election' name='election' placeholder="Election" {...register('election')} className={`form-control ${errors.election ? 'is-invalid' : ''}`}>
-                            {elections.map(election => (
-                                <option value={election.id}>{election.name}</option>
+                        <select id='election_id' name='election_id' placeholder="Election" onChange={(e) => setValue('election_id', e.target.value, { shouldValidate: true })} {...register('election_id')} className={`form-control ${errors.election_id ? 'is-invalid' : ''}`}>
+                            {elections && elections.map(election => (
+                                <option key={election.id} value={election.id}>{election.name}</option>
                             ))}  
                         </select>
-                        <div className='invalid-feedback'>{errors.election?.message}</div>
+                        <div className='invalid-feedback'>{errors.election_id?.message}</div>
         
                     </div>
                     <button type='submit' className='submit-btn'>Submit</button>  
@@ -90,13 +92,13 @@ export default function Candidates() {
                         </tr>
                     </thead>
                     <tbody>
-                    {candidates.map(candidate => (
-                        <tr>
+                    {candidates && candidates.map(candidate => (
+                        <tr key={candidate.id}>
                             <td>{candidate.first_name}</td>
                             <td>{candidate.last_name}</td>
                             <td>{candidate.email}</td>
                             <td>{candidate.position}</td>
-                            <td>{candidate.election}</td>
+                            <td>{candidate.election_id}</td>
                             <Link to={`/manifesto/${candidate.id}`}>
                                 <td>Manifesto</td>
                             </Link>
