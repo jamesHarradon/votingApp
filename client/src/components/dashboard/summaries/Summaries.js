@@ -6,7 +6,6 @@ import { selectUser } from "../../../userSlice";
 export default function Summaries() {
 
     const electionId = useSelector(selectUser).election_id;
-    console.log(electionId)
     const { data } = useGetElectionQuery(electionId)
 
     //summaries below will contain dynamic data from state

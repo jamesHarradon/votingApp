@@ -9,7 +9,6 @@ export default function ElectionPreview() {
     const electionId = useSelector(selectUser).election_id;
     const { data } = useGetElectionQuery(electionId)
     const dateFormated = data && DateTime.fromISO(data.date_of_election).setLocale('en-gb').toLocaleString();
-    console.log(dateFormated);
     
     return (
         <div id='election-preview'>
