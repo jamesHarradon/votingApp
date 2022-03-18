@@ -44,6 +44,21 @@ passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password
     return done(null, user);  
 }));
 
+passport.use('jwt-all-users', new JwtStrategy(options, async (req, jwtPayload, done) => {
+    let user;
+    try {
+        user = await AuthModelInstance.findById(jwtPayload.id, jwtPayload.role);
+        if (!user) {
+            return done(null, false);
+        }
+        // user attached to req object as req.user
+        return done(null, user);
+
+    } catch (error) {
+        return done(error)
+    } 
+}));
+
 
 passport.use('jwt-admin', new JwtStrategy(options, async (req, jwtPayload, done) => {
     let user;
