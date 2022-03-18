@@ -16,7 +16,7 @@ manifestoRouter.get('/all/:electionId', passport.authenticate('jwt-election', { 
 })
 
 //get single manifesto by candidateId 
-manifestoRouter.get('/:candidateId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
+manifestoRouter.get('/:candidateId', passport.authenticate('jwt-all-users', { session: false }), async (req, res, next) => {
     try {
         const response = await ManifestoServiceInstance.getManifestoByCandidateId(req.params.candidateId);
         res.json(response);
