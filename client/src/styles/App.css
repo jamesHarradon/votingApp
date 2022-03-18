@@ -16,7 +16,7 @@ button {
 }
 
 tbody tr {
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 
 .App {
@@ -140,10 +140,6 @@ tbody tr {
   gap: 1%;
 }
 
-.ballot-card-form-candidate {
-  height: 100%;
-}
-
 .ballot-card-candidate {
   height: 100%;
   display: flex;
@@ -153,8 +149,10 @@ tbody tr {
   align-items: center;
 }
 
-#ballot-card-submit-container {
+#ballot-card-submit {
   grid-area: 8 / 1 / 8 / 1;
+  width: 80%;
+  margin: 0px auto;
 }
 
 .ballot-card-candidate-image {
@@ -176,8 +174,8 @@ tbody tr {
 }
 
 .table-fixed-head {
-  overflow-y: auto;
   height: 100%;
+  overflow-y: auto;
   margin: 0px auto;
   grid-area: 2 / 1 / span 5 / 1;
 }
@@ -196,7 +194,7 @@ th {
 }
 
 .table{
-  height: 100%;
+  height: fit-content;
   border-collapse: collapse;
   
 }
