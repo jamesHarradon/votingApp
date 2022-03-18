@@ -26,7 +26,7 @@ export default function Main() {
                 <Route path='/voters' element={<Voters />} />
                 <Route path='/candidates' element={<Candidates />} />
                 {/*add /:id to manifesto route*/}
-                <Route path='/manifesto' element={<Manifesto />} />
+                <Route path='/manifesto/:candidateId/:electionId' element={<Manifesto />} />
                 <Route path='/election' element={<Election />} />
                 <Route path='/results' element={<Results />} />
                 <Route path='/profile' element={<Profile />} />
