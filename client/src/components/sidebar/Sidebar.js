@@ -1,17 +1,20 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
+import { selectUser } from '../../userSlice';
+
 
 export default function Sidebar() {
 
-    const user = 'candidate' //this will get users role from token, saved in state after login
+    const user = useSelector(selectUser);
 
     return (
         <div id='sidebar'>
-            <Link to='/' class='sidebar-link'>Dashboard</Link>
-            <Link to={user === 'voter' ? '/ballot-card' : '/voters'} class='sidebar-link'>{user === 'voter' ? 'Ballot Card' : 'Voters'}</Link>
-            <Link to={user === 'candidate' ? '/manifesto' : '/candidates'} class='sidebar-link'>{user === 'candidate' ? 'Manifesto' : 'Candidates'}</Link>
-            <Link to='/election' class='sidebar-link'>Election</Link>
-            <Link to='/results' class='sidebar-link'>Results</Link>
+            <Link to='/' className='sidebar-link'>Dashboard</Link>
+            <Link to={user.role === 'voter' ? '/ballot-card' : '/voters'} className='sidebar-link'>{user.role === 'voter' ? 'Ballot Card' : 'Voters'}</Link>
+            <Link to={user.role === 'candidate' ? '/manifesto' : '/candidates'} className='sidebar-link'>{user.role === 'candidate' ? 'Manifesto' : 'Candidates'}</Link>
+            <Link to='/election' className='sidebar-link'>Election</Link>
+            <Link to='/results' className='sidebar-link'>Results</Link>
         </div>
     )
 }

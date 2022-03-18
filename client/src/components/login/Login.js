@@ -1,17 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useLoginUserMutation } from "../../services/user";
+import { loginUser } from "../../userSlice";
+
+
 
 export default function Login() {
 
-    const [loginUser, { isLoading, data }] = useLoginUserMutation();
-    
+    const dispatch = useDispatch();
 
     const handleLogin = async (data) => {
-        await loginUser(data).unwrap();
-        console.log(data);
+        console.log(data)
+        dispatch(loginUser(data))
     }
 
     const formSchema = Yup.object().shape({
@@ -28,7 +30,7 @@ export default function Login() {
     const { register, handleSubmit, formState:{ errors } } = useForm(formOptions);
 
     return (   
-        <div className='form-container'>
+        <div id='login'>
             <h1>Login</h1>
             <form onSubmit={handleSubmit(handleLogin)}>
                 <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
@@ -39,8 +41,6 @@ export default function Login() {
 
                 <button type='submit' className='login-btn'>Login</button>
             </form>
-
-            <h1>{data && data.first_name}</h1>
         </div>
     )
 }

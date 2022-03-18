@@ -29,10 +29,12 @@ export default function Manifesto() {
                 <div id='manifesto-what'>
                     <h2>What Do I Want To Achieve?</h2>
                     <p>{candidate.what}</p>
+                    {(isAdmin || isCandidate) && <button>Edit</button>}
                 </div>
                 <div id='manifesto-why'>
                     <h2>Why Vote For Me?</h2>
                     <p>{candidate.why}</p>
+                    {(isAdmin || isCandidate) && <button>Edit</button>}
                 </div>
             </div>
         </div>
