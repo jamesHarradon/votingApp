@@ -1,4 +1,4 @@
-#Voting App
+# Voting App
 
 #### Project in progress - to be completed end of March 22
 
