@@ -3,13 +3,12 @@ import { useSelector } from "react-redux";
 import { useGetElectionQuery } from '../../../services/election';
 import { selectUser } from "../../../userSlice";
 
-export default function Summaries() {
+export default function Summaries({ electionId }) {
 
-    const electionId = useSelector(selectUser).election_id;
-    const { data } = useGetElectionQuery(electionId)
-
-    //summaries below will contain dynamic data from state
-
+    const user = useSelector(selectUser);
+    const id = electionId || user.election_id
+    const { data } = useGetElectionQuery(id)
+    
     return (
         <div id='summaries'>
             <div className='summary'>

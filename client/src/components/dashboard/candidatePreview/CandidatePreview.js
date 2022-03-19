@@ -1,16 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../userSlice";
+import { useGetCandidatesByElectionQuery } from "../../../services/candidate";
 
 
-export default function CandidatePreview() {
+export default function CandidatePreview({ electionId }) {
 
+    const user = useSelector(selectUser);
+    const id = electionId || user.election_id
+    const { data: candidates } = useGetCandidatesByElectionQuery(id)
     
+    //change below to images
     return (
         <div id='candidate-preview'>
-            {/*this will map through candidates data and show candidate image - for now will replicate with p tag*/}
-            <p className='candidate-image'>candidate one</p>  
-            <p className='candidate-image'>candidate two</p> 
-            <p className='candidate-image'>candidate three</p>  
-            <p className='candidate-image'>candidate four</p> 
+            {candidates && candidates.map(candidate => (
+                <p className='candidate-image'>{`${candidate.first_name} ${candidate.last_name}`}</p>
+            ))}
         </div>
     )
 }
