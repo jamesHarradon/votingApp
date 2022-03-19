@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useGetCandidateByElectionQuery } from "../../services/candidate";
+import { useGetCandidatesByElectionQuery } from "../../services/candidate";
 import { useGetAllManifestosByElectionQuery } from "../../services/manifesto";
 import { selectUser } from "../../userSlice";
 
 export default function BallotCard() {
 
     const user = useSelector(selectUser);
-    const { data: candidates } = useGetCandidateByElectionQuery(user.election_id)
+    const { data: candidates } = useGetCandidatesByElectionQuery(user.election_id)
     const { data: manifestos, error } = useGetAllManifestosByElectionQuery(user.election_id)
 
     return (
