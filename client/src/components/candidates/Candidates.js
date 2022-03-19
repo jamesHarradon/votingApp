@@ -23,9 +23,12 @@ export default function Candidates() {
                             <th>Email</th>
                             <th>Position</th>
                             <th>Election</th>
+                            {isAdmin ? <th colspan='3'>Action</th> : <th>Action</th> }
+
                         </tr>
                     </thead>
-                    {isAdmin ? <AdminCandidatesTableBody />
+                    {isAdmin ? 
+                    <AdminCandidatesTableBody />
                     :
                     <VoterCandidatesTableBody />
                     } 
