@@ -44,7 +44,7 @@ export default function ChangeName() {
                 <p>{user && user.last_name}</p>
             </div>
             }
-            {!changeNameClick && <button className='main-btn' onClick={() => changeNameClick ? setChangeNameClick(false) : setChangeNameClick(true)}>Edit</button>}
+            {!changeNameClick && <button className='edit' onClick={() => changeNameClick ? setChangeNameClick(false) : setChangeNameClick(true)}>Edit</button>}
             {changeNameClick && 
             <form id='change-name-form' onSubmit={handleSubmit(changeNameHandler)}>
                 <input type='first_name' id='first_name' name='first_name' placeholder="First" {...register('first_name')} className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}></input>
@@ -52,7 +52,7 @@ export default function ChangeName() {
                 <input type='last_name' id='last_name' name='last_name' placeholder="Last" {...register('last_name')} className={`form-control ${errors.last_name ? 'is-invalid' : ''}`}></input>
                 {/* <div className='invalid-feedback'>{errors.last_name?.message}</div> */}
                 <button type='submit' className='submit-btn'>Submit</button> 
-                <button onClick={() => changeNameClick ? setChangeNameClick(false) : setChangeNameClick(true)} className='cancel-btn'>Cancel</button> 
+                <button onClick={() => changeNameClick ? setChangeNameClick(false) : setChangeNameClick(true)} className='cancel'>Cancel</button> 
             </form>
             }
         </div>

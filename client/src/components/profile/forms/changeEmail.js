@@ -35,13 +35,13 @@ export default function ChangeEmail() {
         <div id='change-email'>
             <p>Email:</p>
             {!changeEmailClick && <p>{user && user.email}</p>}
-            {!changeEmailClick && <button className='main-btn' onClick={() => changeEmailClick ? setChangeEmailClick(false) : setChangeEmailClick(true)}>Edit</button>}
+            {!changeEmailClick && <button className='edit' onClick={() => changeEmailClick ? setChangeEmailClick(false) : setChangeEmailClick(true)}>Edit</button>}
             {changeEmailClick && 
             <form id='change-email-form' onSubmit={handleSubmit(changeEmailHandler)}>
                 <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`}></input>
                 {/* <div className='invalid-feedback'>{errors.email?.message}</div> */}
                 <button type='submit' className='submit-btn'>Submit</button> 
-                <button onClick={() => changeEmailClick ? setChangeEmailClick(false) : setChangeEmailClick(true)} className='cancel-btn'>Cancel</button> 
+                <button onClick={() => changeEmailClick ? setChangeEmailClick(false) : setChangeEmailClick(true)} className='cancel'>Cancel</button> 
             </form>
             }  
         </div>
