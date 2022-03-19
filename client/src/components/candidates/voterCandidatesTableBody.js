@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useGetCandidateByElectionQuery } from "../../services/candidate";
+import { useGetCandidatesByElectionQuery } from "../../services/candidate";
 import { selectUser } from "../../userSlice";
 import { Link } from 'react-router-dom'
 
 export default function VoterCandidatesTableBody() {
 
     const user = useSelector(selectUser);
-    const { data: candidates } = useGetCandidateByElectionQuery(user.election_id)
+    const { data: candidates } = useGetCandidatesByElectionQuery(user.election_id)
 
     return (
         <tbody>

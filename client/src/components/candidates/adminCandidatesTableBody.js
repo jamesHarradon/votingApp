@@ -21,11 +21,9 @@ export default function AdminCandidatesTableBody() {
                     <td>{candidate.email}</td>
                     <td>{candidate.position}</td>
                     <td>{candidate.election_id}</td>
-                    <Link to={`/manifesto/${candidate.id}/${candidate.election_id}`}>
-                        <td>Manifesto</td>
-                    </Link>
-                    <td>Edit</td>  
-                    <td>Delete</td>
+                    <td><Link className='link' to={`/manifesto/${candidate.id}/${candidate.election_id}`}>Manifesto</Link></td>
+                    <td><button className='edit'>Edit</button></td>
+                    <td><button className='delete'>Delete</button></td>
                 </tr>
             ))}
         </tbody>
