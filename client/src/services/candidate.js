@@ -14,7 +14,7 @@ const candidateApi = candidateApiWithTag.injectEndpoints({
             query: (id) => `candidate/admin/${id}`,
             providesTags: ['Candidate']
         }),
-        getCandidateByElection: build.query({
+        getCandidatesByElection: build.query({
             query: (id) => `candidate/election/${id}`,
             providesTags: ['Candidate']
         }),
@@ -70,7 +70,7 @@ const candidateApi = candidateApiWithTag.injectEndpoints({
 
 export const { 
     useGetCandidatesQuery, 
-    useGetCandidateByElectionQuery, 
+    useGetCandidatesByElectionQuery, 
     useGetCandidateByIdQuery,
     useAddCandidateMutation, 
     useAmendCandidateMutation, 
