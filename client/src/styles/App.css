@@ -1,6 +1,6 @@
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 input {
@@ -13,13 +13,68 @@ input {
 
 button {
   cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: rgb(236, 236, 236);
 }
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+.edit:hover {
+  background-color: rgb(58, 158, 45);
+}
+
+.delete:hover {
+  background-color: rgb(255, 45, 45);
+}
+
+
 
 tbody tr {
   font-size: 0.8em;
 }
 
+.link {
+  text-decoration: none;
+  background-color: rgb(236, 236, 236);
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(236, 236, 236);;
+  width: 80%;
+  height: 80%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.sidebar-link:visited, .link:visited {
+  color: black;
+}
+
+.link:hover {
+  background-color: rgb(31, 151, 231);
+  color: white;
+}
+
+.sidebar-link:hover {
+  background-color: #888;
+  color: white;
+}
+
+
 .App {
+  font-size: 1.4vw;
   height: 100vh;
   text-align: center;
   display: grid;
@@ -28,9 +83,16 @@ tbody tr {
 }
 
 #login {
-  grid-area: 2 / 2 / span 4 / span 4;
+  grid-area: 2 / 3 / span 3 / span 2;
   justify-content: center;
   align-items: center;
+  border: 1px solid lightgray;
+  box-shadow: 2px 2px 2px gray;
+}
+
+#login input {
+  width: 80%;
+  margin: 10px;
 }
 
 #topbar {
@@ -187,7 +249,7 @@ tbody tr {
 
 th, td {
   padding: 8px 16px;
-  border: 1px solid #ccc;
+  
 }
 th {
   background: #eee;
@@ -267,11 +329,7 @@ th {
   align-items: center;
 }
 
-#profile button {
-  align-self: stretch;
-}
-
-#profile .main-btn {
+#profile .edit {
   margin: 5%;
 }
 
@@ -297,6 +355,7 @@ th {
   display: grid;
   grid-template: 1fr / repeat(4, 1fr);
   gap: 1%;
+  align-items: center;
   
 }
 
