@@ -28,17 +28,17 @@ export default function Manifesto() {
                 <div id='manifesto-who'>
                     <h2>Who Am I?</h2>
                     <p>{manifesto && manifesto.who}</p>
-                    {!isVoter&& <button>Edit</button>}
+                    {!isVoter&& <button className='edit'>Edit</button>}
                 </div>
                 <div id='manifesto-what'>
                     <h2>What Do I Want To Achieve?</h2>
                     <p>{manifesto && manifesto.what}</p>
-                    {!isVoter && <button>Edit</button>}
+                    {!isVoter && <button className='edit'>Edit</button>}
                 </div>
                 <div id='manifesto-why'>
                     <h2>Why Vote For Me?</h2>
                     <p>{manifesto && manifesto.why}</p>
-                    {!isVoter && <button>Edit</button>}
+                    {!isVoter && <button className='edit'>Edit</button>}
                 </div>
             </div>
         </div>
