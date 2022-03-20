@@ -15,7 +15,7 @@ const voterApi = voterApiWithTag.injectEndpoints({
             query: (id) => `voter/admin/${id}`,
             providesTags: ['Voter']
         }),
-        getVoterByElection: build.query({
+        getVotersByElection: build.query({
             query: (id) => `voter/election/${id}`,
             providesTags: ['Voter']
         }),
@@ -79,7 +79,7 @@ const voterApi = voterApiWithTag.injectEndpoints({
 
 export const { 
     useGetVotersQuery, 
-    useGetVoterByElectionQuery, 
+    useGetVotersByElectionQuery, 
     useAddVoterMutation, 
     useAmendVoterMutation, 
     useDeleteVoterMutation, 
