@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from "react-redux";
 import { selectUser } from '../../userSlice'
 import AddElectionForm from "./addElectionForm";
@@ -7,6 +8,8 @@ import VotersElectionsTableBody from "./votersElectionsTableBody";
 import CandidateElectionsTableBody from "./candidateElectionsTableBody";
 
 export default function Election() {
+    
+    const [ addElectionClick, setAddElectionClick ] = useState(false);
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
@@ -15,7 +18,10 @@ export default function Election() {
 
     return (
         <div id='election'>
-            {isAdmin && <AddElectionForm /> }
+            {isAdmin &&
+            <button className='add-btn' onClick={() => addElectionClick ? setAddElectionClick(false) : setAddElectionClick(true)}>Add Election</button> 
+            }
+            {addElectionClick && <AddElectionForm setAddElectionClick={setAddElectionClick} toast={toast} />}
             <div className='table-fixed-head'>
                 <table className='table'>
                     <thead>
@@ -32,6 +38,10 @@ export default function Election() {
                     {isCandidate && <CandidateElectionsTableBody />}
                 </table>
             </div>
+            <ToastContainer 
+                hideProgressBar={true}
+                autoClose={3000}
+            />
         </div>
     )
 }

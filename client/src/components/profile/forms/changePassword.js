@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { selectUser, amendUser } from '../../../userSlice'
 import * as Yup from 'yup';
 
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({ setChangePasswordClick }) {
 
     
     const dispatch = useDispatch();
@@ -45,20 +45,26 @@ export default function ChangePasswordForm() {
     const { register, handleSubmit, formState:{ errors } } = useForm(formOptions);
     
     return (
-        <form id='change-password-form' onSubmit={handleSubmit(changePasswordHandler)}>
-                <input type='password' id='current_password' name='current_password' placeholder="Current Password" {...register('current_password')} className={`form-control ${errors.current_password ? 'is-invalid' : ''}`}></input>
-                <div className='invalid-feedback'>{errors.current_password?.message}</div>
-                
-                <input type='password' id='confirm_current_password' name='confirm_current_password' placeholder="Confirm Current Password" {...register('confirm_current_password')} className={`form-control ${errors.confirm_current_password ? 'is-invalid' : ''}`}></input>
-                <div className='invalid-feedback'>{errors.confirm_current_password?.message}</div>
+        <div className='modal-container'>
+            <div className='modal'>
+                <div className='close' onClick={() => setChangePasswordClick(false)}>+</div>
+                <h2>Change Password</h2>
+                <form id='change-password-form' onSubmit={handleSubmit(changePasswordHandler)}>
+                    <input type='password' id='current_password' name='current_password' placeholder="Current Password" {...register('current_password')} className={`form-control ${errors.current_password ? 'is-invalid' : ''}`}></input>
+                    <div className='invalid-feedback'>{errors.current_password?.message}</div>
+                    
+                    <input type='password' id='confirm_current_password' name='confirm_current_password' placeholder="Confirm Current Password" {...register('confirm_current_password')} className={`form-control ${errors.confirm_current_password ? 'is-invalid' : ''}`}></input>
+                    <div className='invalid-feedback'>{errors.confirm_current_password?.message}</div>
 
-                <input type='password' id='new_password' name='new_password' placeholder="New Password" {...register('new_password')} className={`form-control ${errors.new_password ? 'is-invalid' : ''}`}></input>
-                <div className='invalid-feedback'>{errors.new_password?.message}</div>
-                
-                <input type='password' id='confirm_new_password' name='confirm_new_password' placeholder="Confirm New Password" {...register('confirm_new_password')} className={`form-control ${errors.confirm_new_password ? 'is-invalid' : ''}`}></input>
-                <div className='invalid-feedback'>{errors.confirm_new_password?.message}</div>
+                    <input type='password' id='new_password' name='new_password' placeholder="New Password" {...register('new_password')} className={`form-control ${errors.new_password ? 'is-invalid' : ''}`}></input>
+                    <div className='invalid-feedback'>{errors.new_password?.message}</div>
+                    
+                    <input type='password' id='confirm_new_password' name='confirm_new_password' placeholder="Confirm New Password" {...register('confirm_new_password')} className={`form-control ${errors.confirm_new_password ? 'is-invalid' : ''}`}></input>
+                    <div className='invalid-feedback'>{errors.confirm_new_password?.message}</div>
 
-                <button id='submit' type='submit' className='submit-btn'>Submit</button> 
-            </form>
+                    <button id='submit' type='submit' className='submit-btn'>Submit</button> 
+                </form>
+            </div>
+        </div>
     )
 }

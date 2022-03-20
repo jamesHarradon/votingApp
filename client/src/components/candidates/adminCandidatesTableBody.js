@@ -20,7 +20,7 @@ export default function AdminCandidatesTableBody() {
                     <td>{candidate.last_name}</td>
                     <td>{candidate.email}</td>
                     <td>{candidate.position}</td>
-                    <td>{candidate.election_id}</td>
+                    <td>{candidate.name}</td>
                     <td><Link className='link' to={`/manifesto/${candidate.id}/${candidate.election_id}`}>Manifesto</Link></td>
                     <td><button className='edit'>Edit</button></td>
                     <td><button className='delete'>Delete</button></td>

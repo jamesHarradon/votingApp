@@ -19,9 +19,9 @@ export default function Profile() {
             <div id='change-password'>
                 <p>Password:</p>
                 <p>********</p>
-                <button className='main-btn' onClick={() => changePasswordClick ? setChangePasswordClick(false) : setChangePasswordClick(true)}>{changePasswordClick ? 'Cancel' : 'Change Password'}</button>
+                <button className='main-btn' onClick={() => changePasswordClick ? setChangePasswordClick(false) : setChangePasswordClick(true)}>Change Password</button>
             </div>
-            {changePasswordClick && <ChangePasswordForm />}
+            {changePasswordClick && <ChangePasswordForm setChangePasswordClick={setChangePasswordClick} />}
         </div>
     )
 }

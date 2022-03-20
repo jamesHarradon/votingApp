@@ -17,7 +17,7 @@ export default function VoterCandidatesTableBody() {
                     <td>{candidate.last_name}</td>
                     <td>{candidate.email}</td>
                     <td>{candidate.position}</td>
-                    <td>{candidate.election_id}</td>
+                    <td>{candidate.name}</td>
                     <Link to={`/manifesto/${candidate.id}/${candidate.election_id}`}>
                         <td>Manifesto</td>
                     </Link>
