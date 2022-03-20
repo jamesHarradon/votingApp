@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from "react-redux";
-import AddCandidateForm from './addCandidateForm'
+import AddEditCandidateForm from './addEditCandidateForm'
 import { selectUser } from '../../userSlice'
 import AdminCandidatesTableBody from "./adminCandidatesTableBody";
 import VoterCandidatesTableBody from "./voterCandidatesTableBody";
@@ -10,6 +10,8 @@ import VoterCandidatesTableBody from "./voterCandidatesTableBody";
 export default function Candidates() {
 
     const [ addCandidateClick, setAddCandidateClick ] = useState(false);
+    const [ editCandidateClick, setEditCandidateClick ] = useState(false);
+    const [ editId, setEditId ] = useState(null);
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
@@ -21,7 +23,8 @@ export default function Candidates() {
             {isAdmin &&
             <button className='add-btn' onClick={() => addCandidateClick ? setAddCandidateClick(false) : setAddCandidateClick(true)}>Add Candidate</button> 
             }
-            {addCandidateClick && <AddCandidateForm setAddCandidateClick={setAddCandidateClick} toast={toast} />}
+            {addCandidateClick && <AddEditCandidateForm setAddCandidateClick={setAddCandidateClick} toast={toast} />}
+            {editCandidateClick && <AddEditCandidateForm setClick={setEditCandidateClick} toast={toast} isAdd={false} editId={editId} />}
             <div className='table-fixed-head'>
                 <table className='table'>
                     <thead>
@@ -36,7 +39,7 @@ export default function Candidates() {
                         </tr>
                     </thead>
                     {isAdmin ? 
-                    <AdminCandidatesTableBody />
+                    <AdminCandidatesTableBody toast={toast} setEditCandidateClick={setEditCandidateClick} setEditId={setEditId} />
                     :
                     <VoterCandidatesTableBody />
                     } 

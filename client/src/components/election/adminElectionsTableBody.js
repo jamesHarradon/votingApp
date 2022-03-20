@@ -4,7 +4,7 @@ import { useGetElectionsQuery } from "../../services/election";
 import { selectUser } from "../../userSlice";
 import { DateTime } from 'luxon';
 
-export default function AdminElectionsTableBody() {
+export default function AdminElectionsTableBody({ toast, setEditElectionClick, setEditId }) {
 
     const admin = useSelector(selectUser);
 
@@ -21,7 +21,7 @@ export default function AdminElectionsTableBody() {
                 <td>{DateTime.fromISO(election.date_of_election).setLocale('en-gb').toLocaleString()}</td>
                 <td>{election.number_of_candidates}</td>
                 <td>{election.number_of_voters}</td>
-                <td><button className='edit'>Edit</button></td>
+                <td><button onClick={() => {setEditId(election.id); setEditElectionClick(true);}} className='edit'>Edit</button></td>
                 <td><button className='delete'>Delete</button></td>
             </tr>
             ))}

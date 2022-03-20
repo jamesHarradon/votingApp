@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from "react-redux";
 import { selectUser } from '../../userSlice'
-import AddElectionForm from "./addElectionForm";
+import AddEditElectionForm from "./addEditElectionForm";
 import AdminElectionsTableBody from "./adminElectionsTableBody";
 import VotersElectionsTableBody from "./votersElectionsTableBody";
 import CandidateElectionsTableBody from "./candidateElectionsTableBody";
@@ -10,6 +10,8 @@ import CandidateElectionsTableBody from "./candidateElectionsTableBody";
 export default function Election() {
     
     const [ addElectionClick, setAddElectionClick ] = useState(false);
+    const [ editElectionClick, setEditElectionClick ] = useState(false);
+    const [ editId, setEditId ] = useState(null);
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
@@ -21,7 +23,8 @@ export default function Election() {
             {isAdmin &&
             <button className='add-btn' onClick={() => addElectionClick ? setAddElectionClick(false) : setAddElectionClick(true)}>Add Election</button> 
             }
-            {addElectionClick && <AddElectionForm setAddElectionClick={setAddElectionClick} toast={toast} />}
+            {addElectionClick && <AddEditElectionForm setAddElectionClick={setAddElectionClick} toast={toast} />}
+            {editElectionClick && <AddEditElectionForm setClick={setEditElectionClick} toast={toast} isAdd={false} editId={editId} />}
             <div className='table-fixed-head'>
                 <table className='table'>
                     <thead>
@@ -33,7 +36,7 @@ export default function Election() {
                             {isAdmin && <th colspan='2'>Action</th>}
                         </tr>
                     </thead>
-                    {isAdmin && <AdminElectionsTableBody />}
+                    {isAdmin && <AdminElectionsTableBody toast={toast} setEditElectionClick={setEditElectionClick} setEditId={setEditId} />}
                     {isVoter && <VotersElectionsTableBody />}
                     {isCandidate && <CandidateElectionsTableBody />}
                 </table>

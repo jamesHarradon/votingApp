@@ -4,7 +4,7 @@ import { useDeleteVoterMutation, useGetVotersQuery } from "../../services/voter"
 import { selectUser } from "../../userSlice";
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
 
-export default function AdminVotersTableBody({ toast }) {
+export default function AdminVotersTableBody({ toast, setEditVoterClick, setEditId }) {
 
     const [ deleteButtonClick, setDeleteButtonClick ] = useState(false);
     const [ deleteId, setDeleteId ] = useState(null);
@@ -12,8 +12,6 @@ export default function AdminVotersTableBody({ toast }) {
     const admin = useSelector(selectUser);
     const { data: voters } = useGetVotersQuery(admin.id);
     const [ deleteVoter, { data }] = useDeleteVoterMutation()
-
-    
 
     const cancelHandler = () => {
         setDeleteButtonClick(false);
@@ -45,7 +43,7 @@ export default function AdminVotersTableBody({ toast }) {
                     <td>{voter.last_name}</td>
                     <td>{voter.email}</td>
                     <td>{voter.name}</td>
-                    <td><button className='edit'>Edit</button></td>
+                    <td><button onClick={() => {setEditId(voter.id); setEditVoterClick(true);}} className='edit'>Edit</button></td>
                     <td><button onClick={() => deleteHandler(voter.id)} className='delete'>Delete</button></td>
                 </tr>
                 ))}

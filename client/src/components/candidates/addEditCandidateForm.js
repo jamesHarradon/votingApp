@@ -3,28 +3,45 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useAddCandidateMutation } from "../../services/candidate";
+import { useAddCandidateMutation, useAmendCandidateMutation } from "../../services/candidate";
 import { useGetElectionsQuery } from '../../services/election';
 import { selectUser } from "../../userSlice";
 import { useSelector } from "react-redux";
 
-export default function AddCandidateForm({ setAddCandidateClick }) {
+export default function AddCandidateForm(props) {
 
     const admin = useSelector(selectUser);
     const { data: elections } = useGetElectionsQuery(admin.id);
-    const [addCandidate, { data }] = useAddCandidateMutation()
+    const [ addCandidate ] = useAddCandidateMutation()
+    const [ amendCandidate ] = useAmendCandidateMutation();
 
     const handleAddCandidate = async (data) => {
         try {
             await addCandidate(data);
-            setAddCandidateClick(false);
-            toast('Candidate added!')
+            props.setAddCandidateClick(false);
+            props.toast('Candidate added!')
         } catch (error) {
             console.log(error)
         }
     }
 
-    const formSchema = Yup.object().shape({
+    const handleEditCandidate = async (data) => {
+        try {
+            Object.keys(data).forEach(key => {
+                if (data[key] === '' || data[key] == null || data[key] === 0) {
+                  delete data[key];
+                }
+            });
+            const obj = {id: props.editId, data: data};
+            await amendCandidate(obj);
+            props.setClick(false);
+            props.toast('Candidate edited!')
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const formSchema = props.isAdd ? Yup.object().shape({
         first_name: Yup.string()
         .required('First Name is required'),
         last_name: Yup.string()
@@ -32,11 +49,17 @@ export default function AddCandidateForm({ setAddCandidateClick }) {
         email: Yup.string()
         .required('Email is required')
         .email(),
-        //.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i, 'Email must be in correct format'),
         position: Yup.string()
         .required('Position is required'),
         election_id: Yup.number()
         .min(1, 'Election is required')
+    }) : Yup.object().shape({
+        first_name: Yup.string(),
+        last_name: Yup.string(),
+        email: Yup.string()
+        .email(),
+        position: Yup.string(),
+        election_id: Yup.number()
     })
 
     const formOptions = {resolver: yupResolver(formSchema)};
@@ -45,9 +68,10 @@ export default function AddCandidateForm({ setAddCandidateClick }) {
     return (
         <div className='modal-container'>
             <div className='modal'>
-                <div className='close' onClick={() => setAddCandidateClick(false)}>+</div>
-                <h2>Add Candidate</h2>
-                <form onSubmit={handleSubmit(handleAddCandidate)}>
+                <div className='close' onClick={() => props.setClick(false)}>+</div>
+                <h2>{props.isAdd ? 'Add Candidate' : 'Edit Candidate'}</h2><br></br>
+            {!props.isAdd && <p>Only fill in fields you want to edit</p>}
+                <form onSubmit={handleSubmit(props.isAdd ? handleAddCandidate : handleEditCandidate)}>
                     <div className='add-form-fields'>
                         
                         <input type='text' id='first_name' name='first_name' placeholder="First Name" {...register('first_name')} className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}></input>
