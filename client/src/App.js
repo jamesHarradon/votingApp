@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './styles/App.css'
 import './styles/normalise.css'
