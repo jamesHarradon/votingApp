@@ -12,7 +12,6 @@ export default function Login() {
     const dispatch = useDispatch();
 
     const handleLogin = async (data) => {
-        console.log(data)
         dispatch(loginUser(data))
     }
 
