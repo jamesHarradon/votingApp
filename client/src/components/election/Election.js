@@ -23,7 +23,7 @@ export default function Election() {
             {isAdmin &&
             <button className='add-btn' onClick={() => addElectionClick ? setAddElectionClick(false) : setAddElectionClick(true)}>Add Election</button> 
             }
-            {addElectionClick && <AddEditElectionForm setAddElectionClick={setAddElectionClick} toast={toast} />}
+            {addElectionClick && <AddEditElectionForm setClick={setAddElectionClick} toast={toast} isAdd={true} />}
             {editElectionClick && <AddEditElectionForm setClick={setEditElectionClick} toast={toast} isAdd={false} editId={editId} />}
             <div className='table-fixed-head'>
                 <table className='table'>

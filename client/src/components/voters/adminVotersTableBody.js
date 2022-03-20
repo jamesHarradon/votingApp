@@ -21,7 +21,7 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
         try {
             await deleteVoter(id);
             setDeleteButtonClick(false);
-            toast('Deleted')
+            toast('Voter deleted!')
         } catch (error) {
             setDeleteButtonClick(false);
             toast(error);

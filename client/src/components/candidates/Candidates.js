@@ -23,7 +23,7 @@ export default function Candidates() {
             {isAdmin &&
             <button className='add-btn' onClick={() => addCandidateClick ? setAddCandidateClick(false) : setAddCandidateClick(true)}>Add Candidate</button> 
             }
-            {addCandidateClick && <AddEditCandidateForm setAddCandidateClick={setAddCandidateClick} toast={toast} />}
+            {addCandidateClick && <AddEditCandidateForm setClick={setAddCandidateClick} toast={toast} isAdd={true} />}
             {editCandidateClick && <AddEditCandidateForm setClick={setEditCandidateClick} toast={toast} isAdd={false} editId={editId} />}
             <div className='table-fixed-head'>
                 <table className='table'>
