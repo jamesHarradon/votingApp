@@ -19,13 +19,13 @@ const electionApi = electionApiWithTag.injectEndpoints({
             providesTags: ['Election']
         }),
         addElection: build.mutation({
-            query(body) {
+            query(data) {
                 return {
-                    url: 'election/add',
+                    url: `election/add/${data.id}`,
                     method: 'POST',
                     mode: 'cors',
                     credentials: 'include',
-                    body: body,
+                    body: data.body,
                     headers: {
                         'Content-type': 'application/json'
                     }
