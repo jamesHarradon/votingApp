@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { resolvePath } from "react-router-dom";
 import { useDeleteVoterMutation, useGetVotersQuery } from "../../services/voter";
 import { selectUser } from "../../userSlice";
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
