@@ -58,14 +58,5 @@ electionRouter.delete('/delete/:electionId', passport.authenticate('jwt-admin', 
     }
 })
 
-//get results of an election
-electionRouter.get('/results/:electionId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
-    try {
-        const response = await ElectionServiceInstance.getResults(req.params.electionId);
-        res.json(response);
-    } catch (error) {
-        next(error)
-    }
-})
 
 module.exports = electionRouter;

@@ -50,16 +50,6 @@ class ElectionService {
             throw(error)
         }
     }
-
-    async getResults(id) {
-        try {
-            const election = await ElectionModelInstance.getElectionById(id);
-            const results = await ElectionModelInstance.getResults(id);
-            return {election: election, winner: results.rows[0], results: results}
-        } catch (error) {
-            throw(error)
-        }
-    }
 }
 
 module.exports = ElectionService;
