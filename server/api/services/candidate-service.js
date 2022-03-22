@@ -1,6 +1,8 @@
 const CandidateModel = require('../models/candidate-model');
+const ManifestoModel = require('../models/manifesto-model');
 
 const CandidateModelInstance = new CandidateModel;
+const ManifestoModelInstance = new ManifestoModel;
 
 class CandidateService {
 
@@ -35,6 +37,8 @@ class CandidateService {
         try {
             const data = await CandidateModelInstance.addCandidate(body);
             if (!data) return false;
+            const addManifestoSuccess = await ManifestoModelInstance.addManifestoInitial(data.id);
+            if(!addManifestoSuccess.success) return false;
             const addSuccess = await CandidateModelInstance.addToElectionCandidates(body.election_id, data.id)
             return addSuccess.success ? data : false
         } catch (error) {
