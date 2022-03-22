@@ -13,8 +13,6 @@ import storage from 'redux-persist/lib/storage'
 import { emptySplitApi } from '../services/emptySplitApi';
 import userSlice from '../userSlice';
 
-//see if this works if not, use below
-//const appReducer = {[emptySplitApi.reducerPath]: emptySplitApi.reducer}
 
 const appReducer = combineReducers({
   user: userSlice,
