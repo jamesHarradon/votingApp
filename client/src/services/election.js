@@ -59,10 +59,6 @@ const electionApi = electionApiWithTag.injectEndpoints({
                 }
             },
             invalidatesTags: ['Election']
-        }),
-        getElectionResults: build.query({
-            query: (id) => `election/results/${id}`,
-            providesTags: ['Result']
         })
   }),
   overrideExisting: false,
@@ -74,5 +70,4 @@ export const {
     useAddElectionMutation, 
     useAmendElectionMutation, 
     useDeleteElectionMutation, 
-    useGetElectionResultsQuery 
 } = electionApi
