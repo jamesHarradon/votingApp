@@ -49,8 +49,8 @@ export const logoutUser= createAsyncThunk(
 export const amendUser = createAsyncThunk(
     'user/amendUser', async (data) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/user/${data.id}/${data.role}`, {
-                method: 'POST',
+            const response = await fetch(`http://localhost:4000/api/user/amend/${data.id}/${data.role}`, {
+                method: 'PUT',
                 credentials: 'include',
                 mode: 'cors',
                 body: JSON.stringify(data.body),
@@ -64,6 +64,28 @@ export const amendUser = createAsyncThunk(
             } else {
                 const errorMsg = await response.json()
                 throw new Error(errorMsg);
+            }       
+        } catch (err) {
+            console.log(err);
+        } 
+    }
+)
+
+export const getUserById = createAsyncThunk(
+    'user/getUserById', async (data) => {
+        try {
+            const response = await fetch(`http://localhost:4000/api/user/${data.id}/${data.role}`, {
+                method: 'GET',
+                credentials: 'include',
+                mode: 'cors',
+            });
+            if (response.ok) {
+                const user = await response.json();
+                return user;
+            } else {
+                const errorMsg = await response.text()
+                //throw new Error(errorMsg);
+                console.log(errorMsg);
             }       
         } catch (err) {
             console.log(err);
@@ -121,6 +143,19 @@ const userSlice = createSlice({
             state.hasFailed = false;
         },
         [amendUser.rejected]: (state) => {
+            state.isLoading = false;
+            state.hasFailed = true;
+        },
+        [getUserById.pending]: (state) => {
+            state.isLoading = true;
+            state.hasFailed = false;
+        },
+        [getUserById.fulfilled]: (state, action) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.hasFailed = false;
+        },
+        [getUserById.rejected]: (state) => {
             state.isLoading = false;
             state.hasFailed = true;
         }
