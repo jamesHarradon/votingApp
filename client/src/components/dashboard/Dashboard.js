@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Summaries from "./summaries/Summaries";
 import CandidatePreview from "./candidatePreview/CandidatePreview";
 import ElectionPreview from "./electionPreview/ElectionPreview";
-import AdminDropDown from "./adminDropDown/adminDropDown";
 
 export default function Dashboard() {
 
