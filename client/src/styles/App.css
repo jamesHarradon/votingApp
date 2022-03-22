@@ -15,12 +15,6 @@ option {
   font-size: 1em;
 }
 
-button {
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 4px;
-  background-color: rgb(236, 236, 236);
-}
 
 button:hover {
   background-color: black;
@@ -49,17 +43,23 @@ button:hover {
   background-color: rgb(64, 173, 50);
 }
 
-
-tbody tr {
-  font-size: 0.8em;
-}
-
-.link {
+.link, button {
   text-decoration: none;
   background-color: rgb(236, 236, 236);
   cursor: pointer;
   padding: 10px;
   border-radius: 4px;
+}
+
+.ballot-card-link {
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: rgb(236, 236, 236);
+}
+
+.selected {
+  border: 2px solid grey;
 }
 
 .sidebar-link {
@@ -75,11 +75,11 @@ tbody tr {
   border-radius: 10px;
 }
 
-.sidebar-link:visited, .link:visited {
+.sidebar-link:visited, .link:visited, .ballot-card-link:visited {
   color: black;
 }
 
-.link:hover {
+.link:hover, .ballot-card-link:hover {
   background-color: rgb(31, 151, 231);
   color: white;
 }
@@ -99,18 +99,37 @@ tbody tr {
   gap: 1%;
 }
 
-#login {
-  grid-area: 2 / 3 / span 3 / span 2;
+#login-container {
+  grid-area: 1 / 1 / span 6 / span 6;
+  display: grid;
   justify-content: center;
-  align-items: center;
+  
+}
+
+#login {
+  position: relative;
+  top: 20vh;
+  height: fit-content;
+  width: 30em;
+  font-size: 0.8em;
   border: 1px solid lightgray;
   box-shadow: 2px 2px 2px gray;
 }
 
-#login input {
-  width: 80%;
-  margin: 10px;
+#login form {
+  margin: 4%;
 }
+
+#login input {
+  
+  width: 28vw;
+}
+
+#login input, #login button {
+  margin: 2% 0;
+}
+
+
 
 #topbar {
   border: 1px solid grey;
@@ -175,18 +194,14 @@ tbody tr {
 #candidate-preview {
   grid-area: 3 / 1 / span 2 / span 5;
   display: grid;
-  grid-template: 1fr / repeat(4, 1fr);
-  justify-content: center;
-  align-items: center;
+  grid-auto-flow: column;
+  grid-auto-columns: 26%;
   gap: 1%;
+  overflow-x: scroll;
 }
 
 .candidate-image {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   border: 1px solid grey;
 }
 
@@ -200,7 +215,6 @@ tbody tr {
 
 #ballot-card {
   height: 100%;
-  
 }
 
 #ballot-card-form-grid {
@@ -215,8 +229,11 @@ tbody tr {
   grid-area: 1 / 1 / span 7 / 1;
   height: 100%;
   display: grid;
-  grid-template: 1fr / repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1%;
+  grid-auto-flow: column;
+  grid-auto-columns: 26%;
+  gap: 2%;
+  overflow-x: scroll;
+  padding: 0 2%;
 }
 
 .ballot-card-candidate {
@@ -224,20 +241,29 @@ tbody tr {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  
   align-items: center;
 }
 
 #ballot-card-submit {
   grid-area: 8 / 1 / 8 / 1;
-  width: 80%;
+  width: 50%;
   margin: 0px auto;
 }
 
 .ballot-card-candidate-image {
   border: 1px solid grey;
   height: 30%;
-  width: 100%;
+  width: 80%;
+}
+
+.voted-candidate-container {
+  height: 100%;
+  width: 60%;
+  margin: 0px auto;
+}
+
+.voted-candidate-container .ballot-card-candidate-image {
+  width: 30%;
 }
 
 #candidates, #election, #voters {
@@ -265,6 +291,10 @@ tbody tr {
   z-index: 1;
 }
 
+tbody tr {
+  font-size: 0.8em;
+}
+
 th, td {
   padding: 8px;
   
@@ -273,7 +303,12 @@ th {
   background: #eee;
 }
 
+tr:hover {
+  background-color: rgb(231, 251, 255);
+}
+
 .table{
+  
   height: fit-content;
   border-collapse: collapse;
   
@@ -300,6 +335,10 @@ th {
   border: 4px solid rgb(184, 184, 184);
   border-radius: 10px;
   background-color: white;
+}
+
+.manifesto-modal {
+  width: fit-content;
 }
 
 .modal button {
@@ -476,23 +515,11 @@ th {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*scrollbar*/
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 10px;
 }
 
 /* Track */
