@@ -25,6 +25,24 @@ class UserService {
             throw(error)
         }
     }
+
+
+    async amendUserPassword(id, role, body) {
+        try {
+            const password = await UserModelInstance.getPasswordByIdAndRole(id, role);
+            const match = body.current_password === password;
+            if(match) {
+                const data = await this.amendUser(id, role, {password: body.new_password});
+                return true;
+            } else {
+                throw new Error('There was a problem, password was not changed.')
+            }
+        } catch (err) {
+            throw(err);
+        } 
+    }
+
+
 }
 
 module.exports = UserService;

@@ -26,4 +26,14 @@ userRouter.put('/amend/:userId/:role', passport.authenticate('jwt-all-users', { 
     }
 });
 
+// change user password - confirming current one matches
+userRouter.put('/amend/password/:userId/:role', passport.authenticate('jwt-all-users', { session: false }), async (req, res, next) => {
+    try {
+        const response = await UserServiceInstance.amendUserPassword(req.params.userId, req.params.role, req.body);
+        res.json(response);
+    } catch (error) {
+        next(error)
+    }
+});
+
 module.exports = userRouter;

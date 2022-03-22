@@ -2,6 +2,15 @@ const pool = require('../../db');
 
 class UserModel {
 
+    async getPasswordByIdAndRole(id, role) {
+        try {
+            const data = await pool.query(`SELECT password FROM ${role} WHERE id = $1`, [id]);
+            return data.rows?.length ? data.rows[0].password : null 
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
     async amendUser(id, role, body) {
         try {
             let data;
