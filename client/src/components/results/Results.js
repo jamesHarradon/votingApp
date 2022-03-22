@@ -1,34 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../userSlice";
+import AdminDropDown from "../dashboard/adminDropDown/adminDropDown";
+import { useGetResultsByElectionQuery } from "../../services/result";
+import { DateTime } from 'luxon';
 
 export default function Results() {
 
-    // will be replaced by state data
-    const winner = {id: 1, first_name: 'Darren', last_name: 'Bayer', position: 'President', name: 'Position of President at Facebook', votes: 10};
+    const [ electionId, setElectionId ] = useState(null);
 
-    // will be replaced by state data
-    const results = [{id: 1, first_name: 'Darren', last_name: 'Bayer', position: 'President', name: 'Position of President at Facebook'}, {id: 2, first_name: 'Gary', last_name: 'Johnson', position: 'President', name: 'Position of President at Facebook', votes: 8}, {id: 3, first_name: 'Derrick', last_name: 'Black', position: 'President', name: 'Position of President at Facebook', votes: 2}]
-
-    // will be replaced by state data
-    const elections = [
-        {name: 'Position of Union President at Twitter', date: '10-09-2-22', number_of_candidates: 4, number_of_voters: 50},
-        {name: 'Position of Union Vice President at Twitter', date: '10-09-2-22', number_of_candidates: 2, number_of_voters: 50},
-        {name: 'Position of Committee President at Twitter', date: '10-09-2-22', number_of_candidates: 3, number_of_voters: 50}
-    ]
-
-    const onChangeHandler = (e) => {
-        e.preventDefault();
-        //dispatch(getResults(e.target.id)) -  this may look different as will use RTK Query
-    }
+    const user = useSelector(selectUser);
+    const isAdmin = user.role === 'admin';
+    const id = electionId || user.election_id
+    const { data } = useGetResultsByElectionQuery(id);
+    const dateFormated = data && DateTime.fromISO(data.election.date_of_election).setLocale('en-gb').toLocaleString();
+    
 
     return (
         <div id='results'>
-            <select id='position' name='position' placeholder="Position" onChange={onChangeHandler}>
-                <option defaultValue='Select Election'>Select Election</option>
-                {elections.map(election => (
-                    <option id={election.id} value={election.name}>{election.name}</option>
-                ))}     
-            </select>
-            {/* render returned data from rtk query below */}
+        {isAdmin && <AdminDropDown setElectionId={setElectionId} />}
+            <div id='results-head'>
+                <h1>Congratulations: {`${data && data.winner.first_name} ${data && data.winner.last_name}`}</h1>
+                <div id='results-head'>
+                    <h2><span className='bold'>Winner of Election:</span> {data && data.winner.name}</h2>
+                    <h2><span className='bold'>Date:</span> {dateFormated}</h2>
+                </div>
+            </div>
+            <div id='results-body' className='results-flex'>
+                <p><span className='bold'>Number of Votes:</span> {data && data.winner.votes}</p>
+                <p><span className='bold'>Number of Candidates:</span> {data && data.election.number_of_candidates}</p>
+                <p><span className='bold'>Number of Voters:</span> {data && data.election.number_of_voters}</p>
+            </div>
+            <div id='results-table'>
+                <div className='table-fixed-head'>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Position</th>
+                                <th>Election</th>
+                                <th>Votes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data && data.results.map(candidate => (
+                            <tr key={candidate.candidate_id}>
+                                <td>{candidate.first_name}</td>
+                                <td>{candidate.last_name}</td>
+                                <td>{candidate.position}</td>
+                                <td>{candidate.name}</td>
+                                <td>{candidate.votes}</td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     )
 }

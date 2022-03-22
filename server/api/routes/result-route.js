@@ -17,20 +17,21 @@ resultRouter.get('/admin/:id', passport.authenticate('jwt-admin', { session: fal
     }
 })
 
-//get results for election
-resultRouter.get('/election/:id', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
+
+//get voted for candidate by voter id
+resultRouter.get('/voter/:id', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
     try {
-        const response = await ResultServiceInstance.getResultsByElection(req.params.id);
+        const response = await ResultServiceInstance.getVotedCandidateByVoter(req.params.id);
         res.json(response);
     } catch (error) {
         next(error)
     }
 })
 
-//get voted for candidate by voter id
-resultRouter.get('/voter/:id', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
+//get results of an election
+resultRouter.get('/election/:electionId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
     try {
-        const response = await ResultServiceInstance.getVotedCandidateByVoter(req.params.id);
+        const response = await ResultServiceInstance.getResults(req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error)
