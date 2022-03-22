@@ -10,17 +10,13 @@ export default function CandidateElectionsTableBody() {
     const { data: election } = useGetElectionQuery(user.election_id);
 
     return (
-        <tbody>
-            
+        <tbody>        
             <tr key={election.id}>
                 <td>{election.name}</td>
                 <td>{DateTime.fromISO(election.date_of_election).setLocale('en-gb').toLocaleString()}</td>
                 <td>{election.number_of_candidates}</td>
                 <td>{election.number_of_voters}</td>
-                <td>Edit</td>  
-                <td>Delete</td>
-            </tr>
-            
+            </tr> 
         </tbody>
     )
 }
