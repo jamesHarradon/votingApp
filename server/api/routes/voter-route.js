@@ -18,7 +18,7 @@ voterRouter.get('/admin/:id', passport.authenticate('jwt-admin', { session: fals
 })
 
 //get all voters by election id
-voterRouter.get('/election/:electionId',passport.authenticate('jwt-candidate', { session: false }), async (req, res, next) => {
+voterRouter.get('/election/:electionId',passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
     try {
         const response = await VoterServiceInstance.getAllVotersByElectionId(req.params.electionId);
         res.json(response);
