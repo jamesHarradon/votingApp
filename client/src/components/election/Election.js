@@ -33,7 +33,7 @@ export default function Election() {
                             <th>Date</th>
                             <th>Candidates</th>
                             <th>Voters</th>
-                            {isAdmin && <th colspan='2'>Action</th>}
+                            {isAdmin && <th colSpan='2'>Action</th>}
                         </tr>
                     </thead>
                     {isAdmin && <AdminElectionsTableBody toast={toast} setEditElectionClick={setEditElectionClick} setEditId={setEditId} />}

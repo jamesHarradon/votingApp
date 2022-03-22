@@ -30,7 +30,7 @@ export default function Voters() {
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Election</th>
-                            {isAdmin && <th colspan='2'>Action</th>}
+                            {isAdmin && <th colSpan='2'>Action</th>}
                         </tr>
                     </thead>
                     {isAdmin ? 
