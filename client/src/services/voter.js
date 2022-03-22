@@ -63,9 +63,9 @@ const voterApi = voterApiWithTag.injectEndpoints({
         }),
         placeVote: build.mutation({
             query(data) {
-                const { voterId, electionId } = data;
+                const { voterId, candidateId } = data;
                 return {
-                    url: `voter/vote/${voterId}/${electionId}`,
+                    url: `voter/vote/${voterId}/${candidateId}`,
                     method: 'POST',
                     mode: 'cors',
                     credentials: 'include'
