@@ -20,8 +20,6 @@ export default function VotersElectionsTableBody() {
                 <td>{DateTime.fromISO(election.date_of_election).setLocale('en-gb').toLocaleString()}</td>
                 <td>{election.number_of_candidates}</td>
                 <td>{election.number_of_voters}</td>
-                <td>Edit</td>  
-                <td>Delete</td>
             </tr>
             ))}
         </tbody>
