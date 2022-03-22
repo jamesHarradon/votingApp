@@ -1,26 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { selectUser, amendUser } from '../../../userSlice'
+import { selectUser, changePassword } from '../../../userSlice'
 import * as Yup from 'yup';
 
-export default function ChangePasswordForm({ setChangePasswordClick }) {
+export default function ChangePasswordForm({ setChangePasswordClick, toast }) {
 
     
+    const user = useSelector(selectUser);
     const dispatch = useDispatch();
-    const user = useSelector(selectUser)
 
     const changePasswordHandler = (data) => {
-        //dispatch returns a promise which you can manually reject in the thunk
-        // dispatch(amendUser({
-        //     id: user.id, 
-        //     role: user.role,
-        //     body: data}))
-        // .then(() => {
-        //     alert('Password Changed Successfully');
-        // }).catch(() => alert('There was a problem. Password was not changed.'));
-        console.log(data);
+        const obj = {current_password: data.current_password, new_password: data.new_password }
+        
+        dispatch(changePassword({
+                id: user.id,
+                role: user.role,
+                body: obj
+            }))
+            .then(unwrapResult)
+            .then(() => {
+                setChangePasswordClick(false);
+                toast('Password Changed Successfully')
+            })
+            .catch(() => {
+                setChangePasswordClick(false);
+                toast('There was a problem. Password was not changed.');
+            })
     }
     
     const formSchema = Yup.object().shape({
@@ -62,7 +70,8 @@ export default function ChangePasswordForm({ setChangePasswordClick }) {
                     <input type='password' id='confirm_new_password' name='confirm_new_password' placeholder="Confirm New Password" {...register('confirm_new_password')} className={`form-control ${errors.confirm_new_password ? 'is-invalid' : ''}`}></input>
                     <div className='invalid-feedback'>{errors.confirm_new_password?.message}</div>
 
-                    <button id='submit' type='submit' className='submit-btn'>Submit</button> 
+                    <button id='submit' type='submit' className='submit-btn'>Submit</button>
+                    <button onClick={() => setChangePasswordClick(false)} className='cancel'>Cancel</button>  
                 </form>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,20 +6,26 @@ import * as Yup from 'yup';
 import { selectUser, amendUser } from '../../../userSlice'
 
 
-export default function ChangeName() {
+export default function ChangeName({ setChangeNameClick, toast }) {
 
     const user = useSelector(selectUser);
-
     const dispatch = useDispatch();
-    const [ changeNameClick, setChangeNameClick ] = useState(false);
-
+    
     const changeNameHandler = (data) => {
-        dispatch(amendUser({
-            id: user.id, 
-            role: user.role,
-            body: data
-        }))
-        setChangeNameClick(false);
+        try {
+            dispatch(amendUser({
+                id: user.id,
+                role: user.role,
+                body: data
+            }));
+            setChangeNameClick(false);
+            toast('Name Changed Successfully')
+        } catch (error) {
+            setChangeNameClick(false);
+            toast('There was a problem. Name was not changed.');
+            console.log(error)
+        }
+        
     }
     
     const formSchema = Yup.object().shape({
@@ -36,25 +42,19 @@ export default function ChangeName() {
     
     
     return (
-        <div id='change-name'>
-            <p>Name:</p> 
-            {!changeNameClick &&
-            <div id='name'> 
-                <p>{user && user.first_name}</p>
-                <p>{user && user.last_name}</p>
+        <div className='modal-container'>
+            <div className='modal'>
+                <div className='close' onClick={() => setChangeNameClick(false)}>+</div>
+                <h2>Change Name</h2>
+                <form id='change-name-form' onSubmit={handleSubmit(changeNameHandler)}>
+                    <input type='first_name' id='first_name' name='first_name' placeholder="First" {...register('first_name')} className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}></input>
+                    <div className='invalid-feedback'>{errors.first_name?.message}</div>
+                    <input type='last_name' id='last_name' name='last_name' placeholder="Last" {...register('last_name')} className={`form-control ${errors.last_name ? 'is-invalid' : ''}`}></input>
+                    <div className='invalid-feedback'>{errors.last_name?.message}</div>
+                    <button type='submit' className='submit-btn'>Submit</button> 
+                    <button onClick={() => setChangeNameClick(false)} className='cancel'>Cancel</button> 
+                </form>
             </div>
-            }
-            {!changeNameClick && <button className='edit' onClick={() => changeNameClick ? setChangeNameClick(false) : setChangeNameClick(true)}>Edit</button>}
-            {changeNameClick && 
-            <form id='change-name-form' onSubmit={handleSubmit(changeNameHandler)}>
-                <input type='first_name' id='first_name' name='first_name' placeholder="First" {...register('first_name')} className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}></input>
-                {/* <div className='invalid-feedback'>{errors.first_name?.message}</div> */}
-                <input type='last_name' id='last_name' name='last_name' placeholder="Last" {...register('last_name')} className={`form-control ${errors.last_name ? 'is-invalid' : ''}`}></input>
-                {/* <div className='invalid-feedback'>{errors.last_name?.message}</div> */}
-                <button type='submit' className='submit-btn'>Submit</button> 
-                <button onClick={() => changeNameClick ? setChangeNameClick(false) : setChangeNameClick(true)} className='cancel'>Cancel</button> 
-            </form>
-            }
         </div>
     )
 }
