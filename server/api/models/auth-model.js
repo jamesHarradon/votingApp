@@ -26,7 +26,7 @@ class AuthModel {
 
     async findById(id, role) {
         try {
-            const data = await pool.query(`SELECT * FROM ${role} WHERE id = $1`, [id])
+            const data = await pool.query(`SELECT id, email, first_name, last_name, role FROM ${role} WHERE id = $1`, [id])
             return data.rows?.length ? data.rows[0] : null
         } catch (error) {
             throw new Error(error);
