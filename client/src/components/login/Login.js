@@ -29,17 +29,19 @@ export default function Login() {
     const { register, handleSubmit, formState:{ errors } } = useForm(formOptions);
 
     return (   
-        <div id='login'>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit(handleLogin)}>
-                <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
-                <div className='invalid-feedback'>{errors.email?.message}</div>
-                
-                <input type='password' id='password' name='password' placeholder="Password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`}></input>
-                <div className='invalid-feedback'>{errors.password?.message}</div>
+        <div id='login-container'>
+            <div id='login'>
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit(handleLogin)}>
+                    <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
+                    <div className='invalid-feedback'>{errors.email?.message}</div>
+                    
+                    <input type='password' id='password' name='password' placeholder="Password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`}></input>
+                    <div className='invalid-feedback'>{errors.password?.message}</div>
 
-                <button type='submit' className='login-btn'>Login</button>
-            </form>
+                    <button type='submit' className='login-btn'>Login</button>
+                </form>
+            </div>
         </div>
     )
 }
