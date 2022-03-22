@@ -14,7 +14,7 @@ export default function CandidatePreview({ electionId }) {
     return (
         <div id='candidate-preview'>
             {candidates && candidates.map(candidate => (
-                <p className='candidate-image'>{`${candidate.first_name} ${candidate.last_name}`}</p>
+                <p key={candidate.id} className='candidate-image'>{`${candidate.first_name} ${candidate.last_name}`}</p>
             ))}
         </div>
     )
