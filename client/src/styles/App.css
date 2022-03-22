@@ -21,6 +21,11 @@ button:hover {
   color: white;
 }
 
+.bold {
+  font-weight: 500;
+  
+}
+
 .edit:hover {
   background-color: rgb(64, 173, 50);
 }
@@ -43,13 +48,16 @@ button:hover {
   background-color: rgb(64, 173, 50);
 }
 
+
 .link, button {
+  color: black;
   text-decoration: none;
   background-color: rgb(236, 236, 236);
   cursor: pointer;
   padding: 10px;
   border-radius: 4px;
 }
+
 
 .ballot-card-link {
   text-decoration: none;
@@ -59,13 +67,16 @@ button:hover {
 }
 
 .selected {
-  border: 2px solid grey;
+  background-color: rgb(35, 126, 126) !important;
+  box-shadow: 4px 4px 1px black;
+  color: white !important;
 }
 
 .sidebar-link {
+  color: black;
   text-decoration: none;
   cursor: pointer;
-  background-color: rgb(236, 236, 236);;
+  background-color: rgb(224, 224, 224);
   width: 80%;
   height: 80%;
   margin: 0px auto;
@@ -85,8 +96,8 @@ button:hover {
 }
 
 .sidebar-link:hover {
-  background-color: #888;
-  color: white;
+  border: 3px solid rgb(35, 126, 126);
+  
 }
 
 
@@ -129,35 +140,38 @@ button:hover {
   margin: 2% 0;
 }
 
-
-
 #topbar {
-  border: 1px solid grey;
+  
+  background-color: #eee;
   grid-area: 1 / 2 / 1 / span 6;
   display: grid;
-  grid-template: 1fr / repeat(5, 1fr);
+  grid-template: 1fr / repeat(7, 1fr);
   justify-content: center;
   align-items: center;
 }
 
 #heading {
-  grid-area: 1 / 1 / 1 / span 3;
+  grid-area: 1 / 1 / 1 / span 5;
 }
 
 .topbar-links {
-  grid-area: 1 / 4 / 1 / span 2;
+  grid-area: 1 / 6 / 1 / span 2;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
+
+
 #main {
-  border: 1px solid grey;
+  
   grid-area: 2 / 2 / span 5 / span 5;
 }
 
 #sidebar {
-  border: 1px solid grey;
+  font-weight: bolder;
+  font-size: 1.3em;
+  background-color: #eee;
   grid-area: 1 / 1 / span 6 / 1;
   display: grid;
   grid-template: repeat(5, 1fr) / 1fr;
@@ -267,10 +281,47 @@ button:hover {
 }
 
 #candidates, #election, #voters {
-  height: 80%;
+  height: 85%;
   display: grid;
   grid-template: repeat(6, 1fr) / 1fr;
   justify-content: center;
+}
+
+#results {
+  height: 90%;
+  display: grid;
+  grid-template: repeat(8, 1fr) / 1fr;
+  justify-content: center;
+}
+#results #results-table {
+  grid-area: 4 / 1 / span 4 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#results-head h1 {
+  
+  padding: 0.5em;
+}
+
+#results-head, #results-body {
+  line-height: 1.5em;
+  padding: 0.5em;
+}
+
+.results-flex {
+  width: 70%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#results select {
+  height: fit-content;
+  width: 40%;
+  margin: 0px auto;
 }
 
 .add-form {
@@ -293,6 +344,7 @@ button:hover {
 
 tbody tr {
   font-size: 0.8em;
+  height: 6vh;
 }
 
 th, td {
@@ -309,7 +361,6 @@ tr:hover {
 
 .table{
   
-  height: fit-content;
   border-collapse: collapse;
   
 }
@@ -331,7 +382,7 @@ tr:hover {
   position: relative;
   width: 40%;
   height: fit-content;
-  padding: 2%;
+  padding: 3%;
   border: 4px solid rgb(184, 184, 184);
   border-radius: 10px;
   background-color: white;
@@ -351,6 +402,7 @@ tr:hover {
 
 .invalid-feedback {
   color: red;
+  height: 1.5em;
 }
 
 .add-form-fields {
@@ -429,6 +481,7 @@ tr:hover {
   height: 100%;
   max-width: 90%;
   min-width: 80%;
+  padding: 3%;
   margin: 0px auto;
   display: grid;
   grid-template: repeat(9, 1fr) / 1fr;
@@ -457,13 +510,11 @@ tr:hover {
   
 }
 
-#change-name-form {
-  grid-area: 1 / 2 / 1 / span 2;
-  display: grid;
-  grid-template: 1fr / repeat(4, 1fr);
-  gap: 1%;
-  align-items: center;
-  
+#change-name-form, #change-password-form, #change-email-form {
+  height: 100%;
+  width: 80%;
+  margin: 0px auto;
+  padding: 1em; 
 }
 
 #change-email {
@@ -475,36 +526,12 @@ tr:hover {
   
 }
 
-#change-email-form {
-  grid-area: 1 / 2 / 1 / span 2;
-  display: grid;
-  grid-template: 1fr / repeat(4, 1fr);
-  gap: 1%;
-  justify-content: center;
-  align-items: center;
-  
-}
-
-#change-email-form input {
-  grid-area: 1 / 1 / 1 / span 2;
-}
-
 #change-password {
   grid-area: 3 / 1 / 3 / 1;
   display: grid;
   grid-template: 1fr / repeat(3, 1fr);
   justify-content: center;
   align-items: center;
-}
-
-#change-password-form {
-  height: 100%;
-  width: 60%;
-  margin: 0px auto;
-  padding: 20px;
-  grid-area: 4 / 1 / span 6 / span 3;
-  display: grid;
-  grid-template: repeat(9, 1fr) / 1fr;
 }
 
 #profile input {
