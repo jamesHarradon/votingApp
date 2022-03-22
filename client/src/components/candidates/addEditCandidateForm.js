@@ -18,7 +18,7 @@ export default function AddCandidateForm(props) {
     const handleAddCandidate = async (data) => {
         try {
             await addCandidate(data);
-            props.setAddCandidateClick(false);
+            props.setClick(false);
             props.toast('Candidate added!')
         } catch (error) {
             console.log(error)
