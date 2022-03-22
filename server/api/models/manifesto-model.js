@@ -31,6 +31,17 @@ class ManifestoModel {
         }
     }
 
+    async addManifestoInitial(id) {
+        try {
+            const data = await pool.query('INSERT INTO manifesto (candidate_id, who, what, why) VALUES ($1, $2, $2, $2) RETURNING *', [id, null]);
+            const manifestoId = data.rows[0].id;
+            await pool.query('UPDATE candidate SET manifesto_id = $1 WHERE id = $2', [manifestoId, id])
+            return data.rows?.length ? {success: true} : {success: false}
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
     async amendManifesto(id, body) {
         try {
             let data;
