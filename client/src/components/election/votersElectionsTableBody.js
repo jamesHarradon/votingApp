@@ -7,21 +7,16 @@ import { DateTime } from 'luxon';
 export default function VotersElectionsTableBody() {
 
     const user = useSelector(selectUser);
-    const { data } = useGetElectionQuery(user.election_id);
-
-    let elections;
-    data?.length === 1 ? elections = [data] : elections = data;
+    const { data: election } = useGetElectionQuery(user.election_id);
 
     return (
         <tbody>
-            {elections && elections.map(election => (
             <tr key={election.id}>
                 <td>{election.name}</td>
                 <td>{DateTime.fromISO(election.date_of_election).setLocale('en-gb').toLocaleString()}</td>
                 <td>{election.number_of_candidates}</td>
                 <td>{election.number_of_voters}</td>
-            </tr>
-            ))}
+            </tr> 
         </tbody>
     )
 }
