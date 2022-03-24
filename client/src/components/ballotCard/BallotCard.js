@@ -17,8 +17,8 @@ export default function BallotCard() {
     const user = useSelector(selectUser);
     const hasVoted = user.has_voted;
     
-    const { data: candidates } = useGetCandidatesByElectionQuery(user.election_id);
-    const { data: manifestos, error } = useGetAllManifestosByElectionQuery(user.election_id);
+    const { data: candidates, isLoading: candidatesAreLoading } = useGetCandidatesByElectionQuery(user.election_id);
+    const { data: manifestos, isLoading: manifestosAreLoading } = useGetAllManifestosByElectionQuery(user.election_id);
 
     const [ placeVote ] = usePlaceVoteMutation();
 
@@ -36,6 +36,7 @@ export default function BallotCard() {
     }
 
     return (
+        
         <div id= 'ballot-card'>
             {hasVoted && <VotedCandidate user={user} />}
             {!hasVoted && 
