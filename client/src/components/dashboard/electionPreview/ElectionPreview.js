@@ -15,7 +15,7 @@ export default function ElectionPreview({ electionId, setElectionId }) {
 
     return (
         <div id='election-preview'>
-            <h2>Election: {isAdmin ? <AdminDropDown setElectionId={setElectionId} /> : data && data.name}</h2>    
+            {isAdmin ? <AdminDropDown setElectionId={setElectionId} /> : data && data.name}    
             <h2>Date of Election: {dateFormated}</h2>
         </div>
     )
