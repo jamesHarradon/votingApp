@@ -8,21 +8,25 @@ import { selectUser } from '../../userSlice';
 export default function VotedCandidate() {
 
     const user = useSelector(selectUser)
-    const { data: candidate } = useGetVotedCandidateByVoterQuery(user.id);
+    const { data: candidate, isLoading } = useGetVotedCandidateByVoterQuery(user.id);
     
     
 
     return (
-        <div className='voted-candidate-container'>
-            <div className='ballot-card-candidate'>
-                <p> Your Vote has been placed. You voted for: </p>
-                <h2>{`${candidate && candidate.first_name} ${candidate && candidate.last_name}`}</h2>
-                <p className='ballot-card-candidate-image'>image</p>
-                <p>{candidate && candidate.who}</p>  
-                <p>{candidate && candidate.what}</p> 
-                <p>{candidate && candidate.why}</p> 
-            </div>  
-        </div>
-        
+        <>
+            {isLoading && <p>Loading...</p>}
+            {candidate && 
+            <div className='voted-candidate-container'>
+                <div className='ballot-card-candidate'>
+                    <p> Your Vote has been placed. You voted for: </p>
+                    <h2>{`${candidate.first_name} ${candidate.last_name}`}</h2>
+                    <p className='ballot-card-candidate-image'>image</p>
+                    <p>{candidate.who}</p>  
+                    <p>{candidate.what}</p> 
+                    <p>{candidate.why}</p> 
+                </div>  
+            </div>
+            } 
+        </>
     )
 }
