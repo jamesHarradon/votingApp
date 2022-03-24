@@ -7,14 +7,17 @@ import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
 
 
 
-export default function AdminCandidatesTableBody({ toast, setEditCandidateClick, setEditId }) {
+export default function AdminCandidatesTableBody({ toast, setEditCandidateClick, setEditId, electionFilterId }) {
 
     const [ deleteButtonClick, setDeleteButtonClick ] = useState(false);
     const [ deleteId, setDeleteId ] = useState(null);
 
     const admin = useSelector(selectUser);
-    const { data: candidates } = useGetCandidatesQuery(admin.id);
-    const [ deleteCandidate ] = useDeleteCandidateMutation()
+    const { data } = useGetCandidatesQuery(admin.id);
+    const [ deleteCandidate ] = useDeleteCandidateMutation();
+
+    const candidatesFiltered = electionFilterId ? data.filter(voter => voter.election_id === parseInt(electionFilterId)) : null
+    const candidates = candidatesFiltered || data;
 
     const cancelHandler = () => {
         setDeleteButtonClick(false);

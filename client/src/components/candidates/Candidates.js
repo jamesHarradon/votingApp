@@ -5,6 +5,7 @@ import AddEditCandidateForm from './addEditCandidateForm'
 import { selectUser } from '../../userSlice'
 import AdminCandidatesTableBody from "./adminCandidatesTableBody";
 import VoterCandidatesTableBody from "./voterCandidatesTableBody";
+import AdminDropDown from "../dashboard/adminDropDown/adminDropDown";
 
 
 export default function Candidates() {
@@ -12,6 +13,7 @@ export default function Candidates() {
     const [ addCandidateClick, setAddCandidateClick ] = useState(false);
     const [ editCandidateClick, setEditCandidateClick ] = useState(false);
     const [ editId, setEditId ] = useState(null);
+    const [ electionFilterId, setElectionFilterId ] = useState(null);
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
@@ -23,6 +25,10 @@ export default function Candidates() {
             {isAdmin &&
             <button className='add-btn' onClick={() => addCandidateClick ? setAddCandidateClick(false) : setAddCandidateClick(true)}>Add Candidate</button> 
             }
+            <div className='filter-container'>
+                <AdminDropDown setElectionId={setElectionFilterId} />
+                <button onClick={() => setElectionFilterId(null)}>Show All</button>
+            </div>
             {addCandidateClick && <AddEditCandidateForm setClick={setAddCandidateClick} toast={toast} isAdd={true} />}
             {editCandidateClick && <AddEditCandidateForm setClick={setEditCandidateClick} toast={toast} isAdd={false} editId={editId} />}
             <div className='table-fixed-head'>
@@ -39,7 +45,7 @@ export default function Candidates() {
                         </tr>
                     </thead>
                     {isAdmin ? 
-                    <AdminCandidatesTableBody toast={toast} setEditCandidateClick={setEditCandidateClick} setEditId={setEditId} />
+                    <AdminCandidatesTableBody toast={toast} setEditCandidateClick={setEditCandidateClick} setEditId={setEditId} electionFilterId={electionFilterId} />
                     :
                     <VoterCandidatesTableBody />
                     } 

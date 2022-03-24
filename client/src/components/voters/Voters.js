@@ -5,12 +5,16 @@ import { selectUser } from '../../userSlice'
 import AddEditVoterForm from "./addEditVoterForm";
 import AdminVotersTableBody from "./adminVotersTableBody";
 import CandidatesVotersTableBody from "./candidatesVotersTableBody";
+import AdminDropDown from "../dashboard/adminDropDown/adminDropDown";
 
 export default function Voters() {
 
     const [ addVoterClick, setAddVoterClick ] = useState(false);
     const [ editVoterClick, setEditVoterClick ] = useState(false);
     const [ editId, setEditId ] = useState(null);
+    const [ electionFilterId, setElectionFilterId ] = useState(null);
+
+ 
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
@@ -20,6 +24,11 @@ export default function Voters() {
             {isAdmin &&
             <button className='add-btn' onClick={() => addVoterClick ? setAddVoterClick(false) : setAddVoterClick(true)}>Add Voter</button> 
             }
+            <div className='filter-container'>
+                <AdminDropDown setElectionId={setElectionFilterId} />
+                <button onClick={() => setElectionFilterId(null)}>Show All</button>
+            </div>
+            
             {addVoterClick && <AddEditVoterForm setClick={setAddVoterClick} toast={toast} isAdd={true} />}
             {editVoterClick && <AddEditVoterForm setClick={setEditVoterClick} toast={toast} isAdd={false} editId={editId} />}
             <div className='table-fixed-head'>
@@ -34,7 +43,7 @@ export default function Voters() {
                         </tr>
                     </thead>
                     {isAdmin ? 
-                    <AdminVotersTableBody toast={toast} setEditVoterClick={setEditVoterClick} setEditId={setEditId} /> 
+                    <AdminVotersTableBody toast={toast} setEditVoterClick={setEditVoterClick} setEditId={setEditId} electionFilterId={electionFilterId} /> 
                     :
                     <CandidatesVotersTableBody /> }
                 </table>
