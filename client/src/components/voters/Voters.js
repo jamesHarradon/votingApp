@@ -16,16 +16,19 @@ export default function Voters() {
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
+    const isAdminOrVoter = user.role === 'voter';
 
     return (
         <div id='voters'>
             {isAdmin &&
             <button className='add-btn' onClick={() => addVoterClick ? setAddVoterClick(false) : setAddVoterClick(true)}>Add Voter</button> 
             }
+            {isAdminOrVoter &&
             <div className='filter-container'>
-                <AdminDropDown setElectionId={setElectionFilterId} />
-                <button onClick={() => setElectionFilterId(null)}>Show All</button>
+            <AdminDropDown setElectionId={setElectionFilterId} />
+            <button onClick={() => setElectionFilterId(null)}>Show All</button>
             </div>
+            }
             
             {addVoterClick && <AddEditVoterForm setClick={setAddVoterClick} toast={toast} isAdd={true} />}
             {editVoterClick && <AddEditVoterForm setClick={setEditVoterClick} toast={toast} isAdd={false} editId={editId} />}
