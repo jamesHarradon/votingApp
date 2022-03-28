@@ -227,9 +227,18 @@ button:hover {
 
 #ballot-card {
   height: 100%;
+  display: grid;
+  grid-template: repeat(10, 1fr) / 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#ballot-card #election-select {
+  grid-area: 1 / 1 / 1 / 1;
 }
 
 #ballot-card-form-grid {
+  grid-area: 2 / 1 / span 9 / 1;
   height: 100%;
   display: grid;
   grid-template: repeat(8, 1fr) / 1fr;
@@ -242,13 +251,13 @@ button:hover {
   height: 100%;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 26%;
+  grid-auto-columns: 21%;
   gap: 2%;
   overflow-x: scroll;
   padding: 0 2%;
 }
 
-.ballot-card-candidate {
+.ballot-card-candidate, .voted-candidate {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -265,17 +274,26 @@ button:hover {
 .ballot-card-candidate-image {
   border: 1px solid grey;
   height: 30%;
-  width: 80%;
+  width: 70%;
+}
+
+.ballot-card-who {
+  font-size: 0.7em;
 }
 
 .voted-candidate-container {
+  grid-area: 2 / 1 / span 8 / 1;
   height: 100%;
   width: 60%;
   margin: 0px auto;
 }
 
-.voted-candidate-container .ballot-card-candidate-image {
-  width: 30%;
+.voted-candidate-image {
+  border: 1px solid grey;
+  height: 20vh;
+  width: 10vw;
+  margin: 2%;
+  
 }
 
 #candidates, #election, #voters {
@@ -416,7 +434,8 @@ tr:hover {
 
 .invalid-feedback {
   color: red;
-  height: 1.5em;
+  min-height: 1.5em;
+  height: fit-content;
 }
 
 .add-form-fields {
