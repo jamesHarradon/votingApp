@@ -72,6 +72,10 @@ const voterApi = voterApiWithTag.injectEndpoints({
                 }
             },
             invalidatesTags: ['Voter', 'Result', 'User']
+        }),
+        getHasVoted: build.query({
+            query: (data) => `voter/has_voted/${data.voterId}/${data.electionId}`,
+            providesTags: ['Voter']
         })
   }),
   overrideExisting: false,
@@ -83,5 +87,6 @@ export const {
     useAddVoterMutation, 
     useAmendVoterMutation, 
     useDeleteVoterMutation, 
-    usePlaceVoteMutation 
+    usePlaceVoteMutation,
+    useGetHasVotedQuery
 } = voterApi
