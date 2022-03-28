@@ -43,7 +43,7 @@ export default function ChangePasswordForm({ setChangePasswordClick, toast }) {
         .required('Password is required')
         .min(7, 'Password length at least 7 characters')
         .max(20, 'Password length no more than 20 characters')
-        .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, 'Password must have at least one lower case letter, one uppercase letter and one number'),
+        .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, 'Passwords require an upper and lower case letter and a number'),
         confirm_new_password: Yup.string()
         .required('Confirm password is required')
         .oneOf([Yup.ref('new_password')], 'Passwords must match'),
