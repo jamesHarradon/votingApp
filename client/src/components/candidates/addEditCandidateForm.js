@@ -91,8 +91,8 @@ export default function AddCandidateForm(props) {
                         </select>
                         <div className='invalid-feedback'>{errors.position?.message}</div>
 
-                        <select id='election_id' name='election_id' onChange={(e) => setValue('election_id', e.target.value, { shouldValidate: true })} {...register('election_id')} className={`form-control ${errors.election_id ? 'is-invalid' : ''}`}>
-                                <option  value={0} selected disabled hidden>Select Election</option>
+                        <select id='election_id' name='election_id' defaultValue={0} onChange={(e) => setValue('election_id', e.target.value, { shouldValidate: true })} {...register('election_id')} className={`form-control ${errors.election_id ? 'is-invalid' : ''}`}>
+                                <option  value={0} disabled hidden>Select Election</option>
                             {elections && elections.map(election => (
                                 <option key={election.id} value={election.id}>{election.name}</option>
                             ))}  
