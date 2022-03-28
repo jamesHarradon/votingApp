@@ -2,6 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { loginUser } from "../../userSlice";
@@ -11,14 +12,14 @@ import { loginUser } from "../../userSlice";
 export default function Login() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogin = async (data) => {
         try {
-            dispatch(loginUser(data)) 
+            dispatch(loginUser(data)).then(() => navigate('/'));
         } catch (error) {
-            toast(error);
+            console.log(error);
         }
-        
     }
 
     const formSchema = Yup.object().shape({
