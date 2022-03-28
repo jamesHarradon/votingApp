@@ -11,7 +11,8 @@ export default function Results() {
 
     const user = useSelector(selectUser);
     const isAdminOrVoter = user.role === 'admin' || user.role === 'voter';
-    const id = electionId || user.election_ids[0];
+    const defaultElection = user.role === 'candidate' ? user.election_id : user.election_ids[0]
+    const id = electionId || defaultElection
     const { data, isLoading } = useGetResultsByElectionQuery(id);
     const dateFormated = data && DateTime.fromISO(data.election.date_of_election).setLocale('en-gb').toLocaleString();
     

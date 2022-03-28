@@ -7,7 +7,8 @@ import { selectUser } from "../../../userSlice";
 export default function Summaries({ electionId }) {
 
     const user = useSelector(selectUser);
-    const id = electionId || user.election_ids[0]
+    const defaultElection = user.role === 'candidate' ? user.election_id : user.election_ids[0]
+    const id = electionId || defaultElection
     const { data: election } = useGetElectionQuery(id);
     const { data: voters } = useGetVotersByElectionQuery(id);
     const voted = voters && voters.filter(voter => voter.has_voted).length;
