@@ -7,7 +7,7 @@ import { useGetCandidatesByElectionQuery } from "../../../services/candidate";
 export default function CandidatePreview({ electionId }) {
 
     const user = useSelector(selectUser);
-    const id = electionId || user.election_id
+    const id = electionId || user.election_ids[0]
     const { data: candidates } = useGetCandidatesByElectionQuery(id)
     
     //change below to images

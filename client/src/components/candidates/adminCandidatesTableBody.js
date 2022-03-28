@@ -13,10 +13,10 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
     const [ deleteId, setDeleteId ] = useState(null);
 
     const admin = useSelector(selectUser);
-    const { data } = useGetCandidatesQuery(admin.id);
+    const { data } = useGetCandidatesQuery({id: admin.id, role: admin.role});
     const [ deleteCandidate ] = useDeleteCandidateMutation();
-
-    const candidatesFiltered = electionFilterId ? data.filter(voter => voter.election_id === parseInt(electionFilterId)) : null
+    
+    const candidatesFiltered = electionFilterId ? data.filter(candidate => candidate.election_id === parseInt(electionFilterId)) : null
     const candidates = candidatesFiltered || data;
 
     const cancelHandler = () => {

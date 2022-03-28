@@ -5,14 +5,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { selectUser } from "../../userSlice";
-import { useGetElectionsQuery } from "../../services/election";
+import { useGetAllElectionsQuery } from "../../services/election";
 import { useAddVoterMutation, useAmendVoterMutation } from "../../services/voter";
 
 export default function AddEditVoterForm(props) {
 
     const admin = useSelector(selectUser);
 
-    const { data: elections } = useGetElectionsQuery(admin.id);
+    const { data: elections } = useGetAllElectionsQuery({ id: admin.id, role: admin.role });
     const [ addVoter ] = useAddVoterMutation();
     const [ amendVoter ] = useAmendVoterMutation()
 
@@ -80,8 +80,8 @@ export default function AddEditVoterForm(props) {
                     <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
                     <div className='invalid-feedback'>{errors.email?.message}</div>
                     
-                    <select id='election_id' name='election_id' placeholder="Election" onChange={(e) => setValue('election_id', e.target.value, { shouldValidate: true })} {...register('election_id')} className={`form-control ${errors.name ? 'is-invalid' : ''}`}>
-                        <option  value={0} selected disabled hidden>Select Election</option>
+                    <select id='election_id' name='election_id' defaultValue={0} onChange={(e) => setValue('election_id', e.target.value, { shouldValidate: true })} {...register('election_id')} className={`form-control ${errors.name ? 'is-invalid' : ''}`}>
+                        <option  value={0} disabled hidden>Select Election</option>
                         {elections && elections.map(election => (
                             <option key={election.id} value={election.id}>{election.name}</option>
                         ))}  

@@ -5,20 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetCandidatesByElectionQuery } from "../../services/candidate";
 import { useGetAllManifestosByElectionQuery } from "../../services/manifesto";
 import { getUserById, selectUser } from "../../userSlice";
-import { usePlaceVoteMutation } from "../../services/voter";
+import { useGetHasVotedQuery, usePlaceVoteMutation } from "../../services/voter";
 import VotedCandidate from "./VotedCandidate";
+import AdminDropDown from '../dashboard/adminDropDown/adminDropDown'
 
 export default function BallotCard() {
 
     const [ radioCandidate, setRadioCandidate ] = useState(null);
-
-    const dispatch = useDispatch();
+    const [ electionId, setElectionId ] = useState(null);
 
     const user = useSelector(selectUser);
-    const hasVoted = user.has_voted;
-    
-    const { data: candidates, isLoading: candidatesAreLoading } = useGetCandidatesByElectionQuery(user.election_id);
-    const { data: manifestos, isLoading: manifestosAreLoading } = useGetAllManifestosByElectionQuery(user.election_id);
+    const id = electionId || user.election_ids[0];
+    const { data: hasVoted } = useGetHasVotedQuery({voterId: user.id, electionId: id});
+
+    const { data: candidates, isLoading: candidatesAreLoading } = useGetCandidatesByElectionQuery(id);
+    const { data: manifestos, isLoading: manifestosAreLoading } = useGetAllManifestosByElectionQuery(id);
 
     const [ placeVote ] = usePlaceVoteMutation();
 
@@ -29,7 +30,6 @@ export default function BallotCard() {
             await placeVote(obj);
             setRadioCandidate(null);
             toast('Vote Placed!');
-            setTimeout(() => dispatch(getUserById({id: voterId, role: 'voter'})), 3000)
         } catch (error) {
             console.log(error);
         }  
@@ -38,17 +38,18 @@ export default function BallotCard() {
     return (
         
         <div id= 'ballot-card'>
+            <AdminDropDown setElectionId={setElectionId} />
             {hasVoted && <VotedCandidate user={user} />}
             {!hasVoted && 
                 <form id='ballot-card-form-grid' onSubmit={(e) => placeVoteHandler(e, user.id, radioCandidate)} onChange={(e) => setRadioCandidate(e.target.value)}>
                 <div id='ballot-card-inner-grid'>
                         {candidates && candidates.map(candidate => (   
-                            <div className='ballot-card-candidate' to={`/manifesto/${candidate.id}/${candidate.election_id}`} key={candidate.id}>
+                            <div className='ballot-card-candidate' key={candidate.id}>
                                 <Link className='ballot-card-link' to={`/manifesto/${candidate.id}/${candidate.election_id}`} key={candidate.id}>
                                     <label htmlFor={candidate.id}>{`${candidate.first_name} ${candidate.last_name}`}</label>
                                 </Link>
                                 <p className='ballot-card-candidate-image'>image</p>
-                                <p>{manifestos && manifestos.map(manifesto => manifesto.candidate_id === candidate.id && manifesto.who)}</p>
+                                <p className='ballot-card-who'>{manifestos && manifestos.map(manifesto => manifesto.candidate_id === candidate.id && manifesto.who)}</p>
                                 <input type='radio' id={candidate.id} name={candidate.election_id} value={candidate.id}></input>  
                             </div>    
                         ))}

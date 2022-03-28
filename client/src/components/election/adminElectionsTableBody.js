@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useGetElectionsQuery, useDeleteElectionMutation } from "../../services/election";
+import { useGetAllElectionsQuery, useDeleteElectionMutation } from "../../services/election";
 import { selectUser } from "../../userSlice";
 import { DateTime } from 'luxon';
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
@@ -10,11 +10,8 @@ export default function AdminElectionsTableBody({ toast, setEditElectionClick, s
     const [ deleteButtonClick, setDeleteButtonClick ] = useState(false);
     const [ deleteId, setDeleteId ] = useState(null);
 
-    const admin = useSelector(selectUser);
-    const { data } = useGetElectionsQuery(admin.id);
-
-    let elections;
-    data?.length === 1 ? elections = [data] : elections = data;
+    const user = useSelector(selectUser);
+    const { data: elections } = useGetAllElectionsQuery({id: user.id, role: user.role});
 
     const [ deleteElection ] = useDeleteElectionMutation()
 
@@ -40,7 +37,7 @@ export default function AdminElectionsTableBody({ toast, setEditElectionClick, s
     
     return ( 
         <>
-            {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='voter' deleteId={deleteId}/>}
+            {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='election' deleteId={deleteId}/>}
             <tbody>
                 {elections && elections.map(election => (
                 <tr key={election.id}>

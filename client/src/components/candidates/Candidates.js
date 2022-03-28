@@ -18,8 +18,6 @@ export default function Candidates() {
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
 
-
-
     return (
         <div id='candidates'>
             {isAdmin &&
@@ -47,7 +45,7 @@ export default function Candidates() {
                     {isAdmin ? 
                     <AdminCandidatesTableBody toast={toast} setEditCandidateClick={setEditCandidateClick} setEditId={setEditId} electionFilterId={electionFilterId} />
                     :
-                    <VoterCandidatesTableBody />
+                    <VoterCandidatesTableBody electionFilterId={electionFilterId} />
                     } 
                 </table>
             </div>

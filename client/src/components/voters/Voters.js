@@ -14,8 +14,6 @@ export default function Voters() {
     const [ editId, setEditId ] = useState(null);
     const [ electionFilterId, setElectionFilterId ] = useState(null);
 
- 
-
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
 

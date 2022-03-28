@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useGetElectionsQuery } from "../../../services/election";
+import { useGetAllElectionsQuery } from "../../../services/election";
 import { selectUser } from "../../../userSlice";
 
 export default function AdminDropDown({ setElectionId }) {
 
-    const admin = useSelector(selectUser);
-    const { data: elections } = useGetElectionsQuery(admin.id);
+    const user = useSelector(selectUser);
+    const { data: elections } = useGetAllElectionsQuery({id: user.id, role: user.role});
 
     return (
         <div id='election-select'>
@@ -14,7 +14,7 @@ export default function AdminDropDown({ setElectionId }) {
             <select id='election-select' name='election' onChange={(e) => {setElectionId(e.target.value)}}>
                 {elections && elections.map(election => (
                     <option key={election.id} id={election.id} value={election.id}>{election.name}</option>
-                ))}     
+                ))}
             </select>
         </div>
     )

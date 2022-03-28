@@ -8,14 +8,14 @@ import AdminDropDown from "../adminDropDown/adminDropDown";
 export default function ElectionPreview({ electionId, setElectionId }) {
 
     const user = useSelector(selectUser);
-    const isAdmin = user.role === 'admin';
-    const id = electionId || user.election_id
+    const isAdminOrVoter = user.role === 'admin' || user.role === 'voter';
+    const id = electionId || user.election_ids[0]
     const { data } = useGetElectionQuery(id)
     const dateFormated = data && DateTime.fromISO(data.date_of_election).setLocale('en-gb').toLocaleString();
 
     return (
         <div id='election-preview'>
-            {isAdmin ? <AdminDropDown setElectionId={setElectionId} /> : data && data.name}    
+            {isAdminOrVoter ? <AdminDropDown setElectionId={setElectionId} /> : data && data.name}    
             <h2>Date of Election: {dateFormated}</h2>
         </div>
     )

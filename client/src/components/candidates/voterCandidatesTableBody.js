@@ -1,13 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useGetCandidatesByElectionQuery } from "../../services/candidate";
+import { useGetCandidatesQuery } from "../../services/candidate";
 import { selectUser } from "../../userSlice";
 import { Link } from 'react-router-dom'
 
-export default function VoterCandidatesTableBody() {
+export default function VoterCandidatesTableBody({ electionFilterId }) {
 
     const user = useSelector(selectUser);
-    const { data: candidates } = useGetCandidatesByElectionQuery(user.election_id)
+    const { data } = useGetCandidatesQuery({id: user.id, role: user.role});
+   
+    const candidatesFiltered = electionFilterId ? data.filter(candidate => candidate.election_id === parseInt(electionFilterId)) : null
+    const candidates = candidatesFiltered || data;
 
     return (
         <tbody>

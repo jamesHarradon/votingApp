@@ -4,14 +4,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useAddCandidateMutation, useAmendCandidateMutation } from "../../services/candidate";
-import { useGetElectionsQuery } from '../../services/election';
+import { useGetAllElectionsQuery } from '../../services/election';
 import { selectUser } from "../../userSlice";
 import { useSelector } from "react-redux";
 
 export default function AddCandidateForm(props) {
 
     const admin = useSelector(selectUser);
-    const { data: elections } = useGetElectionsQuery(admin.id);
+    const { data: elections } = useGetAllElectionsQuery({ id: admin.id, role: admin.role });
     const [ addCandidate ] = useAddCandidateMutation()
     const [ amendCandidate ] = useAmendCandidateMutation();
 
