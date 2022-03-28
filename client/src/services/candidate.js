@@ -11,7 +11,7 @@ const candidateApiWithTag = emptySplitApi.enhanceEndpoints({addTagTypes: ['Candi
 const candidateApi = candidateApiWithTag.injectEndpoints({
     endpoints: (build) => ({
         getCandidates: build.query({
-            query: (id) => `candidate/admin/${id}`,
+            query: (data) => `candidate/all/${data.id}/${data.role}`,
             providesTags: ['Candidate']
         }),
         getCandidatesByElection: build.query({

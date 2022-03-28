@@ -10,13 +10,13 @@ const electionApiWithTag = emptySplitApi.enhanceEndpoints({addTagTypes: ['Electi
 
 const electionApi = electionApiWithTag.injectEndpoints({
     endpoints: (build) => ({
-        getElections: build.query({
-            query: (id) => `election/admin/${id}`,
+        getAllElections: build.query({
+            query: (data) => `election/all/${data.id}/${data.role}`,
             providesTags: ['Election']         
         }),
         getElection: build.query({
             query: (id) => `election/${id}`,
-            providesTags: ['Election']
+            providesTags: ['Election']         
         }),
         addElection: build.mutation({
             query(data) {
@@ -65,8 +65,8 @@ const electionApi = electionApiWithTag.injectEndpoints({
 })
 
 export const { 
-    useGetElectionsQuery, 
-    useGetElectionQuery, 
+    useGetAllElectionsQuery, 
+    useGetElectionQuery,
     useAddElectionMutation, 
     useAmendElectionMutation, 
     useDeleteElectionMutation, 
