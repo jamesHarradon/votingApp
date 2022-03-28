@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
                 throw new Error(errorMsg);
             }       
         } catch (err) {
-            console.log(err);
+            alert(err);
         } 
     }
 )
