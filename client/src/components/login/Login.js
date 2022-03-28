@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +13,12 @@ export default function Login() {
     const dispatch = useDispatch();
 
     const handleLogin = async (data) => {
-        dispatch(loginUser(data))
+        try {
+            dispatch(loginUser(data)) 
+        } catch (error) {
+            toast(error);
+        }
+        
     }
 
     const formSchema = Yup.object().shape({
@@ -42,6 +48,10 @@ export default function Login() {
                     <button type='submit' className='login-btn'>Login</button>
                 </form>
             </div>
+            <ToastContainer 
+                hideProgressBar={true}
+                autoClose={3000}
+            />
         </div>
     )
 }
