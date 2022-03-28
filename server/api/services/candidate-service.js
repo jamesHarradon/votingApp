@@ -6,9 +6,15 @@ const ManifestoModelInstance = new ManifestoModel;
 
 class CandidateService {
 
-    async getAllCandidatesAdmin(id) {
+    async getAllCandidates(id, role) {
+        let data;
         try {
-            const data = await CandidateModelInstance.getAllCandidatesAdmin(id);
+            if(role === 'admin') {
+                data = await CandidateModelInstance.getAllCandidatesAdmin(id);
+            }
+            if(role === 'voter') {
+                data = await CandidateModelInstance.getAllCandidatesVoter(id);
+            }
             return data;
         } catch (error) {
             throw(error)

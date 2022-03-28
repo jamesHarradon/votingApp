@@ -11,10 +11,28 @@ class ElectionModel {
         }
     }
 
-    async getElectionById(id) {
+    async getAllElectionIdsAdmin(id) {
         try {
-            const data = await pool.query('SELECT * FROM election WHERE id = $1', [id]);
-            return data.rows?.length ? data.rows[0] : null
+            const data = await pool.query('SELECT id FROM election WHERE id IN (SELECT election_id FROM admin_elections WHERE admin_id = $1)',[id]);
+            return data.rows?.length ? data.rows : null;
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async getAllElectionsVoter(id) {
+        try {
+            const data = await pool.query('SELECT * FROM election WHERE id IN (SELECT election_id FROM election_voters WHERE voter_id = $1)', [id]);
+            return data.rows?.length ? data.rows : null
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async getAllElectionIdsVoter(id) {
+        try {
+            const data = await pool.query('SELECT id FROM election WHERE id IN (SELECT election_id FROM election_voters WHERE voter_id = $1)',[id]);
+            return data.rows?.length ? data.rows : null;
         } catch (error) {
             throw new Error(error)
         }
@@ -26,6 +44,15 @@ class ElectionModel {
             return data.rows?.length ? data.rows[0].election_id : null
         } catch (error) {
             throw new Error(error)
+        }
+    }
+
+    async getElectionById(id) {
+        try {
+            const data = await pool.query('SELECT * FROM election WHERE id = $1', [id]);
+            return data.rows?.length ? data.rows[0] : null;
+        } catch (error) {
+            throw new Error(error);
         }
     }
 

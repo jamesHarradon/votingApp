@@ -41,7 +41,8 @@ voterRouter.get('/:voterId', passport.authenticate('jwt-voter', { session: false
 voterRouter.post('/add', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
         const response = await VoterServiceInstance.addVoter(req.body);
-        const emailData = await VoterServiceInstance.getVoterById(response.id);
+        const emailData = await VoterServiceInstance.getVoterData(response.id, req.body.election_id);
+        console.log(emailData);
         if (response && emailData) sendInitialMail(emailData);
         res.json(response);
     } catch (error) {
@@ -64,6 +65,16 @@ voterRouter.post('/vote/:voterId/:candidateId', passport.authenticate('jwt-voter
     try {
         const response = await VoterServiceInstance.placeVote(req.params.voterId, req.params.candidateId);
         if (response.success) sendVoteConfirmationMail(response.data);
+        res.json(response);
+    } catch (error) {
+        next(error)
+    }
+})
+
+// check if voter has voted
+voterRouter.get('/has_voted/:voterId/:electionId', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
+    try {
+        const response = await VoterServiceInstance.getHasVoted(req.params.voterId, req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error)

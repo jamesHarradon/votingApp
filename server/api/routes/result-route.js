@@ -18,10 +18,10 @@ resultRouter.get('/admin/:id', passport.authenticate('jwt-admin', { session: fal
 })
 
 
-//get voted for candidate by voter id
-resultRouter.get('/voter/:id', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
+//get voted for candidate by voter id and election id
+resultRouter.get('/voter/:voterId/:electionId', passport.authenticate('jwt-voter', { session: false }), async (req, res, next) => {
     try {
-        const response = await ResultServiceInstance.getVotedCandidateByVoter(req.params.id);
+        const response = await ResultServiceInstance.getVotedCandidateByVoter(req.params.voterId, req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error)

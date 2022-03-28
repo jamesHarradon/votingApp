@@ -25,9 +25,9 @@ class VoterService {
         }
     }
 
-    async getVoterById(id) {
+    async getVoterData(voterId, electionId) {
         try {
-            const data = await VoterModelInstance.getVoterById(id);
+            const data = await VoterModelInstance.getVoterData(voterId, electionId);
             return data;
         } catch (error) {
             throw(error)
@@ -48,14 +48,20 @@ class VoterService {
     async placeVote(voterId, candidateId) {
         try {
             const electionIdCandidate = await ElectionModelInstance.getElectionIdByCandidateId(candidateId);
-            const electionIdVoter = await VoterModelInstance.getElectionIdByVoterId(voterId);
-            if(electionIdCandidate !== electionIdVoter) throw new Error('Selected candidate not in election voter has registered for')
-            const hasVoted = await VoterModelInstance.getHasVoted(voterId);
+            const hasVoted = await VoterModelInstance.getHasVoted(voterId, electionIdCandidate);
             if(hasVoted) throw new Error('Voter has already voted in this election!')
-            const placeVoteSuccess = await VoterModelInstance.addToVotersCandidates(voterId, candidateId);
-            const setHasVotedSuccess = await VoterModelInstance.setHasVoted(voterId);
-            const data = await VoterModelInstance.getVoterById(voterId);
-            return placeVoteSuccess.success && setHasVotedSuccess.success ? {success: true, data: data} : {success: false}
+            const placeVoteSuccess = await VoterModelInstance.setHasVoted(voterId, candidateId, electionIdCandidate);
+            const emailData = await VoterModelInstance.getVoterData(voterId, electionIdCandidate);
+            return placeVoteSuccess.success ? {success: true, data: emailData} : {success: false}
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getHasVoted(voterId, electionId) {
+        try {
+            const data = VoterModelInstance.getHasVoted(voterId, electionId);
+            return data;
         } catch (error) {
             throw(error)
         }

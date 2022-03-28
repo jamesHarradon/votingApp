@@ -7,10 +7,10 @@ const ElectionServiceInstance = new ElectionService;
 const electionRouter = express.Router();
 
 
-//get all elections for admin (admin may have more than one election)
-electionRouter.get('/admin/:id', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
+//get all elections (admin and voters may have more than one election)
+electionRouter.get('/all/:id/:role', passport.authenticate('jwt-all-users', { session: false }), async (req, res, next) => {
     try {
-        const response = await ElectionServiceInstance.getAllElectionsAdmin(req.params.id);
+        const response = await ElectionServiceInstance.getAllElections(req.params.id, req.params.role);
         res.json(response);
     } catch (error) {
         next(error)

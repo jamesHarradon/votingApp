@@ -17,13 +17,15 @@ authRouter.post('/login', (req, res, next) => {
             id: user.id,
             email: user.email,
             role: user.role,
-            election_id: user.election_id || null
         }
+
+        const election = user.role === 'candidate' ? { election_id: user.election_id } : { election_ids: user.election_ids } ;
+
         const options = {
             subject: `${user.id}`,
             expiresIn: 3600
         }
-        const token = jwt.sign(payload, process.env.JWT_SECRET, options);
+        const token = jwt.sign({...payload, ...election}, process.env.JWT_SECRET, options);
 
         res.cookie('jwt-votingApp', token, {
             httpOnly: true,

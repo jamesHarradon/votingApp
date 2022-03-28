@@ -12,6 +12,15 @@ class CandidateModel {
         }
     }
 
+    async getAllCandidatesVoter(id) {
+        try {
+            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, position, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id IN (SELECT election_id FROM election_voters WHERE voter_id = $1);', [id]);
+            return data.rows?.length ? data.rows : null;
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
     async getAllCandidatesByElectionId(id) {
         try {
             const data = await pool.query('SELECT candidate.id, email, first_name, last_name, position, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id = $1', [id]);

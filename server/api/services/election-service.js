@@ -4,10 +4,35 @@ const ElectionModelInstance = new ElectionModel;
 
 class ElectionService {
 
-    async getAllElectionsAdmin(id) {
+    async getAllElections(id, role) {
+        let data;
         try {
-            const data = await ElectionModelInstance.getAllElectionsAdmin(id);
+            if (role === 'admin') {
+                data = await ElectionModelInstance.getAllElectionsAdmin(id);
+            }
+            if (role === 'voter') {
+                data = await ElectionModelInstance.getAllElectionsVoter(id);
+            }
             return data;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    async getAllElectionIds(id, role) {
+        let data;
+        try {
+            if (role === 'admin') {
+                data = await ElectionModelInstance.getAllElectionIdsAdmin(id);
+                if(!data) return null;
+            }
+            if (role === 'voter') {
+                data = await ElectionModelInstance.getAllElectionIdsVoter(id);
+                if(!data) return null;
+            }
+            let election_ids = []
+            data.forEach(row => election_ids.push(row.id));
+            return election_ids;
         } catch (error) {
             throw(error)
         }
@@ -22,6 +47,7 @@ class ElectionService {
         }
     }
 
+    
     async addElection(adminId, body) {
         try {
             const addSuccess = await ElectionModelInstance.addElection(body);

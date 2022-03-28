@@ -23,9 +23,9 @@ class ResultService {
         }
     }
 
-    async getVotedCandidateByVoter(id) {
+    async getVotedCandidateByVoter(id, electionId) {
         try {
-           const data = await ResultModelInstance.getVotedCandidateByVoter(id);
+           const data = await ResultModelInstance.getVotedCandidateByVoter(id, electionId);
            return data;
         } catch (error) {
             throw(error)
