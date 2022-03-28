@@ -16,7 +16,7 @@ const resultApi = resultApiWithTag.injectEndpoints({
             providesTags: ['Result']
         }),
         getVotedCandidateByVoter: build.query({
-            query: (id) => `result/voter/${id}`,
+            query: (data) => `result/voter/${data.id}/${data.electionId}`,
             providesTags: ['Result']
         })
   }),
