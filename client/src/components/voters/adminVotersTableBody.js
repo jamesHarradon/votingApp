@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useDeleteVoterMutation, useGetVotersQuery } from "../../services/voter";
+import { useDeleteVoterMutation, useGetVotersByElectionQuery, useGetVotersQuery } from "../../services/voter";
 import { selectUser } from "../../userSlice";
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
 
-export default function AdminVotersTableBody({ toast, setEditVoterClick, setEditId, electionFilterId }) {
+export default function AdminVotersTableBody({ toast, setEditVoterClick, setEditId, electionFilterId, showAll, setShowAll }) {
 
     const [ deleteButtonClick, setDeleteButtonClick ] = useState(false);
     const [ deleteId, setDeleteId ] = useState(null);
     
     const admin = useSelector(selectUser);
-    const { data } = useGetVotersQuery(admin.id);
+    const id = electionFilterId || admin.election_ids[0];
+    const { data: allVoters } = useGetVotersQuery(admin.id);
+    const { data: votersByElection } = useGetVotersByElectionQuery(id);
+
+    const voters = showAll ? allVoters : votersByElection;
+
+    const firstRender = useRef(true);
+    
+    useEffect(() => {
+        //doesnt run on first render
+        if(firstRender.current) {
+            firstRender.current = false;
+            return;
+        }
+        setShowAll(false)
+    }, [electionFilterId, setShowAll])
+
     const [ deleteVoter ] = useDeleteVoterMutation();
 
-    const votersFiltered = electionFilterId ? data.filter(voter => voter.election_id === parseInt(electionFilterId)) : null
-    const voters = votersFiltered || data;
 
     const cancelHandler = () => {
         setDeleteButtonClick(false);

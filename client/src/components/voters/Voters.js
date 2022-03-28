@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux'
-import { selectUser } from '../../userSlice'
+import { selectUser } from '../../userSlice';
 import AddEditVoterForm from "./addEditVoterForm";
 import AdminVotersTableBody from "./adminVotersTableBody";
 import CandidatesVotersTableBody from "./candidatesVotersTableBody";
@@ -13,10 +13,13 @@ export default function Voters() {
     const [ editVoterClick, setEditVoterClick ] = useState(false);
     const [ editId, setEditId ] = useState(null);
     const [ electionFilterId, setElectionFilterId ] = useState(null);
+    const [ showAll, setShowAll ] = useState(true);
+
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
-    const isAdminOrVoter = user.role === 'voter';
+    const isAdminOrVoter = user.role === 'voter' || user.role === 'admin';
+
 
     return (
         <div id='voters'>
@@ -25,8 +28,8 @@ export default function Voters() {
             }
             {isAdminOrVoter &&
             <div className='filter-container'>
-            <AdminDropDown setElectionId={setElectionFilterId} />
-            <button onClick={() => setElectionFilterId(null)}>Show All</button>
+            <AdminDropDown setElectionId={setElectionFilterId} setShowAll={setShowAll} />
+            <button onClick={() => setShowAll(true)}>Show All</button>
             </div>
             }
             
@@ -44,7 +47,7 @@ export default function Voters() {
                         </tr>
                     </thead>
                     {isAdmin ? 
-                    <AdminVotersTableBody toast={toast} setEditVoterClick={setEditVoterClick} setEditId={setEditId} electionFilterId={electionFilterId} /> 
+                    <AdminVotersTableBody toast={toast} setEditVoterClick={setEditVoterClick} setEditId={setEditId} electionFilterId={electionFilterId} showAll={showAll} setShowAll={setShowAll}/> 
                     :
                     <CandidatesVotersTableBody /> }
                 </table>
