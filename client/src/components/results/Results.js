@@ -10,8 +10,8 @@ export default function Results() {
     const [ electionId, setElectionId ] = useState(null);
 
     const user = useSelector(selectUser);
-    const isAdmin = user.role === 'admin';
-    const id = electionId || user.election_id
+    const isAdminOrVoter = user.role === 'admin' || user.role === 'voter';
+    const id = electionId || user.election_ids[0];
     const { data, isLoading } = useGetResultsByElectionQuery(id);
     const dateFormated = data && DateTime.fromISO(data.election.date_of_election).setLocale('en-gb').toLocaleString();
     
@@ -19,7 +19,7 @@ export default function Results() {
     return (
         <div id='results'>
         {isLoading && <p>Loading...</p>}
-        {isAdmin && <AdminDropDown setElectionId={setElectionId} />}
+        {isAdminOrVoter && <AdminDropDown setElectionId={setElectionId} />}
         {data && 
         <>
             <div id='results-head'>
