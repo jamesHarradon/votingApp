@@ -8,6 +8,7 @@ import Login from './components/login/Login';
 import Main from './components/main/Main';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
+import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 import { selectUser } from './userSlice';
 import { useSelector } from "react-redux";
 
@@ -21,15 +22,17 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {isUser ? 
-        <>
-          <Sidebar />
-          <Topbar />
-          <Main />
-        </>
-        :
-        <Login />
-        }
+        <ErrorBoundary>
+          {isUser ? 
+          <>
+            <Sidebar />
+            <Topbar />
+            <Main />
+          </>
+          :
+          <Login />
+          }
+        </ErrorBoundary>
       </div>
     </Router>
   );
