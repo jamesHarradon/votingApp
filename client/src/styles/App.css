@@ -59,6 +59,11 @@ button:hover {
   border-radius: 4px;
 }
 
+.candidate-preview-link {
+  text-decoration: none;
+  color: black;
+}
+
 .ballot-card-link {
   text-decoration: none;
   padding: 10px;
@@ -150,8 +155,14 @@ button:hover {
 }
 
 #heading {
+  width: 30%;
+  margin-left: 10%;
+  border-radius: 0.2em;
+  font-family: 'DM Serif Display', serif;
+  background-color: white;
   grid-area: 1 / 1 / 1 / span 5;
 }
+
 
 .topbar-links {
   grid-area: 1 / 6 / 1 / span 2;
@@ -195,26 +206,53 @@ button:hover {
 }
 
 .summary {
-  height: 100%;
+  height: 80%;
+  width: 80%;
+  margin: 0px auto;
+  border-radius: 1em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid grey;
+  
+  background-color: #eee;
+}
+
+.summary p {
+  font-size: 1.5em;
 }
 
 #candidate-preview {
   grid-area: 3 / 1 / span 2 / span 5;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 26%;
+  grid-auto-columns: 23%;
   gap: 1%;
   overflow-x: scroll;
 }
 
+.candidate-image-container {
+  width: 100%;
+  height: 100%;;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 0.5em;
+  border-top-left-radius: 0.5em;
+}
+
 .candidate-image {
-  height: 100%;
-  border: 1px solid grey;
+  width: 80%;
+  height: auto;
+  border-radius: 0.5em;
+  border: 2px solid lightgrey;
+}
+
+.candidate-name {
+  font-size: 0.8em;
+  padding-top: 0.5em;
 }
 
 #election-preview {
@@ -223,6 +261,7 @@ button:hover {
   grid-template: repeat(2, 1fr) / 1fr;
   justify-content: center;
   align-items: center;
+  
 }
 
 #ballot-card {
@@ -271,10 +310,21 @@ button:hover {
   margin: 0px auto;
 }
 
-.ballot-card-candidate-image {
-  border: 1px solid grey;
-  height: 30%;
+.ballot-card-candidate-image-container {
+  background-color: rgba(104, 64, 26, 0.2);
+  margin: 0.5em;
+  height: 40%;
   width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5em;
+}
+
+.ballot-card-candidate-image {
+  width: 80%;
+  max-height: 100%;
+  border-radius: 0.5em;
 }
 
 .ballot-card-who {
@@ -571,6 +621,19 @@ tr:hover {
   min-width: 100%; 
 }
 
+
+#loading-icon {
+  animation: spin 2s linear infinite;
+  position: relative;
+  top: 25vh;
+  width: 5vw;
+  height: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 
 
