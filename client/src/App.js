@@ -11,19 +11,19 @@ import Topbar from './components/topbar/Topbar';
 import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 import { selectUser } from './userSlice';
 import { useSelector } from "react-redux";
+import SessionTimeout from './components/sessionTimeout/SessionTimeout';
 
 
 function App() {
 
   
   const user = useSelector(selectUser);
-  const isUser = user ? true : false;
 
   return (
     <Router>
       <div className="App">
         <ErrorBoundary>
-          {isUser ? 
+          {user ? 
           <>
             <Sidebar />
             <Topbar />
@@ -34,6 +34,7 @@ function App() {
           }
         </ErrorBoundary>
       </div>
+      {/* <SessionTimeout /> */}
     </Router>
   );
 }
