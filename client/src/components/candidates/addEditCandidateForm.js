@@ -83,8 +83,8 @@ export default function AddCandidateForm(props) {
                         <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
                         <div className='invalid-feedback'>{errors.email?.message}</div>
                         
-                        <select id='position' name='position' placeholder="Position" onChange={(e) => setValue('position', e.target.value, { shouldValidate: true })} {...register('position')} className={`form-control ${errors.position ? 'is-invalid' : ''}`}>
-                            <option value='' selected disabled hidden>Select Position</option>
+                        <select id='position' name='position' defaultValue='' onChange={(e) => setValue('position', e.target.value, { shouldValidate: true })} {...register('position')} className={`form-control ${errors.position ? 'is-invalid' : ''}`}>
+                            <option value='' disabled hidden>Select Position</option>
                             <option value='President'>President</option>
                             <option value='Vice President'>Vice President</option>
                             <option value='General Secretary'>General Secretary</option>  
