@@ -8,6 +8,8 @@ import { getUserById, selectUser } from "../../userSlice";
 import { useGetHasVotedQuery, usePlaceVoteMutation } from "../../services/voter";
 import VotedCandidate from "./VotedCandidate";
 import AdminDropDown from '../dashboard/adminDropDown/adminDropDown'
+import loadingIcon from '../../loading.png'
+import profileImg from '../../profile.png'
 
 export default function BallotCard() {
 
@@ -16,7 +18,8 @@ export default function BallotCard() {
 
     const user = useSelector(selectUser);
     const id = electionId || user.election_ids[0];
-    const { data: hasVoted } = useGetHasVotedQuery({voterId: user.id, electionId: id});
+    const hasVoted = false;
+    // const { data: hasVoted } = useGetHasVotedQuery({voterId: user.id, electionId: id});
 
     const { data: candidates, isLoading: candidatesAreLoading } = useGetCandidatesByElectionQuery(id);
     const { data: manifestos, isLoading: manifestosAreLoading } = useGetAllManifestosByElectionQuery(id);
@@ -38,6 +41,9 @@ export default function BallotCard() {
     return (
         
         <div id= 'ballot-card'>
+            {/* {candidatesAreLoading && 
+                <img id='loading-icon' src={loadingIcon} alt='loading icon'></img>
+            } */}
             <AdminDropDown setElectionId={setElectionId} />
             {hasVoted && <VotedCandidate user={user} />}
             {!hasVoted && 
@@ -48,7 +54,9 @@ export default function BallotCard() {
                                 <Link className='ballot-card-link' to={`/manifesto/${candidate.id}/${candidate.election_id}`} key={candidate.id}>
                                     <label htmlFor={candidate.id}>{`${candidate.first_name} ${candidate.last_name}`}</label>
                                 </Link>
-                                <p className='ballot-card-candidate-image'>image</p>
+                                <div className='ballot-card-candidate-image-container'>
+                                    <img src={profileImg} alt='candidate profile' className='ballot-card-candidate-image'></img>
+                                </div>
                                 <p className='ballot-card-who'>{manifestos && manifestos.map(manifesto => manifesto.candidate_id === candidate.id && manifesto.who)}</p>
                                 <input type='radio' id={candidate.id} name={candidate.election_id} value={candidate.id}></input>  
                             </div>    
