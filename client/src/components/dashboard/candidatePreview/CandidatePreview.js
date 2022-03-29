@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../userSlice";
 import { useGetCandidatesByElectionQuery } from "../../../services/candidate";
-
+import profileImg from '../../../profile.png'
 
 export default function CandidatePreview({ electionId }) {
 
@@ -15,7 +16,10 @@ export default function CandidatePreview({ electionId }) {
     return (
         <div id='candidate-preview'>
             {candidates && candidates.map(candidate => (
-                <p key={candidate.id} className='candidate-image'>{`${candidate.first_name} ${candidate.last_name}`}</p>
+                <Link to={`/manifesto/${candidate.id}/${candidate.election_id}`} className='candidate-preview-link candidate-image-container'>
+                    <img key={candidate.id} src={profileImg} alt='candidate profile' className='candidate-image'></img>
+                    <p className='candidate-name'>{`${candidate.first_name} ${candidate.last_name}`}</p>
+                </Link>
             ))}
         </div>
     )
