@@ -9,12 +9,15 @@ import Election from "../election/Election";
 import Results from "../results/Results";
 import Profile from "../profile/Profile";
 import Login from "../login/Login";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../userSlice";
+
 
 
 export default function Main() {
 
     // user variable simulates a user has logged in
-    const user = true;
+    const user = useSelector(selectUser);
 
     return (
         <div id='main'>
