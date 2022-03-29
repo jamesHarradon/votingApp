@@ -14,7 +14,7 @@ export default function Topbar() {
 
     return (
         <div id='topbar'>
-            <h1 id='heading'>Jims Voting App</h1>
+            <h1 id='heading'>Voter</h1>
             <div className='topbar-links'>
                 <Link className='link' to='/profile'>Profile</Link>
                 <button onClick={logoutHandler}>Logout</button>
