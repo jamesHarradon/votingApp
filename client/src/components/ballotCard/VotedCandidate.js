@@ -4,32 +4,45 @@ import { useGetManifestoByCandidateQuery } from "../../services/manifesto";
 import { useGetVotedCandidateByVoterQuery } from '../../services/result';
 import { selectUser } from '../../userSlice';
 import AdminDropDown from "../dashboard/adminDropDown/adminDropDown";
+import profileImg from '../../profile.png'
 
 
-export default function VotedCandidate() {
-
-    const [ electionId, setElectionId ] = useState(null);
+export default function VotedCandidate({ electionId }) {
 
     const user = useSelector(selectUser);
     const id = electionId || user.election_ids[0];
     const { data: candidate, isLoading } = useGetVotedCandidateByVoterQuery({ id: user.id, electionId: id});
     
-    
-
     return (
         <>
             {isLoading && <p>Loading...</p>}
             {candidate && 
             <>
-            <AdminDropDown setElectionId={setElectionId} />
             <div className='voted-candidate-container'>
                 <div className='voted-candidate'>
-                    <p> Your Vote has been placed. You voted for: </p>
-                    <h2>{`${candidate.first_name} ${candidate.last_name}`}</h2>
-                    <p className='voted-candidate-image'>image</p>
-                    <p>{candidate.who}</p>  
-                    <p>{candidate.what}</p> 
-                    <p>{candidate.why}</p> 
+                    <div className='voted-candidate-flex'>
+                        <div>
+                            <p> Your Vote has been placed. You voted for: </p>
+                            <h2>{`${candidate.first_name} ${candidate.last_name}`}</h2>
+                        </div>
+                        <div className='voted-candidate-image-container'>
+                            <img src={profileImg} alt='candidate profile' className='voted-candidate-image'></img>
+                        </div>
+                    </div>
+                    <div className='manifesto-body voted-candidate-body'>
+                        <div className='manifesto-who'>
+                            <h2>Who Am I?</h2>
+                            <p>{candidate.who}</p>  
+                        </div>
+                        <div className='manifesto-what'>
+                            <h2>What Do I Want To Achieve?</h2>
+                            <p>{candidate.what}</p>
+                        </div>
+                        <div className='manifesto-why'>
+                            <h2>Why Vote For Me?</h2>
+                            <p>{candidate.why}</p>
+                        </div>
+                    </div>
                 </div>  
             </div>
             </>
