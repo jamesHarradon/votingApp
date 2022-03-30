@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,8 +10,6 @@ import { useAmendManifestoMutation } from "../../services/manifesto";
 export default function EditManifestoForm({ id, toast, section, setSection, setEditClick }) {
 
     const [ amendManifesto ] = useAmendManifestoMutation();
-
-    const user = useSelector(selectUser);
     
     const handleEdit = async (data) => {
         try {

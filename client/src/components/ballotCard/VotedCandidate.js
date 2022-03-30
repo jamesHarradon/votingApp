@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useGetManifestoByCandidateQuery } from "../../services/manifesto";
 import { useGetVotedCandidateByVoterQuery } from '../../services/result';
 import { selectUser } from '../../userSlice';
-import AdminDropDown from "../dashboard/adminDropDown/adminDropDown";
 import profileImg from '../../profile.png'
 
 

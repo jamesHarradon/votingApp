@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef, Fragment } from 'react';
+import React, { useEffect, useCallback, useRef, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser, logoutUser } from '../../userSlice';
@@ -23,14 +23,15 @@ export default function SessionTimeout() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const [ second, setSecond ] = useState(0);
+    
+    // const [ second, setSecond ] = useState(0);
 
     let timeStamp;
     let warningInactiveInterval = useRef();
     let startTimerInterval = useRef();
 
     // start inactive check
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     let timeChecker = () => {
         startTimerInterval.current = setTimeout(() => {
             let storedTimeStamp = sessionStorage.getItem('lastTimeStamp');
@@ -45,16 +46,16 @@ export default function SessionTimeout() {
     
         warningInactiveInterval.current = setInterval(() => {
         const maxTime = 2; // Maximum mins given before logout 
-        const remainingTime = 1; // starts logout countdown at 1 min remaining.
+        // const remainingTime = 1; // starts logout countdown at 1 min remaining.
     
         const diff = moment.duration(moment().diff(moment(timeString)));
         const minPast = diff.minutes();
-        const leftSecond = 60 - diff.seconds();
+        // const leftSecond = 60 - diff.seconds();
     
-        if (minPast === remainingTime) {
-            // seconds remaining are saved in state ready to display to user
-            setSecond(leftSecond);
-        }
+        // if (minPast === remainingTime) {
+        //     // seconds remaining are saved in state ready to display to user
+        //     setSecond(leftSecond);
+        // }
     
         if (minPast === maxTime) {
             clearInterval(warningInactiveInterval.current);
@@ -70,6 +71,7 @@ export default function SessionTimeout() {
         clearInterval(warningInactiveInterval.current);
 
         if (user) {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             timeStamp = moment();
             sessionStorage.setItem('lastTimeStamp', timeStamp);
         } else {

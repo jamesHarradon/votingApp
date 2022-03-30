@@ -17,8 +17,8 @@ export default function Manifesto() {
 
     const params = useParams();
 
-    const { data: candidate, isLoading: candidateLoading } = useGetCandidateByIdQuery({candidateId: params.candidateId, electionId: params.electionId})
-    const { data: manifesto, isLoading: manifestoLoading } = useGetManifestoByCandidateQuery(params.candidateId);
+    const { data: candidate } = useGetCandidateByIdQuery({candidateId: params.candidateId, electionId: params.electionId})
+    const { data: manifesto } = useGetManifestoByCandidateQuery(params.candidateId);
 
     return (
         <div id= 'manifesto'>

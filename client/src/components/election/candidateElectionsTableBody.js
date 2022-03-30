@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 export default function CandidateElectionsTableBody() {
 
     const user = useSelector(selectUser);
-    const { data: election, isLoading } = useGetElectionQuery(user.election_id);
+    const { data: election } = useGetElectionQuery(user.election_id);
 
     return (
         <tbody>        
