@@ -48,7 +48,6 @@ passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password
 
 passport.use('jwt-all-users', new JwtStrategy(options, async (req, jwtPayload, done) => {
     let user;
-    console.log(jwtPayload)
     try {
         user = await AuthModelInstance.findById(jwtPayload.id, jwtPayload.role);
         if (!user) {
@@ -65,7 +64,6 @@ passport.use('jwt-all-users', new JwtStrategy(options, async (req, jwtPayload, d
 
 passport.use('jwt-admin', new JwtStrategy(options, async (req, jwtPayload, done) => {
     let user;
-    console.log(jwtPayload)
     if (jwtPayload.role === 'admin') {
         try {
             user = await AuthModelInstance.findById(jwtPayload.id, jwtPayload.role);
@@ -85,7 +83,6 @@ passport.use('jwt-admin', new JwtStrategy(options, async (req, jwtPayload, done)
 
 passport.use('jwt-candidate', new JwtStrategy(options, async (req, jwtPayload, done) => {
     let user;
-    console.log(jwtPayload)
     if (jwtPayload.role === 'candidate' || jwtPayload.role === 'admin') {
         if (req.params.candidateId && parseInt(req.params.candidateId) !== jwtPayload.id && jwtPayload.role === 'candidate') return done(null, false);
         try {
@@ -107,7 +104,6 @@ passport.use('jwt-candidate', new JwtStrategy(options, async (req, jwtPayload, d
 
 passport.use('jwt-voter', new JwtStrategy(options, async (req, jwtPayload, done) => {
     let user;
-    console.log(jwtPayload)
     if (jwtPayload.role === 'voter' || jwtPayload.role === 'admin') {
         if (req.params.voterId && parseInt(req.params.voterId) !== jwtPayload.id && jwtPayload.role === 'voter') return done(null, false);
         try {
@@ -129,7 +125,6 @@ passport.use('jwt-voter', new JwtStrategy(options, async (req, jwtPayload, done)
 passport.use('jwt-election', new JwtStrategy(options, async (req, jwtPayload, done) => {
     let user;
     const electionIdMatch = jwtPayload.role === 'candidate' ? jwtPayload.election_id === parseInt(req.params.electionId) : jwtPayload.election_ids.includes(parseInt(req.params.electionId))
-    console.log(jwtPayload)
     if (electionIdMatch) {
         try {
             user = await AuthModelInstance.findById(jwtPayload.id, jwtPayload.role);
