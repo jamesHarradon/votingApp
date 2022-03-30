@@ -24,24 +24,22 @@ export default function Manifesto() {
         <div id= 'manifesto'>
             {editClick && <EditManifestoForm  id={params.candidateId} toast={toast} section={section} setSection={setSection} setEditClick={setEditClick} />}
             <div id='manifesto-head'>
-                {candidateLoading && <h2>Loading...</h2>}
                 <h2>{`${candidate && candidate.first_name} ${candidate && candidate.last_name} `}</h2>
                 <h2>{candidate && candidate.position}</h2>
                 <h2>{candidate && candidate.name}</h2>
             </div>
-            <div id='manifesto-body'>
-                {manifestoLoading && <h2>Loading...</h2>}
-                <div id='manifesto-who'>
+            <div className='manifesto-body'>
+                <div className='manifesto-who'>
                     <h2>Who Am I?</h2>
                     <p>{manifesto && manifesto.who}</p>
                     {!isVoter && <button onClick={() => { setSection('who'); setEditClick(true);}} className='edit'>Edit</button>}
                 </div>
-                <div id='manifesto-what'>
+                <div className='manifesto-what'>
                     <h2>What Do I Want To Achieve?</h2>
                     <p>{manifesto && manifesto.what}</p>
                     {!isVoter && <button onClick={() => { setSection('what'); setEditClick(true);}} className='edit'>Edit</button>}
                 </div>
-                <div id='manifesto-why'>
+                <div className='manifesto-why'>
                     <h2>Why Vote For Me?</h2>
                     <p>{manifesto && manifesto.why}</p>
                     {!isVoter && <button onClick={() => { setSection('why'); setEditClick(true);}} className='edit'>Edit</button>}
