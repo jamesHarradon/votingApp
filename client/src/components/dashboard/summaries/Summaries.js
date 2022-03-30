@@ -17,20 +17,20 @@ export default function Summaries({ electionId }) {
     return (
         <div id='summaries'>
             <div className='summary'>
-                <h4>No. of Candidates</h4>
                 <p>{election && election.number_of_candidates}</p>
+                <h4>Candidates</h4>
             </div>
             <div className='summary'>
-                <h4>No. of Voters</h4>
                 <p>{election && election.number_of_voters}</p>
+                <h4>Voters</h4>
             </div>
             <div className='summary'>
-                <h4>Votes Cast</h4>
                 <p>{voted && voted}</p>
+                <h4>Votes Cast</h4>
             </div>
             <div className='summary'>
-                <h4>Voters yet to vote</h4>
                 <p>{!isNaN(yetToVote) && yetToVote}</p>
+                <h4>Yet to vote</h4>
             </div>
         </div>
     )
