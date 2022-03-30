@@ -34,7 +34,7 @@ function App() {
           }
         </ErrorBoundary>
       </div>
-      {/* <SessionTimeout /> */}
+      <SessionTimeout />
     </Router>
   );
 }
