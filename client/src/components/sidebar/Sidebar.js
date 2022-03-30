@@ -10,7 +10,7 @@ export default function Sidebar() {
 
     const addSelected = (id) => {   
         const sidebarLinks = Array.from(document.getElementsByClassName('sidebar-link'));
-        sidebarLinks.map(link => link.id === id ? link.className = 'sidebar-link selected' : link.className = 'sidebar-link')
+        sidebarLinks.map(link => link.id === id ? link.className = 'sidebar-link sidebar-selected' : link.className = 'sidebar-link')
     }
 
     return (
