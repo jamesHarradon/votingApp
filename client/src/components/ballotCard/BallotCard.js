@@ -18,11 +18,11 @@ export default function BallotCard() {
 
     const user = useSelector(selectUser);
     const id = electionId || user.election_ids[0];
-    const hasVoted = false;
-    // const { data: hasVoted } = useGetHasVotedQuery({voterId: user.id, electionId: id});
+    const { data: hasVoted } = useGetHasVotedQuery({voterId: user.id, electionId: id});
 
     const { data: candidates, isLoading: candidatesAreLoading } = useGetCandidatesByElectionQuery(id);
     const { data: manifestos, isLoading: manifestosAreLoading } = useGetAllManifestosByElectionQuery(id);
+
 
     const [ placeVote ] = usePlaceVoteMutation();
 
@@ -45,7 +45,7 @@ export default function BallotCard() {
                 <img id='loading-icon' src={loadingIcon} alt='loading icon'></img>
             } */}
             <AdminDropDown setElectionId={setElectionId} />
-            {hasVoted && <VotedCandidate user={user} />}
+            {hasVoted && <VotedCandidate user={user} electionId={electionId} />}
             {!hasVoted && 
                 <form id='ballot-card-form-grid' onSubmit={(e) => placeVoteHandler(e, user.id, radioCandidate)} onChange={(e) => setRadioCandidate(e.target.value)}>
                 <div id='ballot-card-inner-grid'>
@@ -57,7 +57,6 @@ export default function BallotCard() {
                                 <div className='ballot-card-candidate-image-container'>
                                     <img src={profileImg} alt='candidate profile' className='ballot-card-candidate-image'></img>
                                 </div>
-                                <p className='ballot-card-who'>{manifestos && manifestos.map(manifesto => manifesto.candidate_id === candidate.id && manifesto.who)}</p>
                                 <input type='radio' id={candidate.id} name={candidate.election_id} value={candidate.id}></input>  
                             </div>    
                         ))}
