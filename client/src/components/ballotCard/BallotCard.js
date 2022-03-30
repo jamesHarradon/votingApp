@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useGetCandidatesByElectionQuery } from "../../services/candidate";
-import { useGetAllManifestosByElectionQuery } from "../../services/manifesto";
-import { getUserById, selectUser } from "../../userSlice";
+import { selectUser } from "../../userSlice";
 import { useGetHasVotedQuery, usePlaceVoteMutation } from "../../services/voter";
 import VotedCandidate from "./VotedCandidate";
 import AdminDropDown from '../dashboard/adminDropDown/adminDropDown'
-import loadingIcon from '../../loading.png'
 import profileImg from '../../profile.png'
 
 export default function BallotCard() {
@@ -19,11 +17,8 @@ export default function BallotCard() {
     const user = useSelector(selectUser);
     const id = electionId || user.election_ids[0];
     const { data: hasVoted } = useGetHasVotedQuery({voterId: user.id, electionId: id});
-
-    const { data: candidates, isLoading: candidatesAreLoading } = useGetCandidatesByElectionQuery(id);
-    const { data: manifestos, isLoading: manifestosAreLoading } = useGetAllManifestosByElectionQuery(id);
-
-
+    const { data: candidates } = useGetCandidatesByElectionQuery(id);
+    
     const [ placeVote ] = usePlaceVoteMutation();
 
     const placeVoteHandler = async (e, voterId, candidateId) => {
@@ -41,9 +36,6 @@ export default function BallotCard() {
     return (
         
         <div id= 'ballot-card'>
-            {/* {candidatesAreLoading && 
-                <img id='loading-icon' src={loadingIcon} alt='loading icon'></img>
-            } */}
             <AdminDropDown setElectionId={setElectionId} />
             {hasVoted && <VotedCandidate user={user} electionId={electionId} />}
             {!hasVoted && 

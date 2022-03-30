@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './styles/App.css'
 import './styles/normalise.css'
 import './styles/styleReset.css'
