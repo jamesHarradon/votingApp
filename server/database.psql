@@ -12,8 +12,7 @@ CREATE TABLE IF NOT EXISTS "voter" (
   "first_name" varchar(50),
   "last_name" varchar(50),
   "password" varchar(50),
-  "has_voted" boolean,
-  "election_id" integer
+  "role" varchar(10)
 );
 
 CREATE TABLE IF NOT EXISTS "admin" (
@@ -21,7 +20,8 @@ CREATE TABLE IF NOT EXISTS "admin" (
   "email" varchar(50) UNIQUE,
   "first_name" varchar(50),
   "last_name" varchar(50),
-  "password" varchar(50)
+  "password" varchar(50),
+  "role" varchar(10)
 );
 
 CREATE TABLE IF NOT EXISTS "candidate" (
@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS "candidate" (
   "password" varchar(50),
   "position" varchar(50),
   "manifesto_id" integer,
-  "election_id" integer
+  "election_id" integer,
+  "role" varchar(10)
 );
 
 CREATE TABLE IF NOT EXISTS "manifesto" (
