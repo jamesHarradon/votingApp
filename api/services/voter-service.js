@@ -39,6 +39,7 @@ class VoterService {
             const data = await VoterModelInstance.addVoter(body);
             if(!data) return false;
             const addSuccess = await VoterModelInstance.addToElectionVoters(body.election_id, data.id);
+            await ElectionModelInstance.incrementVoterCandidate(body.election_id, 'voter');
             return addSuccess.success ? data : false
         } catch (error) {
             throw(error)
@@ -76,9 +77,10 @@ class VoterService {
         }
     }
 
-    async deleteVoter(id) {
+    async deleteVoter(voterId, electionId) {
         try {
-            const deleteSuccess = await VoterModelInstance.deleteVoter(id);
+            const deleteSuccess = await VoterModelInstance.deleteVoter(voterId);
+            await ElectionModelInstance.decrementVoterCandidate(electionId, 'voter');
             return deleteSuccess;
         } catch (error) {
             throw(error)

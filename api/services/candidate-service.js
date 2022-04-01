@@ -1,8 +1,10 @@
 const CandidateModel = require('../models/candidate-model');
 const ManifestoModel = require('../models/manifesto-model');
+const ElectionModel = require('../models/election-model');
 
 const CandidateModelInstance = new CandidateModel;
 const ManifestoModelInstance = new ManifestoModel;
+const ElectionModelInstance = new ElectionModel;
 
 class CandidateService {
 
@@ -46,6 +48,7 @@ class CandidateService {
             const addManifestoSuccess = await ManifestoModelInstance.addManifestoInitial(data.id);
             if(!addManifestoSuccess.success) return false;
             const addSuccess = await CandidateModelInstance.addToElectionCandidates(body.election_id, data.id)
+            await ElectionModelInstance.incrementVoterCandidate(body.election_id, 'candidate');
             return addSuccess.success ? data : false
         } catch (error) {
             throw(error)
@@ -61,9 +64,10 @@ class CandidateService {
         }
     }
 
-    async deleteCandidate(id) {
+    async deleteCandidate(candidateId, electionId) {
         try {
-            const deleteSuccess = await CandidateModelInstance.deleteCandidate(id);
+            const deleteSuccess = await CandidateModelInstance.deleteCandidate(candidateId);
+            await ElectionModelInstance.decrementVoterCandidate(electionId, 'candidate')
             return deleteSuccess;
         } catch (error) {
             throw(error)
