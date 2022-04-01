@@ -45,23 +45,11 @@ export default function AddEditElectionForm(props) {
         date_of_election: Yup.string()
         .transform((curr) => DateTime.fromISO(curr).toISODate())
         .required('Date is required'), 
-        number_of_candidates: Yup.number()
-        .min(1, 'Must be greater than 0')
-        .required('Number of Candidates is required'),
-        number_of_voters: Yup.number()
-        .min(1, 'Must be greater than 0')
-        .required('Number of Voters is required')
     }) : Yup.object().shape({
         name: Yup.string(),
         date_of_election: Yup.string()
         .nullable()
         .transform((curr) => DateTime.fromISO(curr).toISODate()),
-        number_of_candidates: Yup.number()
-        .nullable()
-        .transform((_, val) => val === Number(val) ? val : null),
-        number_of_voters: Yup.number()
-        .nullable()
-        .transform((_, val) => val === Number(val) ? val : null) 
     })
 
     const formOptions = {resolver: yupResolver(formSchema)};
@@ -81,13 +69,7 @@ export default function AddEditElectionForm(props) {
 
                         <input type='date' id='date_of_election' name='date_of_election' {...register('date_of_election')} className={`form-control ${errors.date_of_election ? 'is-invalid' : ''}`} ></input>
                         <div className='invalid-feedback'>{errors.date_of_election?.message}</div>
-                        <label htmlFor="number_of_candidates">No. of Candidates</label>
-                        <input type='number' defaultValue={props.isAdd ? 0 : null} id='number_of_candidates' name='number_of_candidates' {...register('number_of_candidates')} className={`form-control ${errors.number_of_candidates ? 'is-invalid' : ''}`} ></input>
-                        <div className='invalid-feedback'>{errors.number_of_candidates?.message}</div>
-                        <label htmlFor="number_of_voters">No. of Voters</label>
-                        <input type='number' defaultValue={props.isAdd ? 0 : null}   id='number_of_voters' name='number_of_voters' {...register('number_of_voters')} className={`form-control ${errors.number_of_voters ? 'is-invalid' : ''}`} ></input>
-                        <div className='invalid-feedback'>{errors.number_of_voters?.message}</div>
-                    
+                        
                     </div>
                     <button type='submit' className='submit-btn'>Submit</button>  
                 </form>
