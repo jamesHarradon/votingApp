@@ -10,7 +10,8 @@ import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
 export default function AdminCandidatesTableBody({ toast, setEditCandidateClick, setEditId, electionFilterId }) {
 
     const [ deleteButtonClick, setDeleteButtonClick ] = useState(false);
-    const [ deleteId, setDeleteId ] = useState(null);
+    const [ deleteCandidateId, setDeleteCandidateId ] = useState(null);
+    const [ deleteCandidateElectionId, setDeleteCandidateElectionId ] = useState(null);
 
     const admin = useSelector(selectUser);
     const { data } = useGetCandidatesQuery({id: admin.id, role: admin.role});
@@ -20,13 +21,17 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
     const candidates = candidatesFiltered || data;
 
     const cancelHandler = () => {
+        setDeleteCandidateId(null);
+        setDeleteCandidateElectionId(null);
         setDeleteButtonClick(false);
     }
 
-    const proceedHandler = async (id) => {
+    const proceedHandler = async (candidateId, electionId) => {
         try {
-            await deleteCandidate(id);
+            await deleteCandidate({candidateId: candidateId, electionId: electionId});
             setDeleteButtonClick(false);
+            setDeleteCandidateId(null);
+            setDeleteCandidateElectionId(null);
             toast('Candidate deleted!')
         } catch (error) {
             setDeleteButtonClick(false);
@@ -34,14 +39,15 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
         }
     }
 
-    const deleteHandler = (id) => {
-        setDeleteId(id);
+    const deleteHandler = (candidateId, electionId) => {
+        setDeleteCandidateId(candidateId);
+        setDeleteCandidateElectionId(electionId)
         setDeleteButtonClick(true);
     }
 
     return (
         <>
-            {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='candidate' deleteId={deleteId}/>}
+            {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='candidate' deleteId={deleteCandidateId} deleteElectionId={deleteCandidateElectionId}/>}
             <tbody>
                 {candidates && candidates.map(candidate => (
                     <tr key={candidate.id}>
@@ -52,7 +58,7 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
                         <td>{candidate.name}</td>
                         <td><Link className='link' to={`/manifesto/${candidate.id}/${candidate.election_id}`}>Manifesto</Link></td>
                         <td><button onClick={() => {setEditId(candidate.id); setEditCandidateClick(true);}} className='edit'>Edit</button></td>
-                        <td><button onClick={() => deleteHandler(candidate.id)} className='delete'>Delete</button></td>
+                        <td><button onClick={() => deleteHandler(candidate.id, candidate.election_id)} className='delete'>Delete</button></td>
                     </tr>
                 ))}
             </tbody>

@@ -7,7 +7,8 @@ import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
 export default function AdminVotersTableBody({ toast, setEditVoterClick, setEditId, electionFilterId, showAll, setShowAll }) {
 
     const [ deleteButtonClick, setDeleteButtonClick ] = useState(false);
-    const [ deleteId, setDeleteId ] = useState(null);
+    const [ deleteVoterId, setDeleteVoterId ] = useState(null);
+    const [ deleteVoterElectionId, setDeleteVoterElectionId ] = useState(null);
     
     const admin = useSelector(selectUser);
     const id = electionFilterId || admin.election_ids[0];
@@ -31,13 +32,17 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
 
 
     const cancelHandler = () => {
+        setDeleteVoterId(null);
+        setDeleteVoterElectionId(null);
         setDeleteButtonClick(false);
     }
 
-    const proceedHandler = async (id) => {
+    const proceedHandler = async (voterId, electionId) => {
         try {
-            await deleteVoter(id);
+            await deleteVoter({voterId: voterId, electionId: electionId });
             setDeleteButtonClick(false);
+            setDeleteVoterId(null);
+            setDeleteVoterElectionId(null);
             toast('Voter deleted!')
         } catch (error) {
             setDeleteButtonClick(false);
@@ -45,14 +50,15 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
         }
     }
 
-    const deleteHandler = (id) => {
-        setDeleteId(id);
+    const deleteHandler = (voterId, electionId) => {
+        setDeleteVoterId(voterId);
+        setDeleteVoterElectionId(electionId);
         setDeleteButtonClick(true);
     }
     
     return (
         <>
-            {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='voter' deleteId={deleteId}/>}
+            {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='voter' deleteId={deleteVoterId} deleteElectionId={deleteVoterElectionId}/>}
             <tbody>
                 {voters && voters.map(voter => (
                 <tr key={voter.id}>
@@ -61,7 +67,7 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
                     <td>{voter.email}</td>
                     <td>{voter.name}</td>
                     <td><button onClick={() => {setEditId(voter.id); setEditVoterClick(true);}} className='edit'>Edit</button></td>
-                    <td><button onClick={() => deleteHandler(voter.id)} className='delete'>Delete</button></td>
+                    <td><button onClick={() => deleteHandler(voter.id, voter.election_id)} className='delete'>Delete</button></td>
                 </tr>
                 ))}
             </tbody>
