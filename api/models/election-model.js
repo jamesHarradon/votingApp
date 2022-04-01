@@ -58,8 +58,34 @@ class ElectionModel {
 
     async addElection(body) {
         try {
-            const data = await pool.query('INSERT INTO election (name, date_of_election, number_of_candidates, number_of_voters) VALUES ($1, $2, $3, $4) RETURNING *', [body.name, body.date_of_election, body.number_of_candidates, body.number_of_voters]); 
+            const data = await pool.query('INSERT INTO election (name, date_of_election, number_of_candidates, number_of_voters) VALUES ($1, $2, $3, $4) RETURNING *', [body.name, body.date_of_election, 0, 0]); 
             return data.rows?.length ? {success: true, election_id: data.rows[0].id} : {success: false}
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async incrementVoterCandidate(electionId, type) {
+        try {
+            if(type === 'candidate') {
+                await pool.query('UPDATE election SET number_of_candidates = number_of_candidates + 1 WHERE id = $1', [electionId])
+            }
+            if(type === 'voter') {
+                await pool.query('UPDATE election SET number_of_voters = number_of_voters + 1 WHERE id = $1', [electionId])
+            }  
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async decrementVoterCandidate(electionId, type) {
+        try {
+            if(type === 'candidate') {
+                await pool.query('UPDATE election SET number_of_candidates = number_of_candidates - 1 WHERE id = $1', [electionId])
+            }
+            if(type === 'voter') {
+                await pool.query('UPDATE election SET number_of_voters = number_of_voters - 1 WHERE id = $1', [electionId])
+            }
         } catch (error) {
             throw new Error(error)
         }
