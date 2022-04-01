@@ -24,7 +24,7 @@ export default function Candidates() {
             <button className='add-btn' onClick={() => addCandidateClick ? setAddCandidateClick(false) : setAddCandidateClick(true)}>Add Candidate</button> 
             }
             <div className='filter-container'>
-                <AdminDropDown setElectionId={setElectionFilterId} />
+                <AdminDropDown setElectionId={setElectionFilterId} showDefaultOption={true}/>
                 <button onClick={() => setElectionFilterId(null)}>Show All</button>
             </div>
             {addCandidateClick && <AddEditCandidateForm setClick={setAddCandidateClick} toast={toast} isAdd={true} />}

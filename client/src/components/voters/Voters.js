@@ -28,7 +28,7 @@ export default function Voters() {
             }
             {isAdminOrVoter &&
             <div className='filter-container'>
-            <AdminDropDown setElectionId={setElectionFilterId} setShowAll={setShowAll} />
+            <AdminDropDown setElectionId={setElectionFilterId} showDefaultOption={true} />
             <button onClick={() => setShowAll(true)}>Show All</button>
             </div>
             }
