@@ -16,8 +16,8 @@ export default function CandidatePreview({ electionId }) {
     return (
         <div id='candidate-preview'>
             {candidates && candidates.map(candidate => (
-                <Link to={`/manifesto/${candidate.id}/${candidate.election_id}`} className='candidate-preview-link candidate-image-container'>
-                    <img key={candidate.id} src={profileImg} alt='candidate profile' className='candidate-image'></img>
+                <Link key={candidate.id} to={`/manifesto/${candidate.id}/${candidate.election_id}`} className='candidate-preview-link candidate-image-container'>
+                    <img src={profileImg} alt='candidate profile' className='candidate-image'></img>
                     <p className='candidate-name'>{`${candidate.first_name} ${candidate.last_name}`}</p>
                 </Link>
             ))}
