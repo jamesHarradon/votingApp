@@ -7,7 +7,7 @@ import { emptySplitApi } from "./emptySplitApi";
 // place a vote
 //delete a voter 
 
-const voterApiWithTag = emptySplitApi.enhanceEndpoints({addTagTypes: ['Voter']})
+const voterApiWithTag = emptySplitApi.enhanceEndpoints({addTagTypes: ['Voter', 'Election', 'Result']})
 
 const voterApi = voterApiWithTag.injectEndpoints({
     endpoints: (build) => ({
@@ -32,7 +32,7 @@ const voterApi = voterApiWithTag.injectEndpoints({
                     }
                 }
             },
-            invalidatesTags: ['Voter']
+            invalidatesTags: ['Voter', 'Election']
         }),
         amendVoter: build.mutation({
             query(data) {
@@ -51,15 +51,15 @@ const voterApi = voterApiWithTag.injectEndpoints({
             invalidatesTags: ['Voter']
         }),
         deleteVoter: build.mutation({
-            query(id) {
+            query(data) {
                 return {
-                    url: `voter/delete/${id}`,
+                    url: `voter/delete/${data.voterId}/${data.electionId}`,
                     method: 'DELETE',
                     mode: 'cors',
                     credentials: 'include',
                 }
             },
-            invalidatesTags: ['Voter']
+            invalidatesTags: ['Voter', 'Election']
         }),
         placeVote: build.mutation({
             query(data) {
@@ -71,7 +71,7 @@ const voterApi = voterApiWithTag.injectEndpoints({
                     credentials: 'include'
                 }
             },
-            invalidatesTags: ['Voter', 'Result', 'User']
+            invalidatesTags: ['Voter', 'Result']
         }),
         getHasVoted: build.query({
             query: (data) => `voter/has_voted/${data.voterId}/${data.electionId}`,

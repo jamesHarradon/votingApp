@@ -6,7 +6,7 @@ import { emptySplitApi } from "./emptySplitApi";
 // amend a candidate
 //delete a candidate 
 
-const candidateApiWithTag = emptySplitApi.enhanceEndpoints({addTagTypes: ['Candidate']})
+const candidateApiWithTag = emptySplitApi.enhanceEndpoints({addTagTypes: ['Candidate', 'Election']})
 
 const candidateApi = candidateApiWithTag.injectEndpoints({
     endpoints: (build) => ({
@@ -35,7 +35,7 @@ const candidateApi = candidateApiWithTag.injectEndpoints({
                     }
                 }
             },
-            invalidatesTags: ['Candidate']
+            invalidatesTags: ['Candidate', 'Election']
         }),
         amendCandidate: build.mutation({
             query(data) {
@@ -54,15 +54,15 @@ const candidateApi = candidateApiWithTag.injectEndpoints({
             invalidatesTags: ['Candidate']
         }),
         deleteCandidate: build.mutation({
-            query(id) {
+            query(data) {
                 return {
-                    url: `candidate/delete/${id}`,
+                    url: `candidate/delete/${data.candidateId}/${data.electionId}`,
                     method: 'DELETE',
                     mode: 'cors',
                     credentials: 'include',
                 }
             },
-            invalidatesTags: ['Candidate']
+            invalidatesTags: ['Candidate', 'Election']
         })
   }),
   overrideExisting: false,
