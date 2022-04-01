@@ -1,5 +1,5 @@
 
-const ElectionModel = require('../models/Election-model');
+const ElectionModel = require('../models/election-model');
 const VoterModel = require('../models/voter-model');
 
 const ElectionModelInstance = new ElectionModel;
