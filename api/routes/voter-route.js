@@ -82,9 +82,9 @@ voterRouter.get('/has_voted/:voterId/:electionId', passport.authenticate('jwt-vo
 })
 
 //delete a voter by id
-voterRouter.delete('/delete/:voterId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
+voterRouter.delete('/delete/:voterId/:electionId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await VoterServiceInstance.deleteVoter(req.params.voterId);
+        const response = await VoterServiceInstance.deleteVoter(req.params.voterId, req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error)

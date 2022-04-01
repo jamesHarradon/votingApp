@@ -60,9 +60,9 @@ candidateRouter.put('/amend/:candidateId', passport.authenticate('jwt-candidate'
 });
 
 //delete a candidate by id
-candidateRouter.delete('/delete/:candidateId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
+candidateRouter.delete('/delete/:candidateId/:electionId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
-        const response = await CandidateServiceInstance.deleteCandidate(req.params.candidateId);
+        const response = await CandidateServiceInstance.deleteCandidate(req.params.candidateId, req.params.electionId);
         res.json(response);
     } catch (error) {
         next(error)
