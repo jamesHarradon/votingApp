@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const loginUser = createAsyncThunk(
     'user/loginUser', async (body, { rejectWithValue }) => {
         try {
-            const response = await fetch('http://localhost:4000/api/auth/login', {
+            const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 credentials: 'include',
                 mode: 'cors',
@@ -31,7 +31,7 @@ export const loginUser = createAsyncThunk(
 export const logoutUser= createAsyncThunk(
     'user/logoutUser', async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/auth/logout', {
+            const response = await fetch('/api/auth/logout', {
                 method: 'POST',
                 credentials: 'include',
                 mode: 'cors'
@@ -51,7 +51,7 @@ export const logoutUser= createAsyncThunk(
 export const amendUser = createAsyncThunk(
     'user/amendUser', async (data) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/user/amend/${data.id}/${data.role}`, {
+            const response = await fetch(`/api/user/amend/${data.id}/${data.role}`, {
                 method: 'PUT',
                 credentials: 'include',
                 mode: 'cors',
@@ -76,7 +76,7 @@ export const amendUser = createAsyncThunk(
 export const getUserById = createAsyncThunk(
     'user/getUserById', async (data) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/user/${data.id}/${data.role}`, {
+            const response = await fetch(`/api/user/${data.id}/${data.role}`, {
                 method: 'GET',
                 credentials: 'include',
                 mode: 'cors',
@@ -97,7 +97,7 @@ export const getUserById = createAsyncThunk(
 export const changePassword = createAsyncThunk(
     'user/changePassword', async (data, { rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/user/amend/password/${data.id}/${data.role}`, {
+            const response = await fetch(`/api/user/amend/password/${data.id}/${data.role}`, {
                 method: 'PUT',
                 credentials: 'include',
                 mode: 'cors',
