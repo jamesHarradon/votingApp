@@ -16,12 +16,20 @@ export default function Results() {
     const { data, isLoading } = useGetResultsByElectionQuery(id);
     const dateFormated = data && DateTime.fromISO(data.election.date_of_election).setLocale('en-gb').toLocaleString();
     
-
+    const dateElec = data && DateTime.fromISO(data.election.date_of_election).toMillis();
+    const dateNow = DateTime.now().toMillis();
+    const showResult = dateNow > dateElec;
+    
     return (
         <div id='results'>
         {isLoading && <p>Loading...</p>}
         {isAdminOrVoter && <AdminDropDown setElectionId={setElectionId} />}
-        {data && 
+        {data && !showResult &&
+        <div className='no-result-container'>
+            <h2 className='no-result-msg'>Votes for Election: {data.election.name} have not yet been counted. The result will be available after {dateFormated}.</h2>
+        </div>
+        }
+        {data && showResult && 
         <>
             <div id='results-head'>
                 <h1>Congratulations: {`${data.winner.first_name} ${data.winner.last_name}`}</h1>
