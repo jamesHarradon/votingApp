@@ -5,7 +5,7 @@ class CandidateModel {
 
     async getAllCandidatesAdmin(id) {
         try {
-            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, position, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id IN (SELECT election_id FROM admin_elections WHERE admin_id = $1) ORDER BY 4;', [id]);
+            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id IN (SELECT election_id FROM admin_elections WHERE admin_id = $1) ORDER BY 4;', [id]);
             return data.rows?.length ? data.rows : null;
         } catch (error) {
             throw new Error(error)
@@ -14,7 +14,7 @@ class CandidateModel {
 
     async getAllCandidatesVoter(id) {
         try {
-            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, position, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id IN (SELECT election_id FROM election_voters WHERE voter_id = $1) ORDER BY 4;', [id]);
+            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id IN (SELECT election_id FROM election_voters WHERE voter_id = $1) ORDER BY 4;', [id]);
             return data.rows?.length ? data.rows : null;
         } catch (error) {
             throw new Error(error)
@@ -23,7 +23,7 @@ class CandidateModel {
 
     async getAllCandidatesByElectionId(id) {
         try {
-            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, position, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id = $1', [id]);
+            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id = $1', [id]);
             return data.rows?.length ? data.rows : null;
         } catch (error) {
             
@@ -32,7 +32,7 @@ class CandidateModel {
 
     async getCandidateById(id, electionId) {
         try {
-            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, position, manifesto_id, password, role, election_id, name, date_of_election FROM candidate JOIN election ON candidate.election_id = election.id WHERE candidate.id = $1 AND election.id = $2', [id, electionId]);
+            const data = await pool.query('SELECT candidate.id, email, first_name, last_name, manifesto_id, password, role, election_id, name, date_of_election FROM candidate JOIN election ON candidate.election_id = election.id WHERE candidate.id = $1 AND election.id = $2', [id, electionId]);
             return data.rows?.length ? data.rows[0] : null
         } catch (error) {
             throw new Error(error)
@@ -41,7 +41,7 @@ class CandidateModel {
 
     async addCandidate(body) {
         try {
-            const data = await pool.query('INSERT INTO candidate (email, first_name, last_name, position, manifesto_id, election_id, password, role) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', [body.email, body.first_name, body.last_name, body.position, body.manifesto_id, body.election_id, nanoid(10), 'candidate']); 
+            const data = await pool.query('INSERT INTO candidate (email, first_name, last_name, manifesto_id, election_id, password, role) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [body.email, body.first_name, body.last_name, body.manifesto_id, body.election_id, nanoid(10), 'candidate']); 
             return data.rows?.length ? data.rows[0] : null
         } catch (error) {
             throw new Error(error)
