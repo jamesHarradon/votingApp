@@ -36,7 +36,7 @@ class ResultService {
         try {
             const election = await ElectionModelInstance.getElectionById(id);
             const results = await ResultModelInstance.getResults(id);
-            return {election: election, winner: results.rows[0], results: results.rows}
+            return results ? {election: election, winner: results.rows[0], results: results.rows} : {election: election}
         } catch (error) {
             throw(error)
         }
