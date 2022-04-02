@@ -498,6 +498,7 @@ tr:hover {
 }
 
 .table{
+  text-align: left;
   min-width: 100%;
   margin: 0px auto;
   border-collapse: collapse;
