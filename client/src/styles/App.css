@@ -66,6 +66,10 @@ button:hover {
   color: black;
 }
 
+.candidate-preview-link:hover {
+  background-color: rgba(35, 126, 126, 0.2);
+}
+
 .ballot-card-link {
   text-decoration: none;
   padding: 10px;
@@ -99,9 +103,6 @@ button:hover {
 .sidebar-link:hover {
   border: 3px solid rgb(35, 126, 126);
 }
-
-
-
 
 /*Login*/
 
@@ -137,7 +138,7 @@ button:hover {
 /*Topbar*/
 
 #topbar {
-  background-color: #eee;
+  border-bottom: 4px solid rgb(180, 131, 131);
   grid-area: 1 / 2 / 1 / span 6;
   display: grid;
   grid-template: 1fr / repeat(7, 1fr);
@@ -146,20 +147,38 @@ button:hover {
   margin-bottom: 1em;
 }
 
-#heading {
-  width: 30%;
-  margin-left: 10%;
-  border-radius: 0.2em;
-  font-family: 'DM Serif Display', serif;
-  grid-area: 1 / 1 / 1 / span 5;
-}
-
-
 .topbar-links {
   grid-area: 1 / 6 / 1 / span 2;
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.topbar-links button, .topbar-links .link {
+  background-color: white;
+}
+
+.topbar-links button:hover, .topbar-links .link:hover {
+ color:rgb(35, 126, 126) !important; 
+}
+
+#heading {
+  width: 30%;
+  margin-left: 10%;
+  border-radius: 0.2em;
+  font-family: 'DM Serif Display', serif;
+  grid-area: 1 / 1 / 1 / span 2;
+}
+
+#app-about {
+  grid-area: 1 / 3 / 1 / span 3;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#app-about p {
+  font-size: 0.7em;
 }
 
 #main {
@@ -207,34 +226,71 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 2%;
+  
 }
 
-#summaries div:nth-child(1) {
-  background-image: linear-gradient(0deg, rgb(98, 192, 255) 0%, rgb(224, 242, 255) 100%);
+#summaries .summary:nth-child(1) {
+  transition: top 1s, left 1s;
+  position: relative;
+  top: 15%;
+  left: 15%;
+  background-image: linear-gradient(0deg, rgb(8, 114, 184) 0%, rgb(164, 217, 255) 100%);
 }
 
-#summaries div:nth-child(2) {
-  background-image: linear-gradient(0deg, rgb(255, 196, 129) 0%, rgb(255, 242, 227) 100%);
+#summaries .summary:nth-child(2) {
+  transition: top 1s, right 1s;
+  position: relative;
+  top: 15%;
+  right: 15%;
+  background-image: linear-gradient(0deg, rgb(206, 134, 46) 0%, rgb(255, 208, 155) 100%);
 }
 
-#summaries div:nth-child(3) {
-  background-image: linear-gradient(0deg, rgb(255, 131, 255) 0%, rgb(255, 221, 255) 100%);
+#summaries .summary:nth-child(3) {
+  transition: bottom 1s, left 1s;
+  position: relative;
+  bottom: 15%;
+  left: 15%;
+  background-image: linear-gradient(0deg, rgb(188, 48, 48) 0%, rgb(255, 152, 152) 100%);
 }
 
-#summaries div:nth-child(4) {
-  background-image: linear-gradient(0deg, rgb(176, 255, 96) 0%, rgb(242, 255, 228)100%);
+#summaries .summary:nth-child(4) {
+  transition: bottom 1s, right 1s;
+  position: relative;
+  bottom: 15%;
+  right: 15%;
+  background-image: linear-gradient(0deg, rgb(100, 164, 36) 0%, rgb(195, 255, 131) 100%);
+}
+
+#summaries .summary:nth-child(1):hover {
+  top: 0;
+  left: 0;
+}
+
+#summaries .summary:nth-child(2):hover {
+  top: 0;
+  right: 0;
+}
+
+#summaries .summary:nth-child(3):hover {
+  bottom: 0;
+  left: 0;
+}
+
+#summaries .summary:nth-child(4):hover {
+  bottom: 0;
+  right: 0;
 }
 
 .summary {
-  height: 80%;
-  width: 80%;
+  color: white;
+  height: 70%;
+  width: 70%;
   margin: 0px auto;
   border-radius: 1em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #eee;
 }
 
 .summary p {
@@ -401,7 +457,7 @@ input[type='radio'] {
 /*Voters/Candidates/Elections*/
 
 #candidates, #election, #voters {
-  height: 85%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -409,12 +465,17 @@ input[type='radio'] {
 }
 
 #voters .filter-container, #candidates .filter-container {
-  width: 80%; 
+  width: 100%; 
   margin: 1em auto;
   display: grid;
-  grid-template: 1fr / repeat(4, 1fr);
+  grid-template: 1fr / repeat(6, 1fr);
   justify-content: center;
   align-items: center;
+}
+
+#voters .filter-container .add-btn, #candidates .filter-container .add-btn {
+  width: 70%;
+  grid-area: 1 / 5 / 1 / span 2;
 }
 
 #voters #election-select, #candidates #election-select {
@@ -429,6 +490,18 @@ input[type='radio'] {
   grid-template: repeat(8, 1fr) / 1fr;
   justify-content: center;
 }
+
+.no-result-container {
+  width: 80%;
+  margin: 0px auto;
+  position: relative;
+  top: 50%;
+}
+
+.no-result-msg {
+  line-height: 2em;
+}
+
 #results #results-table {
   grid-area: 4 / 1 / span 4 / 1;
   display: flex;
@@ -494,7 +567,7 @@ th {
 }
 
 tr:hover {
-  background-color: rgb(231, 251, 255);
+  background-color: rgba(35, 126, 126, 0.2);
 }
 
 .table{
