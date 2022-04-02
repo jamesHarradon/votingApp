@@ -23,8 +23,7 @@ export default function Profile() {
             <div id='change-name'>
                 <p>Name:</p> 
                 <div id='name'> 
-                    <p>{user && user.first_name}</p>
-                    <p>{user && user.last_name}</p>
+                    <p>{user && user.first_name} {user && user.last_name}</p>
                 </div>
                 <button className='edit' onClick={() => setChangeNameClick(true)}>Edit</button>
             </div>

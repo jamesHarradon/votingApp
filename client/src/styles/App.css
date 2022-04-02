@@ -726,10 +726,6 @@ tr:hover {
 
 #name {
   grid-area: 1 / 2 / 1 / 2;
-  display: grid;
-  grid-template: 1fr / repeat(2, 1fr);
-  gap: 1%;
-  
 }
 
 #change-name-form, #change-password-form, #change-email-form {
