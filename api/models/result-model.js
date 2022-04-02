@@ -30,7 +30,7 @@ class ResultModel {
 
     async getResults(electionId) {
         try {
-            const data = await pool.query('SELECT candidate_id, first_name, last_name, email, role, name, COUNT(candidate_id) AS votes FROM voters_candidates vc JOIN candidate c ON vc.candidate_id = c.id JOIN election e ON e.id = c.election_id WHERE vc. election_id = $1 GROUP BY candidate_id, first_name, last_name, email, position, role, name ORDER BY 8 DESC', [electionId]);
+            const data = await pool.query('SELECT candidate_id, first_name, last_name, email, role, name, COUNT(candidate_id) AS votes FROM voters_candidates vc JOIN candidate c ON vc.candidate_id = c.id JOIN election e ON e.id = c.election_id WHERE vc. election_id = $1 GROUP BY candidate_id, first_name, last_name, email, role, name ORDER BY 7 DESC', [electionId]);
             return data.rows?.length ? data : null
         } catch (error) {
             throw new Error(error)
