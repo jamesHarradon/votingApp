@@ -17,15 +17,21 @@ export default function Manifesto() {
 
     const params = useParams();
 
-    const { data: candidate } = useGetCandidateByIdQuery({candidateId: params.candidateId, electionId: params.electionId})
+    const { data: candidate, isLoading } = useGetCandidateByIdQuery({candidateId: params.candidateId, electionId: params.electionId})
     const { data: manifesto } = useGetManifestoByCandidateQuery(params.candidateId);
 
     return (
         <div id= 'manifesto'>
             {editClick && <EditManifestoForm  id={params.candidateId} toast={toast} section={section} setSection={setSection} setEditClick={setEditClick} />}
+            
             <div id='manifesto-head'>
-                <h2>{`${candidate && candidate.first_name} ${candidate && candidate.last_name} `}</h2>
-                <h2>{candidate && candidate.name}</h2>
+                {isLoading && <h2>Loading...</h2>}
+                {!isLoading && 
+                <>
+                    <h2>{`${candidate && candidate.first_name} ${candidate && candidate.last_name} `}</h2>
+                    <h2>{candidate && candidate.name}</h2>
+                </>
+                }   
             </div>
             <div className='manifesto-body'>
                 <div className='manifesto-who'>
