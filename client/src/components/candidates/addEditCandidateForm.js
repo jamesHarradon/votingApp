@@ -48,8 +48,6 @@ export default function AddCandidateForm(props) {
         email: Yup.string()
         .required('Email is required')
         .email(),
-        position: Yup.string()
-        .required('Position is required'),
         election_id: Yup.number()
         .min(1, 'Election is required')
     }) : Yup.object().shape({
@@ -57,7 +55,6 @@ export default function AddCandidateForm(props) {
         last_name: Yup.string(),
         email: Yup.string()
         .email(),
-        position: Yup.string(),
         election_id: Yup.number()
     })
 
@@ -82,14 +79,6 @@ export default function AddCandidateForm(props) {
                         <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
                         <div className='invalid-feedback'>{errors.email?.message}</div>
                         
-                        <select id='position' name='position' defaultValue='' onChange={(e) => setValue('position', e.target.value, { shouldValidate: true })} {...register('position')} className={`form-control ${errors.position ? 'is-invalid' : ''}`}>
-                            <option value='' disabled hidden>Select Position</option>
-                            <option value='President'>President</option>
-                            <option value='Vice President'>Vice President</option>
-                            <option value='General Secretary'>General Secretary</option>  
-                        </select>
-                        <div className='invalid-feedback'>{errors.position?.message}</div>
-
                         <select id='election_id' name='election_id' defaultValue={0} onChange={(e) => setValue('election_id', e.target.value, { shouldValidate: true })} {...register('election_id')} className={`form-control ${errors.election_id ? 'is-invalid' : ''}`}>
                                 <option  value={0} disabled hidden>Select Election</option>
                             {elections && elections.map(election => (

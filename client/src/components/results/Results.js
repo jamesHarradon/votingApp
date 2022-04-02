@@ -42,7 +42,6 @@ export default function Results() {
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Position</th>
                                 <th>Election</th>
                                 <th>Votes</th>
                             </tr>
@@ -52,7 +51,6 @@ export default function Results() {
                             <tr key={candidate.candidate_id}>
                                 <td>{candidate.first_name}</td>
                                 <td>{candidate.last_name}</td>
-                                <td>{candidate.position}</td>
                                 <td>{candidate.name}</td>
                                 <td>{candidate.votes}</td>
                             </tr>

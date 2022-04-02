@@ -25,7 +25,6 @@ export default function Manifesto() {
             {editClick && <EditManifestoForm  id={params.candidateId} toast={toast} section={section} setSection={setSection} setEditClick={setEditClick} />}
             <div id='manifesto-head'>
                 <h2>{`${candidate && candidate.first_name} ${candidate && candidate.last_name} `}</h2>
-                <h2>{candidate && candidate.position}</h2>
                 <h2>{candidate && candidate.name}</h2>
             </div>
             <div className='manifesto-body'>

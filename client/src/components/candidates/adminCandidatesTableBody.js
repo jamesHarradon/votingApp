@@ -54,7 +54,6 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
                         <td>{candidate.first_name}</td>
                         <td>{candidate.last_name}</td>
                         <td>{candidate.email}</td>
-                        <td>{candidate.position}</td>
                         <td>{candidate.name}</td>
                         <td><Link className='link' to={`/manifesto/${candidate.id}/${candidate.election_id}`}>Manifesto</Link></td>
                         <td><button onClick={() => {setEditId(candidate.id); setEditCandidateClick(true);}} className='edit'>Edit</button></td>

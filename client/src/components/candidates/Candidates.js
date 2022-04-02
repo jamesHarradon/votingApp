@@ -36,7 +36,6 @@ export default function Candidates() {
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
-                            <th>Position</th>
                             <th>Election</th>
                             {isAdmin ? <th colSpan='3'>Action</th> : <th>Action</th> }
 
