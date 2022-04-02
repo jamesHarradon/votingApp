@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../userSlice";
 
 
-
 export default function Main() {
 
     // user variable simulates a user has logged in
@@ -38,7 +37,7 @@ export default function Main() {
             <Routes>
                 <Route path='/login' element={<Login />} />
             </Routes>
-            }     
+            }  
         </div>
     )
 }
