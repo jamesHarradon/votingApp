@@ -45,7 +45,7 @@ export default function SessionTimeout() {
         clearTimeout(startTimerInterval.current);
     
         warningInactiveInterval.current = setInterval(() => {
-        const maxTime = 2; // Maximum mins given before logout 
+        const maxTime = 5; // Maximum mins given before logout 
         // const remainingTime = 1; // starts logout countdown at 1 min remaining.
     
         const diff = moment.duration(moment().diff(moment(timeString)));
