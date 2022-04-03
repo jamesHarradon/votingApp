@@ -618,10 +618,21 @@ tr:hover {
   border: 4px solid rgb(184, 184, 184);
   border-radius: 10px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .manifesto-modal {
   width: fit-content;
+}
+
+.delete-modal-flex {
+  display: flex;
+  justify-content: space-evenly;
+  justify-content: center;
+  margin-top: 2%;
 }
 
 .modal button {
