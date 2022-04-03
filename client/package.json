@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "msw": "^0.39.2",
     "react-router-dom": "^6.2.2"
   },
   "proxy": "http://localhost:4000"
