@@ -29,7 +29,7 @@ PG_PORT = usually 5432
 
 JWT_SECRET = can be anything
 
-app uses Nodemailer so you will need to set up an account and insert credentials
+app uses Nodemailer so you will need to set up an account and insert credentials; \
 NODEMAILER_USER = user \
 NODEMAILER_PASS = pass
 
