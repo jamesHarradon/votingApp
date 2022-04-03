@@ -1,38 +1,40 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from "../dashboard/Dashboard";
-import BallotCard from "../ballotCard/BallotCard";
-import Voters from "../voters/Voters";
-import Candidates from "../candidates/Candidates";
-import Manifesto from "../manifesto/Manifesto";
-import Election from "../election/Election";
-import Results from "../results/Results";
-import Profile from "../profile/Profile";
+
 import Login from "../login/Login";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../userSlice";
+import loadingIcon from '../../loading.png'
 
+const Dashboard =lazy(() => import('../dashboard/Dashboard'));
+const BallotCard = lazy(() => import('../ballotCard/BallotCard'));
+const Voters = lazy(() => import('../voters/Voters'));
+const Candidates = lazy(() => import('../candidates/Candidates'));
+const Manifesto = lazy(() => import('../manifesto/Manifesto'));
+const Election = lazy(() => import('../election/Election'));
+const Results = lazy(() => import('../results/Results'));
+const Profile = lazy(() => import('../profile/Profile'));
 
 export default function Main() {
 
-    // user variable simulates a user has logged in
     const user = useSelector(selectUser);
 
     return (
         <div id='main'>
             {user ? 
-            <Routes>
-                <Route path='/' element={<Dashboard />} />
-                <Route path='/profile/:id' element={<Profile />} />
-                <Route path='/ballot-card' element={<BallotCard />} />
-                <Route path='/voters' element={<Voters />} />
-                <Route path='/candidates' element={<Candidates />} />
-                {/*add /:id to manifesto route*/}
-                <Route path='/manifesto/:candidateId/:electionId' element={<Manifesto />} />
-                <Route path='/election' element={<Election />} />
-                <Route path='/results' element={<Results />} />
-                <Route path='/profile' element={<Profile />} />
-            </Routes> 
+            <Suspense fallback={<div className='loading-icon'><img alt='loading icon' src={loadingIcon}></img></div>}>
+                <Routes>
+                        <Route path='/' element={<Dashboard />} />
+                        <Route path='/profile/:id' element={<Profile />} />
+                        <Route path='/ballot-card' element={<BallotCard />} />
+                        <Route path='/voters' element={<Voters />} />
+                        <Route path='/candidates' element={<Candidates />} />
+                        <Route path='/manifesto/:candidateId/:electionId' element={<Manifesto />} />
+                        <Route path='/election' element={<Election />} />
+                        <Route path='/results' element={<Results />} />
+                        <Route path='/profile' element={<Profile />} />
+                </Routes> 
+            </Suspense>
             :
             <Routes>
                 <Route path='/login' element={<Login />} />
