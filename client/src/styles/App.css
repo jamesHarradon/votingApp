@@ -758,12 +758,10 @@ tr:hover {
 
 /*Loading Icon*/
 
-#loading-icon {
+.loading-icon {
   animation: spin 2s linear infinite;
   position: relative;
   top: 25vh;
-  width: 5vw;
-  height: auto;
 }
 
 @keyframes spin {
