@@ -21,16 +21,16 @@ Tests for this app are in progress.
 
 - create a .env file in the root directory, it will need to include the following;
 
-PG_USER = postgres user
-PG_PASSWORD = postgres password
-PG_DATABASE = newly created db
-PG_HOST = localhost
+PG_USER = postgres user \
+PG_PASSWORD = postgres password \
+PG_DATABASE = newly created db \
+PG_HOST = localhost \
 PG_PORT = usually 5432
 
 JWT_SECRET = can be anything
 
 app uses Nodemailer so you will need to set up an account and insert credentials
-NODEMAILER_USER = user
+NODEMAILER_USER = user \
 NODEMAILER_PASS = pass
 
 CORS_ORIGIN = https://localhost:3000
