@@ -1,5 +1,4 @@
 import React from "react";
-import { ToastContainer } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -49,10 +48,12 @@ export default function Login() {
                     <button type='submit' className='login-btn'>Login</button>
                 </form>
             </div>
-            <ToastContainer 
-                hideProgressBar={true}
-                autoClose={3000}
-            />
+            <div>
+                <h2>Test Logins</h2>
+                <p>Email: test-admin@gmail.com Password: testAdmin</p>
+                <p>Email: test-voter@gmail.com Password: testVoter</p>
+                <p>Email: test-candidate@gmail.com Password: testCand</p>
+            </div>
         </div>
     )
 }
