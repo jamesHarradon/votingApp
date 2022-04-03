@@ -36,14 +36,14 @@ export default function Login() {
 
     return (   
         <div id='login-container'>
-            <div id='login'>
+            <div id='login'data-testid='login'>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
-                    <div className='invalid-feedback'>{errors.email?.message}</div>
+                    <div className='invalid-feedback' data-testid='invalid-email'>{errors.email?.message}</div>
                     
                     <input type='password' id='password' name='password' placeholder="Password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`}></input>
-                    <div className='invalid-feedback'>{errors.password?.message}</div>
+                    <div className='invalid-feedback' data-testid='invalid-password'>{errors.password?.message}</div>
 
                     <button type='submit' className='login-btn'>Login</button>
                 </form>
