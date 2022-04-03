@@ -20,6 +20,7 @@ Tests for this app are in progress.
  - Insert an admin user into admin table 
 
 - create a .env file in the root directory, it will need to include the following;
+
 PG_USER = postgres user
 PG_PASSWORD = postgres password
 PG_DATABASE = newly created db
