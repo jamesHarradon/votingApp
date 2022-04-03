@@ -1,13 +1,40 @@
 # Voting App
 
-#### Project in progress - to be completed end of March 22
-
 An Online Voting Platform for Admin, Candidate and Voter users.
+Admin can create elections and add voters and candidates to them. They can also edit users and manifestos if needed.
+Currently only in development - When admin adds a voter or candidate, an email is sent a test mailtrap account with login data for users. An email is also sent to confirm a voters vote. This feature is in progress and will be added to production. 
+Candidates can create and edit their manifestos as well as see election and voter data.
+Voters can view their elections, view candidates data and place a vote. 
 
+See it live at [https://jims-voting-app.netlify.app/](https://jims-voting-app.netlify.app/)
 
 The client was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template, utilising RTK Query.
 
-The server uses Node.js with Expres and a PostreSQL database.
+The server uses Node.js with Express and a PostreSQL database.
+
+Tests for this app are in progress.
+
+## Local set up
+ - Create a PostgreSQL database
+ - Copy and paste the psql code found in database.pqsl to set up schema
+ - Insert an admin user into admin table 
+
+- create a .env file in the root directory, it will need to include the following;
+PG_USER = postgres user
+PG_PASSWORD = postgres password
+PG_DATABASE = newly created db
+PG_HOST = localhost
+PG_PORT = usually 5432
+
+JWT_SECRET = can be anything
+
+app uses Nodemailer so you will need to set up an account and insert credentials
+NODEMAILER_USER = user
+NODEMAILER_PASS = pass
+
+CORS_ORIGIN = https://localhost:3000
+
+ - You should now be able to create your own elections and add voters and canidates to it.
 
 ## Available Scripts
 
