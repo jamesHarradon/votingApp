@@ -28,7 +28,7 @@ export default function Manifesto() {
                 {isLoading && <h2>Loading...</h2>}
                 {!isLoading && 
                 <>
-                    <h2>{`${candidate && candidate.first_name} ${candidate && candidate.last_name} `}</h2>
+                    <h1>{`${candidate && candidate.first_name} ${candidate && candidate.last_name} `}</h1>
                     <h2>{candidate && candidate.name}</h2>
                 </>
                 }   

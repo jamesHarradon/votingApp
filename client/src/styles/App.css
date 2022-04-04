@@ -664,6 +664,11 @@ tr:hover {
   align-self: center;
 }
 
+#manifesto-head h1 {
+  font-size: 1.5em;
+  margin: 0.5em;
+}
+
 .manifesto-body {
   grid-area: 2 / 1 / span 3 / span 3;
   display: grid;
