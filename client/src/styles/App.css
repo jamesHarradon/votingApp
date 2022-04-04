@@ -628,9 +628,10 @@ tr:hover {
   width: fit-content;
 }
 
-.delete-modal-flex {
+.confirmation-modal-flex {
   display: flex;
-  justify-content: space-evenly;
+  width: 50%;
+  justify-content: space-between;
   justify-content: center;
   margin-top: 2%;
 }
