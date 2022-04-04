@@ -8,6 +8,7 @@ Voters can view their elections, view candidates data and place a vote.
 
 See it live at [https://jims-voting-app.netlify.app/](https://jims-voting-app.netlify.app/)
 
+
 The client was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template, utilising RTK Query.
 
 The server uses Node.js with Express and a PostreSQL database.
