@@ -1,13 +1,12 @@
 # Voting App
 
 An Online Voting Platform for Admin, Candidate and Voter users.
-Admin can create elections and add voters and candidates to them. They can also edit users and manifestos if needed.
-Currently only in development - When admin adds a voter or candidate, an email is sent a test mailtrap account with login data for users. An email is also sent to confirm a voters vote. This feature is in progress and will be added to production. 
+Admin can create elections, add voters and candidates to them. They can also edit users and manifestos if needed.
 Candidates can create and edit their manifestos as well as see election and voter data.
-Voters can view their elections, view candidates data and place a vote. 
+Voters can view their elections, view candidate data and place a vote. 
+(Currently only in development - When admin adds a voter or candidate, an email is currently sent to my mailtrap account with login data. An email is also sent to confirm a voters vote. This feature is in progress and will be added to production.) 
 
 See it live at [https://jims-voting-app.netlify.app/](https://jims-voting-app.netlify.app/)
-
 
 The client was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template, utilising RTK Query.
 
