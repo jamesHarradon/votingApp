@@ -746,6 +746,13 @@ tr:hover {
     100% { transform: rotate(360deg); }
 }
 
+/*Error boundary*/
+.error-boundary {
+    grid-area: 2 / 3 / span 2 / span 2;
+    @include flex-justify-content(center);
+    flex-direction: column;
+}
+
 
 /*scrollbar*/
 /* width */

@@ -1,6 +1,8 @@
 import React from "react";
+import withNavigation from "./withNavigation";
 
-export default class ErrorBoundary extends React.Component {
+class ErrorBoundary extends React.Component {
+  
     constructor(props) {
       super(props);
       this.state = { hasError: false };
@@ -15,19 +17,23 @@ export default class ErrorBoundary extends React.Component {
       // You can also log the error to an error reporting service
       console.log(error, errorInfo);
     }
-  
+
+    
+
     render() {
       if (this.state.hasError) {
         // You can render any custom fallback UI
         return (
-          <div>
+          <div className='error-boundary'>
             <h1>Something went wrong.</h1>
-            <p></p>
+            <button onClick={() => { this.props.navigate('/'); window.location.reload()}}>Back To Dashboard</button>
           </div>
         ) 
       }
   
       return this.props.children; 
     }
-  }
+}
+
+export default withNavigation(ErrorBoundary);
 

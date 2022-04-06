@@ -16,7 +16,6 @@ import SessionTimeout from './components/sessionTimeout/SessionTimeout';
 
 function App() {
 
-  
   const user = useSelector(selectUser);
 
   return (
