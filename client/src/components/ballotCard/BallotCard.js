@@ -52,20 +52,20 @@ export default function BallotCard() {
                 {hasVoted && <VotedCandidate user={user} electionId={electionId} />}
                 {!hasVoted && 
                     <form id='ballot-card-form-grid' onSubmit={(e) => placeVoteHandler(e)} onChange={(e) => setRadioCandidate(e.target.value)}>
-                    <div id='ballot-card-inner-grid'>
-                            {candidates && candidates.map(candidate => (   
-                                <div className='ballot-card-candidate' key={candidate.id}>
-                                    <Link className='ballot-card-link' to={`/manifesto/${candidate.id}/${candidate.election_id}`} key={candidate.id}>
-                                        <label htmlFor={candidate.id}>{`${candidate.first_name} ${candidate.last_name}`}</label>
-                                    </Link>
-                                    <div className='ballot-card-candidate-image-container'>
-                                        <img src={profileImg} alt='candidate profile' className='ballot-card-candidate-image'></img>
-                                    </div>
-                                    <input type='radio' id={candidate.id} name={candidate.election_id} value={candidate.id}></input>  
-                                </div>    
-                            ))}
-                    </div>
-                    <button id='ballot-card-submit' type='submit'>Place Vote</button>
+                        <div id='ballot-card-inner-grid'>
+                                {candidates && candidates.map(candidate => (   
+                                    <div className='ballot-card-candidate' key={candidate.id}>
+                                        <Link className='ballot-card-link' to={`/manifesto/${candidate.id}/${candidate.election_id}`} key={candidate.id}>
+                                            <label htmlFor={candidate.id}>{`${candidate.first_name} ${candidate.last_name}`}</label>
+                                        </Link>
+                                        <div className='ballot-card-candidate-image-container'>
+                                            <img src={profileImg} alt='candidate profile' className='ballot-card-candidate-image'></img>
+                                        </div>
+                                        <input type='radio' id={candidate.id} name={candidate.election_id} value={candidate.id}></input>  
+                                    </div>    
+                                ))}
+                        </div>
+                        <button id='ballot-card-submit' type='submit'>Place Vote</button>
                     </form>
                 }
                 <ToastContainer 
