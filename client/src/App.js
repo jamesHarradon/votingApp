@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './styles/App.css'
+import './styles/app.css'
 import './styles/normalise.css'
 import './styles/styleReset.css'
 import Login from './components/login/Login';
