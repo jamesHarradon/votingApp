@@ -1,0 +1,809 @@
+.App {
+    font-size: 1.4vw;
+    height: 100vh;
+    text-align: center;
+    display: grid;
+    grid-template: repeat(6, 1fr) / repeat(6, 1fr);
+    gap: 1%;
+  }
+  
+  h2 {
+    font-size: 1.2em;
+  }
+  
+  input {
+    border: 1px solid lightgray;
+    height: 2em;
+    margin: 0.5em;
+    padding: 0.5em;
+  }
+  
+  option {
+    font-size: 1em;
+  }
+  
+  .bold {
+    font-weight: 500;
+  }
+  
+  /*Buttons/Links*/
+  
+  .add-btn:hover {
+    background-color: rgb(64, 173, 50);
+  }
+  
+  .edit:hover {
+    background-color: rgb(64, 173, 50);
+  }
+  
+  .delete:hover {
+    background-color: rgb(255, 45, 45);
+  }
+  
+  .add-btn {
+    width: 40%;
+    margin: 20px auto;
+  }
+  
+  button:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  .link, button {
+    -webkit-appearance: button;
+    color: black;
+    text-decoration: none;
+    background-color: rgb(236, 236, 236);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .candidate-preview-link {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .candidate-preview-link:hover {
+    background-color: rgba(35, 126, 126, 0.2);
+  }
+  
+  .ballot-card-link {
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: rgb(236, 236, 236);
+  }
+  
+  .sidebar-link {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: rgb(224, 224, 224);
+    width: 80%;
+    height: 80%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .sidebar-link:visited, .link:visited, .ballot-card-link:visited {
+    color: black;
+  }
+  
+  .link:hover, .ballot-card-link:hover {
+    background-color: rgb(31, 151, 231);
+    color: white;
+  }
+  
+  .sidebar-link:hover {
+    border: 3px solid rgb(35, 126, 126);
+  }
+  
+  /*Login*/
+  
+  #login-container {
+    grid-area: 1 / 1 / span 6 / span 6;
+    display: grid;
+    justify-content: center;
+  }
+  
+  #login {
+    position: relative;
+    top: 20vh;
+    height: fit-content;
+    width: 30em;
+    font-size: 0.8em;
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 2px gray;
+  }
+  
+  #login form {
+    margin: 4%;
+  }
+  
+  #login input {
+    
+    width: 28vw;
+  }
+  
+  #login input, #login button {
+    margin: 0.1em 0;
+  }
+  
+  /*Topbar*/
+  
+  #topbar {
+    border-bottom: 4px solid rgb(180, 131, 131);
+    grid-area: 1 / 2 / 1 / span 6;
+    display: grid;
+    grid-template: 1fr / repeat(7, 1fr);
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+  
+  .topbar-links {
+    grid-area: 1 / 6 / 1 / span 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .topbar-links button, .topbar-links .link {
+    background-color: white;
+  }
+  
+  .topbar-links button:hover, .topbar-links .link:hover {
+   color:rgb(35, 126, 126) !important; 
+  }
+  
+  #heading {
+    width: 30%;
+    margin-left: 10%;
+    border-radius: 0.2em;
+    font-family: 'DM Serif Display', serif;
+    grid-area: 1 / 1 / 1 / span 2;
+  }
+  
+  #app-about {
+    grid-area: 1 / 3 / 1 / span 3;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  #app-about p {
+    font-size: 0.7em;
+  }
+  
+  #main {
+    grid-area: 2 / 2 / span 5 / span 5;
+  }
+  
+  /*Sidebar*/
+  
+  #sidebar {
+    font-size: 1.3em;
+    grid-area: 1 / 1 / span 6 / 1;
+    display: grid;
+    grid-template: repeat(5, 1fr) / 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .sidebar-selected {
+    font-weight: bolder;
+    background-color: rgb(35, 126, 126) !important;
+    box-shadow: 4px 4px 1px black;
+    color: white !important;
+  }
+  
+  /*Dashboard*/
+  
+  #dashboard {
+    height: 100%;
+    display: grid;
+    grid-template: repeat(4, 1fr) / repeat(5, 1fr);
+    gap: 1%;
+  }
+  
+  #election-preview #election-select, #election-preview #election-select label {
+    font-size: 1.1em;
+  }
+  
+  
+  /*Summaries*/
+  
+  #summaries {
+    grid-area: 1 / 4 / span 2 / span 2;
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+    
+  }
+  
+  #summaries .summary:nth-child(1) {
+    transition: top 1s, left 1s;
+    position: relative;
+    top: 15%;
+    left: 15%;
+    background-image: linear-gradient(0deg, rgb(8, 114, 184) 0%, rgb(164, 217, 255) 100%);
+  }
+  
+  #summaries .summary:nth-child(2) {
+    transition: top 1s, right 1s;
+    position: relative;
+    top: 15%;
+    right: 15%;
+    background-image: linear-gradient(0deg, rgb(206, 134, 46) 0%, rgb(255, 208, 155) 100%);
+  }
+  
+  #summaries .summary:nth-child(3) {
+    transition: bottom 1s, left 1s;
+    position: relative;
+    bottom: 15%;
+    left: 15%;
+    background-image: linear-gradient(0deg, rgb(188, 48, 48) 0%, rgb(255, 152, 152) 100%);
+  }
+  
+  #summaries .summary:nth-child(4) {
+    transition: bottom 1s, right 1s;
+    position: relative;
+    bottom: 15%;
+    right: 15%;
+    background-image: linear-gradient(0deg, rgb(100, 164, 36) 0%, rgb(195, 255, 131) 100%);
+  }
+  
+  #summaries .summary:nth-child(1):hover {
+    top: 0;
+    left: 0;
+  }
+  
+  #summaries .summary:nth-child(2):hover {
+    top: 0;
+    right: 0;
+  }
+  
+  #summaries .summary:nth-child(3):hover {
+    bottom: 0;
+    left: 0;
+  }
+  
+  #summaries .summary:nth-child(4):hover {
+    bottom: 0;
+    right: 0;
+  }
+  
+  .summary {
+    color: white;
+    height: 70%;
+    width: 70%;
+    margin: 0px auto;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .summary p {
+    font-size: 1.5em;
+  }
+  
+  /*Candidate Preview*/
+  
+  #candidate-preview {
+    grid-area: 3 / 1 / span 2 / span 5;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 23%;
+    gap: 1%;
+    overflow-x: scroll;
+  }
+  
+  .candidate-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+  }
+  
+  .candidate-image {
+    width: 80%;
+    height: auto;
+    border-radius: 0.5em;
+  }
+  
+  .candidate-name {
+    font-size: 0.8em;
+    padding-top: 0.5em;
+  }
+  
+  #election-preview {
+    grid-area: 1 / 1 / span 2 / span 3;
+    display: grid;
+    grid-template: repeat(2, 1fr) / 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /*Ballot Card*/
+  
+  #ballot-card {
+    height: 100%;
+    display: grid;
+    grid-template: repeat(10, 1fr) / 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #ballot-card #election-select {
+    grid-area: 1 / 1 / 1 / 1;
+  }
+  
+  #ballot-card-form-grid {
+    grid-area: 2 / 1 / span 9 / 1;
+    height: 100%;
+    display: grid;
+    grid-template: repeat(8, 1fr) / 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #ballot-card-inner-grid {
+    grid-area: 1 / 1 / span 7 / 1;
+    height: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 23%;
+    gap: 1%;
+    overflow-x: scroll;
+    padding: 0 2%;
+  }
+  
+  .ballot-card-candidate, .voted-candidate {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  input[type='radio'] {
+    accent-color: rgb(35, 126, 126);
+    width: 2em;
+  }
+  
+  
+  #ballot-card-submit {
+    grid-area: 8 / 1 / 8 / 1;
+    width: 50%;
+    margin: 0px auto;
+  }
+  
+  .ballot-card-candidate-image-container {
+    background-color: rgba(104, 64, 26, 0.2);
+    margin: 0.5em;
+    height: 40%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+  }
+  
+  .ballot-card-candidate-image {
+    width: 80%;
+    max-height: 100%;
+    border-radius: 0.5em;
+  }
+  
+  /*Voted Candidate*/
+  
+  .voted-candidate-container {
+    grid-area: 2 / 1 / span 8 / 1;
+    height: 100%;
+    width: 80%;
+    margin: 0px auto;
+  }
+  
+  .voted-candidate > * {
+    margin: 0.5em;
+  }
+  
+  .voted-candidate-image-container {
+    background-color: rgba(104, 64, 26, 0.2);
+    padding: 0.5em;
+    margin: 1em;
+    width: 15%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+  }
+  
+  .voted-candidate-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .voted-candidate-flex h2 {
+    margin: 0.5em;
+  }
+  
+  .voted-candidate-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5em;
+  }
+  
+  .voted-candidate-body {
+    height: 60%;
+  }
+  
+  /*Voters/Candidates/Elections*/
+  
+  #candidates, #election, #voters {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #voters .filter-container, #candidates .filter-container {
+    width: 100%; 
+    margin: 1em auto;
+    display: grid;
+    grid-template: 1fr / repeat(6, 1fr);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #voters .filter-container .add-btn, #candidates .filter-container .add-btn {
+    width: 70%;
+    grid-area: 1 / 5 / 1 / span 2;
+  }
+  
+  #voters #election-select, #candidates #election-select {
+    grid-area: 1 / 1 / 1 / span 3;
+  }
+  
+  /*Results*/
+  
+  #results {
+    height: 90%;
+    display: grid;
+    grid-template: repeat(8, 1fr) / 1fr;
+    justify-content: center;
+  }
+  
+  .no-result-container {
+    width: 80%;
+    margin: 0px auto;
+    position: relative;
+    top: 50%;
+  }
+  
+  .no-result-msg {
+    line-height: 2em;
+  }
+  
+  #results #results-table {
+    grid-area: 4 / 1 / span 4 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #results-head h1 {
+    padding: 0.5em;
+  }
+  
+  #results-head, #results-body {
+    line-height: 1.5em;
+    padding: 0.5em;
+  }
+  
+  .results-flex {
+    width: 70%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  #results select {
+    height: fit-content;
+    width: 40%;
+    margin: 0px auto;
+  }
+  
+  /*Tables*/
+  
+  .add-form {
+    margin: 2%;
+    grid-area: 1 / 1 / 1 / 1;
+  }
+  
+  .table-fixed-head {
+    height: 100%;
+    min-width: 95%;
+    overflow-y: auto;
+    margin: 0px auto;
+    grid-area: 3 / 1 / span 5 / 1;
+  }
+  
+  .table-fixed-head thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  tbody tr {
+    font-size: 0.8em;
+    height: 6vh;
+  }
+  
+  th, td {
+    padding: 8px;
+    
+  }
+  th {
+    background: #eee;
+  }
+  
+  tr:hover {
+    background-color: rgba(35, 126, 126, 0.2);
+  }
+  
+  .table{
+    text-align: left;
+    min-width: 100%;
+    margin: 0px auto;
+    border-collapse: collapse;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    min-height: 1.5em;
+    height: fit-content;
+  }
+  
+  .add-form-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 1em;
+  }
+  
+  .add-form-fields input, .add-form-fields select {
+    margin: 0.5em;
+  }
+  
+  /*Modals*/
+  
+  .modal-container {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    z-index: 2; 
+  }
+  
+  .modal {
+    position: relative;
+    width: 40%;
+    height: fit-content;
+    padding: 3%;
+    border: 4px solid rgb(184, 184, 184);
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .manifesto-modal {
+    width: fit-content;
+  }
+  
+  .confirmation-modal-flex {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    justify-content: center;
+    margin-top: 2%;
+  }
+  
+  .modal button {
+    margin: 4% 6% 0 6%;
+  }
+  
+  .close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 1.5em;
+    transform: rotate(45deg);
+    cursor: pointer;
+    
+  }
+  
+  /*Manifesto*/
+  
+  #manifesto {
+    height: 100%;
+    display: grid;
+    grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+    
+  }
+  
+  #manifesto-head {
+    grid-area: 1 / 1 / 1 / span 3;
+    justify-self: center;
+    align-self: center;
+  }
+  
+  #manifesto-head h1 {
+    font-size: 1.5em;
+    margin: 0.5em;
+  }
+  
+  .manifesto-body {
+    grid-area: 2 / 1 / span 3 / span 3;
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr); 
+  }
+  
+  .manifesto-who, .manifesto-what, .manifesto-why {
+    margin: 1%;
+    display: grid;
+    grid-template: repeat(6, minmax(15%, auto)) / 1fr;
+  }
+  
+  .manifesto-who {
+    grid-area: 1 / 1 / span 2 / 1;
+  }
+  
+  .manifesto-what {
+    grid-area: 1 / 2 / span 2 / 2;
+  }
+  
+  .manifesto-why {
+    grid-area: 1 / 3 / span 2 / 3;
+  }
+  
+  .manifesto-body h2 {
+    grid-area: 1 / 1 / 1 / 1
+  }
+  
+  .manifesto-body p {
+    overflow-y: scroll;
+    text-align: left;
+    margin: 0 0.2em;
+    grid-area: 2 / 1 / span 4 / 1;
+  }
+  
+  .manifesto-body button {
+    grid-area: 6 / 1 / 6 / 1;
+  }
+  
+  #manifesto .edit {
+    width: 50%;
+    margin: 10px auto;
+  }
+  
+  /*Profile*/
+  
+  #profile {
+    height: 100%;
+    max-width: 90%;
+    min-width: 80%;
+    padding: 3%;
+    margin: 0px auto;
+    display: grid;
+    grid-template: repeat(9, 1fr) / 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #profile .edit {
+    margin: 5%;
+  }
+  
+  #change-name {
+    grid-area: 1 / 1 / 1 / 1;
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  #name {
+    grid-area: 1 / 2 / 1 / 2;
+  }
+  
+  #change-name-form, #change-password-form, #change-email-form {
+    height: 100%;
+    width: 80%;
+    margin: 0px auto;
+    padding: 1em; 
+  }
+  
+  #change-email {
+    grid-area: 2 / 1 / 2 / 1;
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  #change-password {
+    grid-area: 3 / 1 / 3 / 1;
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #profile input {
+    min-width: 100%; 
+  }
+  
+  /*Loading Icon*/
+  
+  .loading-icon {
+    animation: spin 2s linear infinite;
+    position: relative;
+    top: 25vh;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  
+  /*scrollbar*/
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
