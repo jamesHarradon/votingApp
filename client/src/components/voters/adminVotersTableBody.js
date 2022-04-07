@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useDeleteVoterMutation, useGetVotersByElectionQuery, useGetVotersQuery } from "../../services/voter";
 import { selectUser } from "../../userSlice";
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
+import { nanoid } from 'nanoid'
 
 export default function AdminVotersTableBody({ toast, setEditVoterClick, setEditId, electionFilterId, showAll, setShowAll }) {
 
@@ -61,7 +62,7 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
             {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='voter' deleteId={deleteVoterId} deleteElectionId={deleteVoterElectionId}/>}
             <tbody>
                 {voters && voters.map(voter => (
-                <tr key={voter.id}>
+                <tr key={nanoid(10)}>
                     <td>{voter.first_name}</td>
                     <td>{voter.last_name}</td>
                     <td>{voter.email}</td>
