@@ -14,7 +14,7 @@ class VoterModel {
 
     async getAllVotersByElectionId(id) {
         try {
-            const data = await pool.query('SELECT voter.id, email, first_name, last_name, password, role, name FROM voter JOIN election_voters ON voter.id = election_voters.voter_id JOIN election ON election_voters.election_id = election.id WHERE election_id = $1 ORDER BY 4', [id]);
+            const data = await pool.query('SELECT voter.id, email, first_name, last_name, password, role, election_id, name FROM voter JOIN election_voters ON voter.id = election_voters.voter_id JOIN election ON election_voters.election_id = election.id WHERE election_id = $1 ORDER BY 4', [id]);
             return data.rows?.length ? data.rows : null;
         } catch (error) {
             throw new Error(error);
