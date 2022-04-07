@@ -48,7 +48,7 @@ const voterApi = voterApiWithTag.injectEndpoints({
                     }
                 }
             },
-            invalidatesTags: ['Voter']
+            invalidatesTags: ['Voter', 'Election']
         }),
         deleteVoter: build.mutation({
             query(data) {
