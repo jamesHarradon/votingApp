@@ -1,9 +1,11 @@
 
 const ElectionModel = require('../models/election-model');
 const VoterModel = require('../models/voter-model');
+const AuthModel = require('../models/auth-model')
 
 const ElectionModelInstance = new ElectionModel;
 const VoterModelInstance = new VoterModel;
+const AuthModelInstance = new AuthModel;
 
 class VoterService {
 
@@ -36,7 +38,10 @@ class VoterService {
 
     async addVoter(body) {
         try {
-            const data = await VoterModelInstance.addVoter(body);
+            //allows voters to be added to more than one election
+            const existingData = await AuthModelInstance.findOne(body.email);
+            let data = existingData || null;
+            if (!existingData) data = await VoterModelInstance.addVoter(body);
             if(!data) return false;
             const addSuccess = await VoterModelInstance.addToElectionVoters(body.election_id, data.id);
             await ElectionModelInstance.incrementVoterCandidate(body.election_id, 'voter');
