@@ -73,6 +73,28 @@ export const amendUser = createAsyncThunk(
     }
 )
 
+//adds/removes election ids in cookie so admin is authorised to see newly created ones
+export const amendElectionIdsAdmin = createAsyncThunk(
+    'user/amendElectionIdsAdmin', async (data) => {
+        try {
+            const response = await fetch(`/api/auth/edit-cookie/${data.action}/${data.election_id}`, {
+                method: 'PUT',
+                credentials: 'include',
+                mode: 'cors',
+            });
+            if (response.ok) {
+                const user = await response.json();
+                return user;
+            } else {
+                const errorMsg = await response.text()
+                throw new Error(errorMsg);
+            }       
+        } catch (err) {
+            console.log(err);
+        } 
+    }
+)
+
 export const getUserById = createAsyncThunk(
     'user/getUserById', async (data) => {
         try {
@@ -130,7 +152,8 @@ const userSlice = createSlice({
     },
     reducers: {
         // see store for logout action
-        logout: state => {}
+        logout: state => {},
+        
     },
     //need to find out better way to arrange extraReducers
     extraReducers: {
@@ -170,6 +193,19 @@ const userSlice = createSlice({
             state.hasFailed = false;
         },
         [amendUser.rejected]: (state) => {
+            state.isLoading = false;
+            state.hasFailed = true;
+        },
+        [amendElectionIdsAdmin.pending]: (state) => {
+            state.isLoading = true;
+            state.hasFailed = false;
+        },
+        [amendElectionIdsAdmin.fulfilled]: (state, action) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.hasFailed = false;
+        },
+        [amendElectionIdsAdmin.rejected]: (state) => {
             state.isLoading = false;
             state.hasFailed = true;
         },
