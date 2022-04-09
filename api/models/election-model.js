@@ -94,7 +94,7 @@ class ElectionModel {
     async addToAdminElections(adminId, electionId) {
         try {
             const data = await pool.query('INSERT INTO admin_elections (admin_id, election_id) VALUES ($1, $2) RETURNING *', [adminId, electionId]);
-            return data.rows?.length ? {success: true} : {success: false};
+            return data.rows?.length ? {success: true, election_id: electionId} : {success: false};
         } catch (error) {
            throw new Error(error); 
         }
