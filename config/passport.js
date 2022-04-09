@@ -63,6 +63,7 @@ passport.use('jwt-all-users', new JwtStrategy(options, async (req, jwtPayload, d
 
 
 passport.use('jwt-admin', new JwtStrategy(options, async (req, jwtPayload, done) => {
+    req.jwtPayload = jwtPayload;
     let user;
     if (jwtPayload.role === 'admin') {
         try {
