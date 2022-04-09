@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useGetAllElectionsQuery, useDeleteElectionMutation } from "../../services/election";
-import { selectUser } from "../../userSlice";
+import { selectUser, amendElectionIdsAdmin } from "../../userSlice";
 import { DateTime } from 'luxon';
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
 
 export default function AdminElectionsTableBody({ toast, setEditElectionClick, setEditId }) {
 
+    const dispatch = useDispatch();
     const [ deleteButtonClick, setDeleteButtonClick ] = useState(false);
     const [ deleteId, setDeleteId ] = useState(null);
 
@@ -22,6 +23,7 @@ export default function AdminElectionsTableBody({ toast, setEditElectionClick, s
     const proceedHandler = async (id) => {
         try {
             await deleteElection(id);
+            dispatch(amendElectionIdsAdmin({action: 'remove', election_id: id}))
             setDeleteButtonClick(false);
             toast('Election deleted!')
         } catch (error) {

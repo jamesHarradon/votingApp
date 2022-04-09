@@ -1,21 +1,23 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { DateTime } from "luxon";
 import { useAddElectionMutation, useAmendElectionMutation } from "../../services/election";
-import { selectUser } from "../../userSlice";
+import { selectUser, amendElectionIdsAdmin } from "../../userSlice";
 
 export default function AddEditElectionForm(props) {
 
+    const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const [ addElection ] = useAddElectionMutation();
     const [ amendElection ] = useAmendElectionMutation()
 
     const handleAddElection = async (data) => {
         try {
-            await addElection({id: user.id, body: data});
+            const result = await addElection({id: user.id, body: data}).unwrap();
+            dispatch(amendElectionIdsAdmin({action: 'add', election_id: result.election_id}));
             props.setClick(false);
             props.toast('Election added!')
         } catch (error) {
