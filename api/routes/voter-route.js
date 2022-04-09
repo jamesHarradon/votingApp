@@ -42,7 +42,6 @@ voterRouter.post('/add', passport.authenticate('jwt-admin', { session: false }),
     try {
         const response = await VoterServiceInstance.addVoter(req.body);
         const emailData = await VoterServiceInstance.getVoterData(response.id, req.body.election_id);
-        console.log(emailData);
         if (response && emailData) sendInitialMail(emailData);
         res.json(response);
     } catch (error) {
