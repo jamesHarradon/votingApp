@@ -18,7 +18,7 @@ export default function Voters() {
 
     const user = useSelector(selectUser);
     const isAdmin = user.role === 'admin';
-    const hasElections = user.election_ids.length > 0;
+    const hasElections = user.role !== 'candidate' && user.election_ids.length > 0;
     const isAdminOrVoter = user.role === 'voter' || user.role === 'admin';
 
 

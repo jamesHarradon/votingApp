@@ -5,11 +5,12 @@ import ResultsContent from "./ResultsContent";
 
 export default function Results() {
     const user = useSelector(selectUser);
-    const hasElections = user.election_ids.length > 0;
+    const isCandidate = user.role === 'candidate'
+    const hasElections = user.role !== 'candidate' && user.election_ids.length > 0;
 
     return (
         <>
-            {hasElections ? 
+            {(hasElections || isCandidate) ? 
             <ResultsContent />
             :
             <>No Results to show</>
