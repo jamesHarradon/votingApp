@@ -40,7 +40,7 @@ option {
 
 .add-btn {
   width: 40%;
-  margin: 20px auto;
+  margin: 1em auto;
 }
 
 .add-btn:hover {
@@ -58,8 +58,8 @@ button:hover {
   text-decoration: none;
   background-color: #ececec;
   cursor: pointer;
-  padding: 10px;
-  border-radius: 4px;
+  padding: 0.5em;
+  border-radius: 0.3em;
 }
 
 .candidate-preview-link {
