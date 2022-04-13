@@ -115,11 +115,12 @@ button:hover {
 
 /*Login*/
 
+
 #login-container {
     grid-area: 1 / 1 / span 6 / span 6;
     display: grid;
     justify-content: center;
-    #login {
+    #login, #register {
         position: relative;
         top: 20vh;
         height: fit-content;
@@ -127,6 +128,13 @@ button:hover {
         font-size: 0.8em;
         border: 1px solid lightgray;
         box-shadow: 2px 2px 2px gray;
+        .logo-header-flex {
+            @include flex-justify-content(center);
+            .voter-logo {
+                width: 2em;
+                height: auto;
+            }
+        }
         form {
             margin: 4%;
             input {
@@ -139,7 +147,16 @@ button:hover {
     }
 }
 
+.testing-note {
+    margin: 1%;
+    p {
+        font-size: 0.7em;
+    }
+}
 
+.important-note {
+    color: red;
+}
 
 /*Topbar*/
 
@@ -200,6 +217,11 @@ button:hover {
 }
 
 /*Dashboard*/
+
+.welcome {
+    width: 80%;
+    margin: 5% auto;
+}
 
 #dashboard {
     height: 100%;
@@ -598,10 +620,10 @@ tr:hover {
     width: fit-content;
 }
 
-.confirmation-modal-flex {
+.two-button-flex {
     @include flex-justify-content(space-between);
-    width: 30%;
-    margin-top: 2%;
+    width: 40%;
+    margin: 1% auto;
 }
 
 .modal button {

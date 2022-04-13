@@ -125,7 +125,7 @@ button:hover {
           justify-content: center;
 }
 
-#login-container #login {
+#login-container #login, #login-container #register {
   position: relative;
   top: 20vh;
   height: -webkit-fit-content;
@@ -138,16 +138,45 @@ button:hover {
           box-shadow: 2px 2px 2px gray;
 }
 
-#login-container #login form {
+#login-container #login .logo-header-flex, #login-container #register .logo-header-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#login-container #login .logo-header-flex .voter-logo, #login-container #register .logo-header-flex .voter-logo {
+  width: 2em;
+  height: auto;
+}
+
+#login-container #login form, #login-container #register form {
   margin: 4%;
 }
 
-#login-container #login form input {
+#login-container #login form input, #login-container #register form input {
   width: 28vw;
 }
 
-#login-container #login form input, #login-container #login form button {
+#login-container #login form input, #login-container #login form button, #login-container #register form input, #login-container #register form button {
   margin: 0.1em 0;
+}
+
+.testing-note {
+  margin: 1%;
+}
+
+.testing-note p {
+  font-size: 0.7em;
+}
+
+.important-note {
+  color: red;
 }
 
 /*Topbar*/
@@ -263,6 +292,11 @@ button:hover {
 }
 
 /*Dashboard*/
+.welcome {
+  width: 80%;
+  margin: 5% auto;
+}
+
 #dashboard {
   height: 100%;
   display: -ms-grid;
@@ -867,7 +901,7 @@ tr:hover {
   width: fit-content;
 }
 
-.confirmation-modal-flex {
+.two-button-flex {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -877,8 +911,8 @@ tr:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 30%;
-  margin-top: 2%;
+  width: 40%;
+  margin: 1% auto;
 }
 
 .modal button {
