@@ -18,6 +18,7 @@ const manifestoRouter = require('./api/routes/manifesto-route');
 const authRouter = require('./api/routes/auth-route');
 const userRouter = require('./api/routes/user-route');
 const resultRouter = require('./api/routes/result-route');
+const adminRouter = require('./api/routes/admin-route');
 
 //swagger
 const options = {
@@ -78,6 +79,7 @@ app.use('/api/manifesto', manifestoRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/result', resultRouter);
+app.use('/api/admin', adminRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'))
