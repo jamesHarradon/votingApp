@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { loginUser } from "../../userSlice";
 import { useRegisterAdminMutation } from "../../services/admin";
-import RegisterConfirmation from "./RegisterConfirmation";
+import RegisterConfirmation from './RegisterConfirmation';
 import voterLogo from '../../voterlogo.png'
 
 
