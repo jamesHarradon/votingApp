@@ -6,7 +6,7 @@ export default function VoteConfirmation({ cancelHandler, proceedHandler }) {
             <div className='modal'>
                 <div className='close' onClick={() => cancelHandler()}>+</div>
                 <h2>Are you sure you wish to place your vote?</h2>
-                <div className='confirmation-modal-flex'>
+                <div className='two-button-flex'>
                     <button onClick={() => proceedHandler()}>Yes</button>
                     <button onClick={() => cancelHandler()}>No</button>
                 </div>
