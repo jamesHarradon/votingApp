@@ -13,12 +13,16 @@ export default function Manifesto() {
     const [ section, setSection ] = useState(null);
 
     const user = useSelector(selectUser);
-    const isVoter = user.role === 'voter';
+    const isAdmin = user.role === 'admin';
 
     const params = useParams();
 
     const { data: candidate, isLoading } = useGetCandidateByIdQuery({candidateId: params.candidateId, electionId: params.electionId})
     const { data: manifesto } = useGetManifestoByCandidateQuery(params.candidateId);
+
+    const userId = user.id;
+    const isUsersId = parseInt(params.candidateId) === userId
+    const showEdit = isUsersId || isAdmin
 
     return (
         <div id= 'manifesto'>
@@ -37,17 +41,17 @@ export default function Manifesto() {
                 <div className='manifesto-who'>
                     <h2>Who Am I?</h2>
                     <p>{manifesto && manifesto.who}</p>
-                    {!isVoter && <button onClick={() => { setSection('who'); setEditClick(true);}} className='edit'>Edit</button>}
+                    {showEdit && <button onClick={() => { setSection('who'); setEditClick(true);}} className='edit'>Edit</button>}
                 </div>
                 <div className='manifesto-what'>
                     <h2>What Do I Want To Achieve?</h2>
                     <p>{manifesto && manifesto.what}</p>
-                    {!isVoter && <button onClick={() => { setSection('what'); setEditClick(true);}} className='edit'>Edit</button>}
+                    {showEdit && <button onClick={() => { setSection('what'); setEditClick(true);}} className='edit'>Edit</button>}
                 </div>
                 <div className='manifesto-why'>
                     <h2>Why Vote For Me?</h2>
                     <p>{manifesto && manifesto.why}</p>
-                    {!isVoter && <button onClick={() => { setSection('why'); setEditClick(true);}} className='edit'>Edit</button>}
+                    {showEdit && <button onClick={() => { setSection('why'); setEditClick(true);}} className='edit'>Edit</button>}
                 </div>
             </div>
         </div>
