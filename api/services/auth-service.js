@@ -8,7 +8,7 @@ class AuthService {
         if(!user) return null;
         if(user.role === 'candidate') return user;
         const data = await ElectionServiceInstance.getAllElectionIds(user.id, user.role);
-        return data ? {...user, election_ids: data} : null
+        return data ? {...user, election_ids: data} : {...user, election_ids: []}
     }
 }
 
