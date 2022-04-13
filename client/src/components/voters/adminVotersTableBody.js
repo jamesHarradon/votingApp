@@ -12,7 +12,7 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
     const [ deleteVoterElectionId, setDeleteVoterElectionId ] = useState(null);
     
     const admin = useSelector(selectUser);
-    const id = electionFilterId || admin.election_ids[0];
+    const id = electionFilterId || (admin.election_ids && admin.election_ids[0]);
     const { data: allVoters } = useGetVotersQuery(admin.id);
     const { data: votersByElection } = useGetVotersByElectionQuery(id);
 
