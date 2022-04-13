@@ -8,7 +8,7 @@ import profileImg from '../../../profile.png'
 export default function CandidatePreview({ electionId }) {
 
     const user = useSelector(selectUser);
-    const defaultElection = user.role === 'candidate' ? user.election_id : user.election_ids[0]
+    const defaultElection = user.role === 'candidate' ? user.election_id : user.election_ids && user.election_ids[0]
     const id = electionId || defaultElection
     const { data: candidates } = useGetCandidatesByElectionQuery(id)
     
