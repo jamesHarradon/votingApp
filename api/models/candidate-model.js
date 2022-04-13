@@ -26,7 +26,7 @@ class CandidateModel {
             const data = await pool.query('SELECT candidate.id, email, first_name, last_name, manifesto_id, role, password, election_id, name FROM candidate JOIN election ON candidate.election_id = election.id WHERE election_id = $1', [id]);
             return data.rows?.length ? data.rows : null;
         } catch (error) {
-            
+            throw new Error(error)
         }
     }
 
