@@ -106,6 +106,11 @@ app.use((err, req, res, next) => {
   res.status(status || 500).send({Error: message});
 })
 
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
+})
 
 
 module.exports = app;
