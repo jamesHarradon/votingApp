@@ -92,41 +92,41 @@ export default function Login() {
                             <button type='submit' className='login-btn'>Register</button>
                         </div>  
                     </form>
-                </div>
-                <div className='testing-note important-note'>
-                    <p>Testing: Registering will send real email to account entered.</p>
-                </div>
+            </div>
+            <div className='testing-note important-note'>
+                <p>Testing: Registering will send real email to account entered.</p>
+            </div>    
             </>
             }
             
             {!registerClick && 
             <>
-            <div id='login'data-testid='login'>
-                <div className='logo-header-flex'>
-                    <img className='voter-logo' alt='voter logo' src={voterLogo}></img>
-                    <h1>Login</h1>
-                </div>  
-                <form onSubmit={handleSubmit(handleLogin)}>
-                    <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
-                    <div className='invalid-feedback' data-testid='invalid-email'>{errors.email?.message}</div>
-                    
-                    <input type='password' id='password' name='password' placeholder="Password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`}></input>
-                    <div className='invalid-feedback' data-testid='invalid-password'>{errors.password?.message}</div>
+                <div id='login'data-testid='login'>
+                    <div className='logo-header-flex'>
+                        <img className='voter-logo' alt='voter logo' src={voterLogo}></img>
+                        <h1>Login</h1>
+                    </div>  
+                    <form onSubmit={handleSubmit(handleLogin)}>
+                        <input type='email' id='email' name='email' placeholder="Email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} ></input>
+                        <div className='invalid-feedback' data-testid='invalid-email'>{errors.email?.message}</div>
+                        
+                        <input type='password' id='password' name='password' placeholder="Password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`}></input>
+                        <div className='invalid-feedback' data-testid='invalid-password'>{errors.password?.message}</div>
 
-                    <div className='two-button-flex'>
-                        <button type='submit' className='login-btn'>Login</button>
-                        <button className='login-btn' onClick={() => setRegisterClick(true)}>Register</button>
-                    </div>
-                    
-                </form>
-            </div>
-            <div className='testing-note'>
-                <h2>Test Logins</h2>
-                <p>Email: test-admin@gmail.com Password: testAdmin</p>
-                <p>Email: test-voter@gmail.com Password: testVoter</p>
-                <p>Email: test-candidate@gmail.com Password: testCand</p>
-            </div>
+                        <div className='two-button-flex'>
+                            <button type='submit' className='login-btn'>Login</button>
+                            <button className='login-btn' onClick={() => setRegisterClick(true)}>Register</button>
+                        </div>
+                    </form>
+                </div>
+                <div className='testing-note'>
+                    <h2>Test Logins</h2>
+                    <p>Email: test-admin@gmail.com Password: testAdmin</p>
+                    <p>Email: test-voter@gmail.com Password: testVoter</p>
+                    <p>Email: test-candidate@gmail.com Password: testCand</p>
+                </div>
             </>
+            
             }
         </div>
     )

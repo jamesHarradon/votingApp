@@ -5,6 +5,7 @@ import Login from "../login/Login";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../userSlice";
 import loadingIcon from '../../loading.png'
+import About from "../about/About";
 
 const Dashboard =lazy(() => import('../dashboard/Dashboard'));
 const BallotCard = lazy(() => import('../ballotCard/BallotCard'));
@@ -39,7 +40,7 @@ export default function Main() {
             <Routes>
                 <Route path='/login' element={<Login />} />
             </Routes>
-            }  
+            } 
         </div>
     )
 }
