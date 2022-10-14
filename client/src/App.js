@@ -12,7 +12,6 @@ import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 import { selectUser } from './userSlice';
 import { useSelector } from "react-redux";
 import SessionTimeout from './components/sessionTimeout/SessionTimeout';
-import About from './components/about/About';
 
 
 function App() {
