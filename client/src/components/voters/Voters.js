@@ -26,9 +26,9 @@ export default function Voters() {
         <div id='voters'>
             {isAdminOrVoter &&
             <div className='filter-container'>
-            <AdminDropDown setElectionId={setElectionFilterId} showDefaultOption={true} />
-            <button onClick={() => setShowAll(true)}>Show All</button>
-            <button className='add-btn' onClick={() => addVoterClick ? setAddVoterClick(false) : setAddVoterClick(true)}>Add Voter</button>
+                <AdminDropDown setElectionId={setElectionFilterId} showDefaultOption={true} />
+                <button onClick={() => setShowAll(true)}>Show All</button>
+                <button className='add-btn' onClick={() => addVoterClick ? setAddVoterClick(false) : setAddVoterClick(true)}>Add Voter</button>
             </div>
             }
             
