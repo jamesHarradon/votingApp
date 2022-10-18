@@ -4,7 +4,6 @@ import { useGetElectionQuery } from '../../../services/election';
 import { selectUser } from "../../../userSlice";
 import { DateTime } from 'luxon';
 import AdminDropDown from "../adminDropDown/adminDropDown";
-import { useGetVotersByElectionQuery } from "../../../services/voter";
 
 export default function ElectionPreview({ electionId, setElectionId }) {
 

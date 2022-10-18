@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { useGetElectionQuery } from '../../../services/election';
 import { useGetVotersByElectionQuery } from '../../../services/voter';
 import { selectUser } from "../../../userSlice";
-import RechartPieChart from '../../pieChart/RechartPieChart';
-import VotesPieChart from '../../pieChart/VotesPieChart';
 
 
 export default function Summaries({ electionId }) {
@@ -16,15 +14,6 @@ export default function Summaries({ electionId }) {
     const { data: voters } = useGetVotersByElectionQuery(id);
     const voted = voters && voters.filter(voter => voter.has_voted).length;
     const yetToVote = election && election.number_of_voters - voted;
-
-    function Stats({ name, number }) {
-        return (
-            <div id='stats'>
-                <h1 id='number'>{number}</h1>
-                <h1>{name}</h1>
-            </div>
-        )
-    }
     
     return (
         <div id='summaries'>

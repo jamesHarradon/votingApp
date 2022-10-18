@@ -5,7 +5,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Login from "../login/Login";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../userSlice";
-import loadingIcon from '../../loading.png'
 
 const Dashboard =lazy(() => import('../dashboard/Dashboard'));
 const BallotCard = lazy(() => import('../ballotCard/BallotCard'));

@@ -3,12 +3,8 @@ import React from 'react';
 import PieChart, {
   Legend,
   Series,
-  Tooltip,
-  Format,
   Label,
   Connector,
-  Export,
-  Annotation,
   Size,
   Font,
 } from 'devextreme-react/pie-chart';
@@ -18,11 +14,6 @@ const customizeLabel = (point) => {
   return `${point.argumentText}: ${point.valueText}`;
 }
 
-const customizeTooltip = (arg) => {
-    return {
-      text: `${arg.valueText} - ${(arg.percent * 100).toFixed(2)}%`,
-    };
-}
 
 export default function VotesPieChart() {
     return (
