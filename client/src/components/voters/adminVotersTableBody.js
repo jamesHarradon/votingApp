@@ -65,7 +65,7 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
                 <tr key={nanoid(10)}>
                     <td>{voter.first_name}</td>
                     <td>{voter.last_name}</td>
-                    <td>{voter.email}</td>
+                    <td className='email-column'>{voter.email}</td>
                     <td>{voter.name}</td>
                     <td><button onClick={() => {setEditId(voter.id); setEditVoterClick(true);}} className='edit'>Edit</button></td>
                     <td><button onClick={() => deleteHandler(voter.id, voter.election_id)} className='delete'>Delete</button></td>
