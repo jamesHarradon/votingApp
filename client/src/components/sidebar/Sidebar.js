@@ -15,7 +15,7 @@ export default function Sidebar() {
 
     return (
         <div id='sidebar'>
-            <Link id='1' onClick={() => addSelected('1')} to='/' className='sidebar-link'>Dashboard</Link>
+            <Link id='1' onClick={() => addSelected('1')} to='/' className='sidebar-link sidebar-selected'>Dashboard</Link>
             <Link id='2' onClick={() => addSelected('2')} to={user.role === 'voter' ? '/ballot-card' : '/voters'} className='sidebar-link'>{user.role === 'voter' ? 'Ballot Card' : 'Voters'}</Link>
             <Link id='3' onClick={() => addSelected('3')} to={user.role === 'candidate' ? `/manifesto/${user.id}/${user.election_id}` : '/candidates'} className='sidebar-link'>{user.role === 'candidate' ? 'Manifesto' : 'Candidates'}</Link>
             <Link id='4' onClick={() => addSelected('4')} to='/election' className='sidebar-link'>Election</Link>
