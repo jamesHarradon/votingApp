@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 import { useGetElectionQuery } from '../../../services/election';
 import { useGetVotersByElectionQuery } from '../../../services/voter';
 import { selectUser } from "../../../userSlice";
+import RechartPieChart from '../../pieChart/RechartPieChart';
+import VotesPieChart from '../../pieChart/VotesPieChart';
+
 
 export default function Summaries({ electionId }) {
 
@@ -13,24 +16,35 @@ export default function Summaries({ electionId }) {
     const { data: voters } = useGetVotersByElectionQuery(id);
     const voted = voters && voters.filter(voter => voter.has_voted).length;
     const yetToVote = election && election.number_of_voters - voted;
+
+    function Stats({ name, number }) {
+        return (
+            <div id='stats'>
+                <h1 id='number'>{number}</h1>
+                <h1>{name}</h1>
+            </div>
+        )
+    }
     
     return (
         <div id='summaries'>
-            <div className='summary'>
-                <p>{election && election.number_of_candidates}</p>
-                <h4>Candidates</h4>
+            <div className='summary-container'>
+                <div className='summary summary-one'>
+                    <h1>{voted && voted}</h1>
+                </div>
+                <div className='summary-name'>
+                    <h1>Votes Cast</h1>
+                </div>
             </div>
-            <div className='summary'>
-                <p>{election && election.number_of_voters}</p>
-                <h4>Voters</h4>
-            </div>
-            <div className='summary'>
-                <p>{voted && voted}</p>
-                <h4>Votes Cast</h4>
-            </div>
-            <div className='summary'>
-                <p>{!isNaN(yetToVote) && yetToVote}</p>
-                <h4>Yet to vote</h4>
+
+
+            <div className='summary-container'>
+                <div className='summary summary-two'>
+                    <h1>{!isNaN(yetToVote) && yetToVote}</h1>
+                </div>
+                <div className='summary-name'>
+                    <h1>Yet to vote</h1>
+                </div>
             </div>
         </div>
     )
