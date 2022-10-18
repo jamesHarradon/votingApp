@@ -53,11 +53,16 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
                     <tr key={candidate.id}>
                         <td>{candidate.first_name}</td>
                         <td>{candidate.last_name}</td>
-                        <td>{candidate.email}</td>
+                        <td className='email-column'>{candidate.email}</td>
                         <td>{candidate.name}</td>
-                        <td><Link className='link' to={`/manifesto/${candidate.id}/${candidate.election_id}`}>Manifesto</Link></td>
+                        {/* <td><Link className='link' to={`/manifesto/${candidate.id}/${candidate.election_id}`}>Manifesto</Link></td>
                         <td><button onClick={() => {setEditId(candidate.id); setEditCandidateClick(true);}} className='edit'>Edit</button></td>
-                        <td><button onClick={() => deleteHandler(candidate.id, candidate.election_id)} className='delete'>Delete</button></td>
+                        <td><button onClick={() => deleteHandler(candidate.id, candidate.election_id)} className='delete'>Delete</button></td> */}
+                        <td style={{ display: 'flex', gap: '0.5em', flexWrap: 'wrap'}}>
+                            <Link className='link' to={`/manifesto/${candidate.id}/${candidate.election_id}`}>Manifesto</Link>
+                            <button onClick={() => {setEditId(candidate.id); setEditCandidateClick(true);}} className='edit'>Edit</button>
+                            <button onClick={() => deleteHandler(candidate.id, candidate.election_id)} className='delete'>Delete</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>
