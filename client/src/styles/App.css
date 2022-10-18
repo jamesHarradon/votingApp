@@ -319,18 +319,12 @@ button:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-grid-rows: (1fr)[2];
-  -ms-grid-columns: (1fr)[2];
-      grid-template: repeat(2, 1fr)/repeat(2, 1fr);
-  gap: 2%;
 }
 
 #summaries .summary {
   color: white;
-  height: 90%;
-  width: 90%;
-  margin: 0px auto;
-  border-radius: 1em;
+  border-radius: 0.5em;
+  
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -340,27 +334,22 @@ button:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+
 }
 
-#summaries .summary p {
-  font-size: 2em;
-}
 
-#summaries .summary:nth-child(1) {
+
+#summaries .summary-container .summary-one {
   background-image: -webkit-gradient(linear, left bottom, left top, from(#0872b8), to(#a4d9ff));
   background-image: linear-gradient(0deg, #0872b8 0%, #a4d9ff 100%);
 }
 
-#summaries .summary:nth-child(2) {
+#summaries .summary:nth-child(3) {
   background-image: -webkit-gradient(linear, left bottom, left top, from(#ce862e), to(#ffd09b));
   background-image: linear-gradient(0deg, #ce862e 0%, #ffd09b 100%);
 }
 
-#summaries .summary:nth-child(3) {
+#summaries .summary-container .summary-two {
   background-image: -webkit-gradient(linear, left bottom, left top, from(#bc3030), to(#ff9898));
   background-image: linear-gradient(0deg, #bc3030 0%, #ff9898 100%);
 }
@@ -369,6 +358,17 @@ button:hover {
   background-image: -webkit-gradient(linear, left bottom, left top, from(#64a424), to(#c3ff83));
   background-image: linear-gradient(0deg, #64a424 0%, #c3ff83 100%);
 }
+
+.summary-container {
+  display: grid;
+  gap: 1em;
+  grid-template: 1fr / 1fr 2fr;
+}
+
+.summary-name {
+  color: grey;
+}
+
 
 /*Candidate Preview*/
 #candidate-preview {
@@ -380,7 +380,7 @@ button:hover {
   display: -ms-grid;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 30%;
+  grid-auto-columns: 240px;
   gap: 1%;
   overflow-x: scroll;
 }
@@ -405,7 +405,7 @@ button:hover {
 }
 
 #candidate-preview .candidate-image-container .candidate-image {
-  width: 65%;
+  width: 80%;
   height: auto;
   border-radius: 0.5em;
 }
@@ -424,15 +424,16 @@ button:hover {
   grid-area: 1 / 1 / span 2 / span 3;
   display: -ms-grid;
   display: grid;
+  flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
+          justify-content: left;
           align-items: center;
+          justify-items: flex-start;
+  
   -ms-grid-rows: (1fr)[2];
   -ms-grid-columns: 1fr;
-      grid-template: repeat(2, 1fr)/1fr;
+      grid-template: repeat(4, 1fr)/1fr;
 }
 
 /*Ballot Card*/
@@ -1184,11 +1185,11 @@ tr:hover {
   }
 
   #candidate-preview {
-    grid-auto-columns: 45%;
+    grid-auto-columns: 180px;
   }
 
   #candidate-preview .candidate-image-container .candidate-image {
-    width: 30vw;
+    
   }
 
   #candidates, #election, #voters {
@@ -1197,18 +1198,38 @@ tr:hover {
 
   #election-preview {
     grid-area: 1 / 1 / span 1 / span 5;
+    justify-items: center;
   }
 
   #summaries {
     grid-area: 2 / 1 / span 1 / span 5;
-    grid-template: 1fr / repeat(4, 1fr)
-    
+    display: flex;
+    justify-content: space-evenly;
   }
 
-  #summaries .summary {
-    padding: 0.5em;
-    height: 60%;
-    width: 90%;
+  .summary-container {
+    align-items: center;
+    gap: 0.2em;
+  }
+
+  .error-boundary {
+    font-size: 2em;
+    grid-area: 3 / 3 / span 6 / span 6;
+  }
+
+  .email-column {
+    max-width: 100px;
+    overflow-wrap: break-word;
+  }
+
+  #voters .filter-container, #candidates .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .add-btn {
+    margin: 1em 0;
   }
 }
 
@@ -1249,16 +1270,26 @@ tr:hover {
   }
 
   #candidate-preview {
-    grid-auto-columns: 60%;
+    grid-auto-columns: 150px;
   }
 
   #candidate-preview .candidate-image-container .candidate-image {
-    width: 40vw;
+    
   }
 
 
   #summaries .summary {
     height: 70%;
     width: 100%;
+  }
+
+  .error-boundary {
+    font-size: 2em;
+    grid-area: 3 / 4 / span 6 / span 6;
+  }
+
+  .email-column {
+    max-width: 60px;
+    overflow-wrap: break-word;
   }
 }
