@@ -4,6 +4,7 @@ import { useGetElectionQuery } from '../../../services/election';
 import { selectUser } from "../../../userSlice";
 import { DateTime } from 'luxon';
 import AdminDropDown from "../adminDropDown/adminDropDown";
+import { useGetVotersByElectionQuery } from "../../../services/voter";
 
 export default function ElectionPreview({ electionId, setElectionId }) {
 
@@ -18,6 +19,8 @@ export default function ElectionPreview({ electionId, setElectionId }) {
         <div id='election-preview'>
             {isAdminOrVoter ? <AdminDropDown setElectionId={setElectionId} /> : <h2>{data && data.name}</h2>}    
             <h2>Date of Election: {dateFormated}</h2>
+            <h2>No. of Candidates: {data && data.number_of_candidates}</h2>
+            <h2>No. of Voters: {data && data.number_of_voters}</h2>
         </div>
     )
 }
