@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Login from "../login/Login";
 import { useSelector } from "react-redux";
@@ -22,7 +23,7 @@ export default function Main() {
     return (
         <div id='main'>
             {user ? 
-            <Suspense fallback={<div className='loading-icon'><img alt='loading icon' src={loadingIcon}></img></div>}>
+            <Suspense fallback={<div className='loading-icon'><CircularProgress /></div>}>
                 <Routes>
                         <Route path='/' element={<Dashboard />} />
                         <Route path='/profile/:id' element={<Profile />} />
