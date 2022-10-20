@@ -13,7 +13,6 @@ export default function EditManifestoForm({ id, toast, section, setSection, setE
         try {
             const obj = {id: id, body: data};
             await amendManifesto(obj);
-            console.log(obj);
             setSection(null);
             setEditClick(false);
             toast('Manifesto edited!')
