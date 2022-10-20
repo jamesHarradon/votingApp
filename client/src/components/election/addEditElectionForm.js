@@ -32,7 +32,7 @@ export default function AddEditElectionForm(props) {
                   delete data[key];
                 }
             });
-            const obj = {id: props.editId, data: data};
+            const obj = {id: props.editId, body: data};
             await amendElection(obj);
             props.setClick(false);
             props.toast('Election edited!')

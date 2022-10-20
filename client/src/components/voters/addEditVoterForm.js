@@ -32,7 +32,7 @@ export default function AddEditVoterForm(props) {
                   delete data[key];
                 }
             });
-            const obj = {id: props.editId, data: data};
+            const obj = {id: props.editId, body: data};
             await amendVoter(obj);
             props.setClick(false);
             props.toast('Voter edited!')

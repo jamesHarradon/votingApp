@@ -31,7 +31,7 @@ export default function AddCandidateForm(props) {
                   delete data[key];
                 }
             });
-            const obj = {id: props.editId, data: data};
+            const obj = {id: props.editId, body: data};
             await amendCandidate(obj);
             props.setClick(false);
             props.toast('Candidate edited!')
