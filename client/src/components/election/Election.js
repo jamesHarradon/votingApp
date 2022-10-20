@@ -44,6 +44,7 @@ export default function Election() {
             <ToastContainer 
                 hideProgressBar={true}
                 autoClose={3000}
+                toastStyle={{ backgroundColor: '#ff9b29', color: 'white'}}
             />
         </div>
     )

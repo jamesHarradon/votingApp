@@ -71,6 +71,7 @@ export default function BallotCard() {
                 <ToastContainer 
                     hideProgressBar={true}
                     autoClose={3000}
+                    toastStyle={{ backgroundColor: '#ff9b29', color: 'white'}}
                 />
             </div> 
         </>

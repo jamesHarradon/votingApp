@@ -59,6 +59,7 @@ export default function Voters() {
             <ToastContainer 
                 hideProgressBar={true}
                 autoClose={3000}
+                toastStyle={{ backgroundColor: '#ff9b29', color: 'white'}}
             />
         </div>
     )

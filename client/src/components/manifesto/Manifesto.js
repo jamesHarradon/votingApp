@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useGetCandidateByIdQuery } from "../../services/candidate";
@@ -54,6 +54,11 @@ export default function Manifesto() {
                     {showEdit && <button onClick={() => { setSection('why'); setEditClick(true);}} className='edit'>Edit</button>}
                 </div>
             </div>
+            <ToastContainer 
+                hideProgressBar={true}
+                autoClose={3000}
+                toastStyle={{ backgroundColor: '#ff9b29', color: 'white'}}
+            />
         </div>
     )
 }
