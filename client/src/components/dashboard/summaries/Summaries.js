@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from "react-redux";
-import { useGetElectionQuery } from '../../../services/election';
-import { useGetVotersByElectionQuery } from '../../../services/voter';
+import { useGetElectionQuery, useGetElectionVotesQuery } from '../../../services/election';
 import { selectUser } from "../../../userSlice";
 
 
@@ -11,15 +10,15 @@ export default function Summaries({ electionId }) {
     const defaultElection = user.role === 'candidate' ? user.election_id : user.election_ids && user.election_ids[0]
     const id = electionId || defaultElection
     const { data: election } = useGetElectionQuery(id);
-    const { data: voters } = useGetVotersByElectionQuery(id);
-    const voted = voters && voters.filter(voter => voter.has_voted).length;
-    const yetToVote = election && election.number_of_voters - voted;
+    const { data: votes } = useGetElectionVotesQuery(id);
+    const yetToVote = election && election.number_of_voters - votes;
+
     
     return (
         <div id='summaries'>
             <div className='summary-container'>
                 <div className='summary summary-one'>
-                    <h1>{voted && voted}</h1>
+                    <h1>{votes && votes}</h1>
                 </div>
                 <div className='summary-name'>
                     <h1>Votes Cast</h1>
