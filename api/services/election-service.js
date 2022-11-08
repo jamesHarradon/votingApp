@@ -47,6 +47,15 @@ class ElectionService {
         }
     }
 
+    async getVotesByElectionId(id) {
+        try {
+            const data = await ElectionModelInstance.getVotesByElectionId(id);
+            return data;
+        } catch (error) {
+            throw(error)
+        }
+    }
+
     
     async addElection(adminId, body) {
         try {

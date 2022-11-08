@@ -23,7 +23,7 @@ class ElectionModel {
     async getAllElectionsVoter(id) {
         try {
             const data = await pool.query('SELECT * FROM election WHERE id IN (SELECT election_id FROM election_voters WHERE voter_id = $1)', [id]);
-            return data.rows?.length ? data.rows : null
+            return data.rows?.length ? data.rows : null;
         } catch (error) {
             throw new Error(error)
         }
@@ -41,7 +41,7 @@ class ElectionModel {
     async getElectionIdByCandidateId(id) {
         try {
             const data = await pool.query('SELECT election_id FROM election_candidates WHERE candidate_id = $1', [id]);
-            return data.rows?.length ? data.rows[0].election_id : null
+            return data.rows?.length ? data.rows[0].election_id : null;
         } catch (error) {
             throw new Error(error)
         }
@@ -53,6 +53,15 @@ class ElectionModel {
             return data.rows?.length ? data.rows[0] : null;
         } catch (error) {
             throw new Error(error);
+        }
+    }
+
+    async getVotesByElectionId(id) {
+        try {
+            const data = await pool.query('SELECT COUNT(*) FROM voters_candidates WHERE election_id = $1', [id])
+            return data.rows?.length ? data.rows[0].count : null;
+        } catch (error) {
+            throw new Error(error)
         }
     }
 

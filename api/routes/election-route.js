@@ -28,6 +28,16 @@ electionRouter.get('/:electionId', passport.authenticate('jwt-election', { sessi
     }
 })
 
+//get votes cast for election by id
+electionRouter.get('/votes/:electionId', passport.authenticate('jwt-election', { session: false }), async (req, res, next) => {
+    try {
+        const response = await ElectionServiceInstance.getVotesByElectionId(req.params.electionId);
+        res.json(response)
+    } catch (error) {
+        next(error)
+    }
+})
+
 //add a election
 electionRouter.post('/add/:adminId', passport.authenticate('jwt-admin', { session: false }), async (req, res, next) => {
     try {
