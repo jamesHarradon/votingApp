@@ -58,8 +58,6 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
         setDeleteButtonClick(true);
     }
     
-    console.log(electionFilterId)
-    console.log(voters)
     return (
         <>
             {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='voter' deleteId={deleteVoterId} deleteElectionId={deleteVoterElectionId}/>}
