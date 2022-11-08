@@ -4,6 +4,7 @@ import { useGetAllElectionsQuery, useDeleteElectionMutation } from "../../servic
 import { selectUser, amendElectionIdsAdmin } from "../../userSlice";
 import { DateTime } from 'luxon';
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
+import EmptyHeader from "../emptyHeader/EmptyHeader";
 
 export default function AdminElectionsTableBody({ toast, setEditElectionClick, setEditId }) {
 
@@ -13,6 +14,7 @@ export default function AdminElectionsTableBody({ toast, setEditElectionClick, s
 
     const user = useSelector(selectUser);
     const { data: elections } = useGetAllElectionsQuery({id: user.id, role: user.role});
+    
 
     const [ deleteElection ] = useDeleteElectionMutation()
 
@@ -41,15 +43,16 @@ export default function AdminElectionsTableBody({ toast, setEditElectionClick, s
         <>
             {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='election' deleteId={deleteId}/>}
             <tbody>
+                {!elections && <td colSpan={5}><EmptyHeader type='elections' /></td>}    
                 {elections && elections.map(election => (
-                <tr key={election.id}>
-                    <td>{election.name}</td>
-                    <td>{DateTime.fromISO(election.date_of_election).setLocale('en-gb').toLocaleString()}</td>
-                    <td>{election.number_of_candidates}</td>
-                    <td>{election.number_of_voters}</td>
-                    <td><button onClick={() => {setEditId(election.id); setEditElectionClick(true);}} className='edit'>Edit</button></td>
-                    <td><button onClick={() => deleteHandler(election.id)} className='delete'>Delete</button></td>
-                </tr>
+                    <tr key={election.id}>
+                        <td>{election.name}</td>
+                        <td>{DateTime.fromISO(election.date_of_election).setLocale('en-gb').toLocaleString()}</td>
+                        <td>{election.number_of_candidates}</td>
+                        <td>{election.number_of_voters}</td>
+                        <td><button onClick={() => {setEditId(election.id); setEditElectionClick(true);}} className='edit'>Edit</button></td>
+                        <td><button onClick={() => deleteHandler(election.id)} className='delete'>Delete</button></td>
+                    </tr>
                 ))}
             </tbody>
         </>

@@ -4,6 +4,7 @@ import { useDeleteVoterMutation, useGetVotersByElectionQuery, useGetVotersQuery 
 import { selectUser } from "../../userSlice";
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
 import { nanoid } from 'nanoid'
+import EmptyHeader from "../emptyHeader/EmptyHeader";
 
 export default function AdminVotersTableBody({ toast, setEditVoterClick, setEditId, electionFilterId, showAll, setShowAll }) {
 
@@ -57,19 +58,22 @@ export default function AdminVotersTableBody({ toast, setEditVoterClick, setEdit
         setDeleteButtonClick(true);
     }
     
+    console.log(electionFilterId)
+    console.log(voters)
     return (
         <>
             {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='voter' deleteId={deleteVoterId} deleteElectionId={deleteVoterElectionId}/>}
             <tbody>
+                {electionFilterId && !voters && <td colSpan={5}><EmptyHeader type='voters' /></td>}
                 {voters && voters.map(voter => (
-                <tr key={nanoid(10)}>
-                    <td>{voter.first_name}</td>
-                    <td>{voter.last_name}</td>
-                    <td className='email-column'>{voter.email}</td>
-                    <td>{voter.name}</td>
-                    <td><button onClick={() => {setEditId(voter.id); setEditVoterClick(true);}} className='edit'>Edit</button></td>
-                    <td><button onClick={() => deleteHandler(voter.id, voter.election_id)} className='delete'>Delete</button></td>
-                </tr>
+                    <tr key={nanoid(10)}>
+                        <td>{voter.first_name}</td>
+                        <td>{voter.last_name}</td>
+                        <td className='email-column'>{voter.email}</td>
+                        <td>{voter.name}</td>
+                        <td><button onClick={() => {setEditId(voter.id); setEditVoterClick(true);}} className='edit'>Edit</button></td>
+                        <td><button onClick={() => deleteHandler(voter.id, voter.election_id)} className='delete'>Delete</button></td>
+                    </tr>
                 ))}
             </tbody>
         </>

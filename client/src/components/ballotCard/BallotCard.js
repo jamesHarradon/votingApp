@@ -9,6 +9,7 @@ import VotedCandidate from "./VotedCandidate";
 import AdminDropDown from '../dashboard/adminDropDown/adminDropDown'
 import profileImg from '../../profile.png'
 import VoteConfirmation from "./voteConfirmation";
+import EmptyHeader from "../emptyHeader/EmptyHeader";
 
 export default function BallotCard() {
 
@@ -48,6 +49,7 @@ export default function BallotCard() {
         <>
             {voteClick && <VoteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler}/>}
             <div id= 'ballot-card'>
+                {id && !candidates && <EmptyHeader type='candidates' />}
                 <AdminDropDown setElectionId={setElectionId} />
                 {hasVoted && <VotedCandidate user={user} electionId={electionId} />}
                 {!hasVoted && 

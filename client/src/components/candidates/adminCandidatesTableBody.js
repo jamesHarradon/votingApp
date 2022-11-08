@@ -4,6 +4,7 @@ import { useGetCandidatesQuery, useDeleteCandidateMutation } from "../../service
 import { selectUser } from "../../userSlice";
 import { Link } from 'react-router-dom';
 import DeleteConfirmation from "../deleteConfirmation/DeleteConfirmation";
+import EmptyHeader from "../emptyHeader/EmptyHeader";
 
 
 
@@ -19,6 +20,7 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
     
     const candidatesFiltered = electionFilterId ? data.filter(candidate => candidate.election_id === parseInt(electionFilterId)) : null
     const candidates = candidatesFiltered || data;
+    const noCandidates = candidatesFiltered?.length === 0 || !data
 
     const cancelHandler = () => {
         setDeleteCandidateId(null);
@@ -49,6 +51,7 @@ export default function AdminCandidatesTableBody({ toast, setEditCandidateClick,
         <>
             {deleteButtonClick && <DeleteConfirmation cancelHandler={cancelHandler} proceedHandler={proceedHandler} name='candidate' deleteId={deleteCandidateId} deleteElectionId={deleteCandidateElectionId}/>}
             <tbody>
+                {electionFilterId && noCandidates && <td colSpan={5}><EmptyHeader type='candidates' /></td>}
                 {candidates && candidates.map(candidate => (
                     <tr key={candidate.id}>
                         <td>{candidate.first_name}</td>
